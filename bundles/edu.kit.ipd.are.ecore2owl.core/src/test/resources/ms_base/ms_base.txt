@@ -1,0 +1,38 @@
+One of the main components of Media Store is a server-side web front end, namely the Facade component, which delivers websites to the users and provides session management.
+To meet the user authentication requirement, registration and log-in have to be offered. 
+To this end, the Facade component delivers the corresponding registration and log-in pages to users.
+After the user has logged into the system, he or she will be forwarded to a site to list the audio files. 
+The main functionality, however, is provided by other components.
+In addition, users can browse, download, and upload audio files using the Facade component.
+
+Application business logic is provided by a central business logic component, called the MediaManagement component. 
+The MediaManagement component coordinates the communication of other components.
+Furthermore, it fetches audio files from a specific location when processing download requests.
+As described above, to communicate with the system, users' registration and authentication are needed.
+The UserManagement component answers the requests for registration and authentication.
+The UserDBAdapter component queries the database.
+When a user logs into the system, Media Store does not store the password in plain text, but rather the UserManagement component implements further functions to hash and salt the passwords.
+To reduce the risk of copyright infringements, all downloaded files are watermarked.
+To this end, the requested files are first re-encoded.
+The re-encoded files are then digitally and individually watermarked by the TagWatermarking component.
+Afterward, the MediaManagement component forwards these audio files from the TagWatermarking component to the user.
+Hence, each downloaded audio file is uniquely connected to a user ID can can be associated with the user if the audio file should ever appear in the public Internet.
+To allow users to download several files at a time, we provide the Packaging component, which archives multiple audio files into a single compressed file.
+The Re-encoding component converts the bit rates of audio files.
+This can result in reduction of file sizes.
+
+The persistence tier contains components that are concerned with the storage of audio files and their meta-data.
+The Database component represents an actual database.
+It stores user information and meta-data of audio files such as the name and the genre.
+After the user calls the page to list all available audio files, AudioAccess creates a query that is sent to the Database component.
+When a user uploads an audio file, the MediaAccess component stores it at the predefined location.
+The MediaAccess component encapsulates database access for meta-data of audio files.
+Furthermore, it fetches a list of all available audio files.
+by contrast, the UserDBAdapter component provides all functions required in order to encapsulate database access for the user data.
+The UserDBAdapter component creates a query based on the user's request.
+The Database component then executes the actual query for files.
+All salted hashes of passwords are also stored in the Database component.
+By contrast, all audio files are stored in a specific location to decouple the DataStorage from the database.
+When a user requests files to download, the MediaAccess component fetches the associated meta-data from the Database.
+Afterwards, based on the user request and the corresponding meta-data, the file will be retrieved from the DataStorage.
+When a user uploads a file, it will be stored in the DataStorage without any change; however, a download can cause re-encoding of the audio file.

@@ -1,0 +1,915 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<repository:Repository xmi:version="2.0" xmlns:xmi="http://www.omg.org/XMI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:reliability="http://palladiosimulator.org/PalladioComponentModel/Reliability/5.2" xmlns:repository="http://palladiosimulator.org/PalladioComponentModel/Repository/5.2" xmlns:seff="http://palladiosimulator.org/PalladioComponentModel/SEFF/5.2" xmlns:stoex="http://sdq.ipd.uka.de/StochasticExpressions/2.2" id="_7zbcYHDhEeSqnN80MQ2uGw" entityName="defaultRepository" repositoryDescription="">
+  <components__Repository xsi:type="repository:BasicComponent" id="_tBjC0HDpEeSqnN80MQ2uGw" entityName="UserDBAdapter">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_hM5vEHD0EeSqnN80MQ2uGw" entityName="Provided_IUserDB_UserDBAdapter" providedInterface__OperationProvidedRole="_4TPZgHDpEeSqnN80MQ2uGw"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_DhLCYLg3EeSNPorBlo7x9g" entityName="Required_IDB_UserDBAdapter" requiredInterface__OperationRequiredRole="_68uVELg2EeSNPorBlo7x9g"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_bXRqYHDyEeSqnN80MQ2uGw" describedService__SEFF="_7EO6cHDpEeSqnN80MQ2uGw">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_bXSRcHDyEeSqnN80MQ2uGw" entityName="start" successor_AbstractAction="_HaWTgHmmEeSGtbTG2d9Ipg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_bXS4gHDyEeSqnN80MQ2uGw" entityName="stop" predecessor_AbstractAction="_-S1wUL2cEeSgr-5zKkbaOA"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_HaWTgHmmEeSGtbTG2d9Ipg" entityName="adduser" predecessor_AbstractAction="_bXSRcHDyEeSqnN80MQ2uGw" successor_AbstractAction="_-S1wUL2cEeSgr-5zKkbaOA">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="DoublePDF[(248240.0;0.0021638083026125983)(496480.0;0.8275364641769515)(744720.0;0.09104023080621894)(992960.0;0.047844205802211895)(1241200.0;0.021958647219105627)(1489440.0;0.0028850777368167975)(1737680.0;0.0016829620131431319)(1985920.0;7.212694342041994E-4)(2234160.0;3.2056419297964416E-4)(2482400.0;3.2056419297964416E-4)(2730640.0;2.4042314473473312E-4)(2978880.0;1.6028209648982208E-4)(3227120.0;8.014104824491104E-5)(3475360.0;8.014104824491104E-5)(3723600.0;0.0)(3971840.0;0.0)(4220080.0;0.0)(4468320.0;0.0)(4716560.0;8.014104824491104E-5)(4964800.0;8.014104824491104E-5)(5213040.0;8.014104824491104E-5)(5461280.0;1.6028209648982208E-4)(5709520.0;0.0)(5957760.0;8.014104824491104E-5)(6206000.0;8.014104824491104E-5)(6454240.0;1.6028209648982208E-4)(6702480.0;0.0)(6950720.0;8.014104824491104E-5)(7198960.0;0.0)(7447200.0;8.014104824491104E-5)(7695440.0;0.0)(7943680.0;8.014104824491104E-5)(8191920.0;0.0)(8440160.0;1.6028209648982208E-4)(8688400.0;8.014104824491104E-5)(8936640.0;0.0)(9184880.0;8.014104824491104E-5)(9433120.0;0.0)(9681360.0;8.014104824491104E-5)(9929600.0;8.014104824491104E-5)(1.017784E7;0.0)(1.042608E7;8.014104824491104E-5)(1.067432E7;8.014104824491104E-5)(1.092256E7;8.014104824491104E-5)(1.11708E7;8.014104824491104E-5)(1.141904E7;0.0)(1.166728E7;0.0)(1.191552E7;8.014104824491104E-5)(1.216376E7;0.0)(1.2412E7;0.0)(1.266024E7;0.0)(1.290848E7;0.0)(1.315672E7;0.0)(1.340496E7;0.0)(1.36532E7;0.0)(1.390144E7;0.0)(1.414968E7;0.0)(1.439792E7;0.0)(1.464616E7;0.0)(1.48944E7;0.0)(1.514264E7;0.0)(1.539088E7;8.014104824491104E-5)(1.563912E7;0.0)(1.588736E7;8.014104824491104E-5)(1.61356E7;0.0)(1.638384E7;8.014104824491104E-5)(1.663208E7;0.0)(1.688032E7;0.0)(1.712856E7;1.6028209648982208E-4)(1.73768E7;0.0)(1.762504E7;1.6028209648982208E-4)(1.787328E7;8.014104824491104E-5)(1.812152E7;0.0)(1.836976E7;0.0)(1.8618E7;0.0)(1.886624E7;8.014104824491104E-5)(1.911448E7;8.014104824491104E-5)(1.936272E7;0.0)(1.961096E7;8.014104824491104E-5)(1.98592E7;0.0)(2.010744E7;0.0)(2.035568E7;0.0)(2.060392E7;0.0)(2.085216E7;8.014104824491104E-5)(2.11004E7;0.0)(2.134864E7;0.0)(2.159688E7;0.0)(2.184512E7;0.0)(2.209336E7;0.0)(2.23416E7;0.0)(2.258984E7;0.0)(2.283808E7;0.0)(2.308632E7;0.0)(2.333456E7;0.0)(2.35828E7;0.0)(2.383104E7;0.0)(2.407928E7;0.0)(2.432752E7;8.014104824491104E-5)(2.457576E7;0.0)(2.4824E7;0.0)(2.507224E7;8.014104824491104E-5)]"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+        <internalFailureOccurrenceDescriptions__InternalAction failureProbability="1.0E-5" softwareInducedFailureType__InternalFailureOccurrenceDescription="_R-DpyUg-EeGGjNgy6wh7Uw"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_-S1wUL2cEeSgr-5zKkbaOA" predecessor_AbstractAction="_HaWTgHmmEeSGtbTG2d9Ipg" successor_AbstractAction="_bXS4gHDyEeSqnN80MQ2uGw" calledService_ExternalService="_72wUYLg2EeSNPorBlo7x9g" role_ExternalService="_DhLCYLg3EeSNPorBlo7x9g"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_bXUGoHDyEeSqnN80MQ2uGw" describedService__SEFF="_8ARE4HDpEeSqnN80MQ2uGw">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_bXUtsHDyEeSqnN80MQ2uGw" entityName="start" successor_AbstractAction="_glRq4HmmEeSGtbTG2d9Ipg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_bXUtsXDyEeSqnN80MQ2uGw" entityName="stop" predecessor_AbstractAction="_A-9YUL2dEeSgr-5zKkbaOA"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_glRq4HmmEeSGtbTG2d9Ipg" entityName="authenticate" predecessor_AbstractAction="_bXUtsHDyEeSqnN80MQ2uGw" successor_AbstractAction="_A-9YUL2dEeSgr-5zKkbaOA">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="DoublePDF[(248240.0;0.0021638083026125983)(496480.0;0.8275364641769515)(744720.0;0.09104023080621894)(992960.0;0.047844205802211895)(1241200.0;0.021958647219105627)(1489440.0;0.0028850777368167975)(1737680.0;0.0016829620131431319)(1985920.0;7.212694342041994E-4)(2234160.0;3.2056419297964416E-4)(2482400.0;3.2056419297964416E-4)(2730640.0;2.4042314473473312E-4)(2978880.0;1.6028209648982208E-4)(3227120.0;8.014104824491104E-5)(3475360.0;8.014104824491104E-5)(3723600.0;0.0)(3971840.0;0.0)(4220080.0;0.0)(4468320.0;0.0)(4716560.0;8.014104824491104E-5)(4964800.0;8.014104824491104E-5)(5213040.0;8.014104824491104E-5)(5461280.0;1.6028209648982208E-4)(5709520.0;0.0)(5957760.0;8.014104824491104E-5)(6206000.0;8.014104824491104E-5)(6454240.0;1.6028209648982208E-4)(6702480.0;0.0)(6950720.0;8.014104824491104E-5)(7198960.0;0.0)(7447200.0;8.014104824491104E-5)(7695440.0;0.0)(7943680.0;8.014104824491104E-5)(8191920.0;0.0)(8440160.0;1.6028209648982208E-4)(8688400.0;8.014104824491104E-5)(8936640.0;0.0)(9184880.0;8.014104824491104E-5)(9433120.0;0.0)(9681360.0;8.014104824491104E-5)(9929600.0;8.014104824491104E-5)(1.017784E7;0.0)(1.042608E7;8.014104824491104E-5)(1.067432E7;8.014104824491104E-5)(1.092256E7;8.014104824491104E-5)(1.11708E7;8.014104824491104E-5)(1.141904E7;0.0)(1.166728E7;0.0)(1.191552E7;8.014104824491104E-5)(1.216376E7;0.0)(1.2412E7;0.0)(1.266024E7;0.0)(1.290848E7;0.0)(1.315672E7;0.0)(1.340496E7;0.0)(1.36532E7;0.0)(1.390144E7;0.0)(1.414968E7;0.0)(1.439792E7;0.0)(1.464616E7;0.0)(1.48944E7;0.0)(1.514264E7;0.0)(1.539088E7;8.014104824491104E-5)(1.563912E7;0.0)(1.588736E7;8.014104824491104E-5)(1.61356E7;0.0)(1.638384E7;8.014104824491104E-5)(1.663208E7;0.0)(1.688032E7;0.0)(1.712856E7;1.6028209648982208E-4)(1.73768E7;0.0)(1.762504E7;1.6028209648982208E-4)(1.787328E7;8.014104824491104E-5)(1.812152E7;0.0)(1.836976E7;0.0)(1.8618E7;0.0)(1.886624E7;8.014104824491104E-5)(1.911448E7;8.014104824491104E-5)(1.936272E7;0.0)(1.961096E7;8.014104824491104E-5)(1.98592E7;0.0)(2.010744E7;0.0)(2.035568E7;0.0)(2.060392E7;0.0)(2.085216E7;8.014104824491104E-5)(2.11004E7;0.0)(2.134864E7;0.0)(2.159688E7;0.0)(2.184512E7;0.0)(2.209336E7;0.0)(2.23416E7;0.0)(2.258984E7;0.0)(2.283808E7;0.0)(2.308632E7;0.0)(2.333456E7;0.0)(2.35828E7;0.0)(2.383104E7;0.0)(2.407928E7;0.0)(2.432752E7;8.014104824491104E-5)(2.457576E7;0.0)(2.4824E7;0.0)(2.507224E7;8.014104824491104E-5)]"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+        <internalFailureOccurrenceDescriptions__InternalAction failureProbability="1.0E-5" softwareInducedFailureType__InternalFailureOccurrenceDescription="_R-DpyUg-EeGGjNgy6wh7Uw"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_A-9YUL2dEeSgr-5zKkbaOA" predecessor_AbstractAction="_glRq4HmmEeSGtbTG2d9Ipg" successor_AbstractAction="_bXUtsXDyEeSqnN80MQ2uGw" calledService_ExternalService="_72wUYLg2EeSNPorBlo7x9g" role_ExternalService="_DhLCYLg3EeSNPorBlo7x9g"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_S-lawHDqEeSqnN80MQ2uGw" entityName="AudioWatermarking">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_mvf08HD0EeSqnN80MQ2uGw" entityName="Provided_IDownload_AudioWatermarking" providedInterface__OperationProvidedRole="_4QwQwHDqEeSqnN80MQ2uGw"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_oSvwYHD0EeSqnN80MQ2uGw" entityName="Required_IDownload_AudioWatermarking" requiredInterface__OperationRequiredRole="_4QwQwHDqEeSqnN80MQ2uGw"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_mvgcAHD0EeSqnN80MQ2uGw" describedService__SEFF="_-LhmEHDqEeSqnN80MQ2uGw">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_mvhDEHD0EeSqnN80MQ2uGw" entityName="start" successor_AbstractAction="_PesXkL0JEeSAHuL4ItXOLQ"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_mvhqIHD0EeSqnN80MQ2uGw" entityName="stop" predecessor_AbstractAction="_RxPpAL0JEeSAHuL4ItXOLQ"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_tZUiMHQhEeSabL89DKH5bQ" predecessor_AbstractAction="_PesXkL0JEeSAHuL4ItXOLQ" successor_AbstractAction="_EYjFULjyEeSXKbmerxH1uA" calledService_ExternalService="_-LhmEHDqEeSqnN80MQ2uGw" role_ExternalService="_oSvwYHD0EeSqnN80MQ2uGw">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="audioRequest.Count.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:NamespaceReference" referenceName="audioRequest">
+            <innerReference_NamespaceReference xsi:type="stoex:VariableReference" referenceName="Count"/>
+          </namedReference__VariableUsage>
+        </inputVariableUsages__CallAction>
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="audioRequest.Size.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:NamespaceReference" referenceName="audioRequest">
+            <innerReference_NamespaceReference xsi:type="stoex:VariableReference" referenceName="Size"/>
+          </namedReference__VariableUsage>
+        </inputVariableUsages__CallAction>
+        <returnVariableUsage__CallReturnAction>
+          <variableCharacterisation_VariableUsage type="BYTESIZE">
+            <specification_VariableCharacterisation specification="RETURN.BYTESIZE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="temp"/>
+        </returnVariableUsage__CallReturnAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_EYjFULjyEeSXKbmerxH1uA" entityName="watermark" predecessor_AbstractAction="_tZUiMHQhEeSabL89DKH5bQ" successor_AbstractAction="_RxPpAL0JEeSAHuL4ItXOLQ">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="Trunc(audioRequest.Count.VALUE)*DoublePDF[(2.7599156144E10;0.0)(2.7845577181E10;0.03571428571428571)(2.8091998218E10;0.1)(2.8338419255E10;0.014285714285714285)(2.8584840292E10;0.0)(2.8831261329E10;0.0)(2.9077682366E10;0.0)(2.9324103403E10;0.0)(2.957052444E10;0.0)(2.9816945477E10;0.0)(3.0063366514E10;0.0)(3.0309787551E10;0.0)(3.0556208588E10;0.0)(3.0802629625E10;0.0)(3.1049050662E10;0.1)(3.1295471699E10;0.09285714285714286)(3.1541892736E10;0.014285714285714285)(3.1788313773E10;0.007142857142857143)(3.203473481E10;0.0)(3.2281155847E10;0.0)(3.2527576884E10;0.0)(3.2773997921E10;0.0)(3.3020418958E10;0.0)(3.3266839995E10;0.007142857142857143)(3.3513261032E10;0.12857142857142856)(3.3759682069E10;0.02857142857142857)(3.4006103106E10;0.0)(3.4252524143E10;0.007142857142857143)(3.449894518E10;0.0)(3.4745366217E10;0.0)(3.4991787254E10;0.0)(3.5238208291E10;0.0)(3.5484629328E10;0.0)(3.5731050365E10;0.0)(3.5977471402E10;0.0)(3.6223892439E10;0.0)(3.6470313476E10;0.0)(3.6716734513E10;0.0)(3.696315555E10;0.007142857142857143)(3.7209576587E10;0.0)(3.7455997624E10;0.0)(3.7702418661E10;0.0)(3.7948839698E10;0.0)(3.8195260735E10;0.0)(3.8441681772E10;0.0)(3.8688102809E10;0.0)(3.8934523846E10;0.0)(3.9180944883E10;0.0)(3.942736592E10;0.0)(3.9673786957E10;0.0)(3.9920207994E10;0.0)(4.0166629031E10;0.0)(4.0413050068E10;0.0)(4.0659471105E10;0.0)(4.0905892142E10;0.0)(4.1152313179E10;0.0)(4.1398734216E10;0.007142857142857143)(4.1645155253E10;0.1)(4.189157629E10;0.1357142857142857)(4.2137997327E10;0.02142857142857143)(4.2384418364E10;0.0)(4.2630839401E10;0.0)(4.2877260438E10;0.0)(4.3123681475E10;0.0)(4.3370102512E10;0.0)(4.3616523549E10;0.0)(4.3862944586E10;0.0)(4.4109365623E10;0.0)(4.435578666E10;0.0)(4.4602207697E10;0.0)(4.4848628734E10;0.0)(4.5095049771E10;0.0)(4.5341470808E10;0.0)(4.5587891845E10;0.0)(4.5834312882E10;0.0)(4.6080733919E10;0.0)(4.6327154956E10;0.0)(4.6573575993E10;0.0)(4.681999703E10;0.0)(4.7066418067E10;0.0)(4.7312839104E10;0.0)(4.7559260141E10;0.0)(4.7805681178E10;0.0)(4.8052102215E10;0.0)(4.8298523252E10;0.0)(4.8544944289E10;0.0)(4.8791365326E10;0.0)(4.9037786363E10;0.0)(4.92842074E10;0.0)(4.9530628437E10;0.0)(4.9777049474E10;0.0)(5.0023470511E10;0.0)(5.0269891548E10;0.0)(5.0516312585E10;0.0)(5.0762733622E10;0.0)(5.1009154659E10;0.0)(5.1255575696E10;0.0)(5.1501996733E10;0.0)(5.174841777E10;0.05)(5.1994838807E10;0.1)(5.2241259844E10;0.02857142857142857)(5.2487680881E10;0.014285714285714285)]"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+        <internalFailureOccurrenceDescriptions__InternalAction failureProbability="5.0E-6" softwareInducedFailureType__InternalFailureOccurrenceDescription="_R-DpyUg-EeGGjNgy6wh7Uw"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_PesXkL0JEeSAHuL4ItXOLQ" entityName="JNDI RMI overhead" predecessor_AbstractAction="_mvhDEHD0EeSqnN80MQ2uGw" successor_AbstractAction="_tZUiMHQhEeSabL89DKH5bQ">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="DoublePDF[(248240.0;0.0021638083026125983)(496480.0;0.8275364641769515)(744720.0;0.09104023080621894)(992960.0;0.047844205802211895)(1241200.0;0.021958647219105627)(1489440.0;0.0028850777368167975)(1737680.0;0.0016829620131431319)(1985920.0;7.212694342041994E-4)(2234160.0;3.2056419297964416E-4)(2482400.0;3.2056419297964416E-4)(2730640.0;2.4042314473473312E-4)(2978880.0;1.6028209648982208E-4)(3227120.0;8.014104824491104E-5)(3475360.0;8.014104824491104E-5)(3723600.0;0.0)(3971840.0;0.0)(4220080.0;0.0)(4468320.0;0.0)(4716560.0;8.014104824491104E-5)(4964800.0;8.014104824491104E-5)(5213040.0;8.014104824491104E-5)(5461280.0;1.6028209648982208E-4)(5709520.0;0.0)(5957760.0;8.014104824491104E-5)(6206000.0;8.014104824491104E-5)(6454240.0;1.6028209648982208E-4)(6702480.0;0.0)(6950720.0;8.014104824491104E-5)(7198960.0;0.0)(7447200.0;8.014104824491104E-5)(7695440.0;0.0)(7943680.0;8.014104824491104E-5)(8191920.0;0.0)(8440160.0;1.6028209648982208E-4)(8688400.0;8.014104824491104E-5)(8936640.0;0.0)(9184880.0;8.014104824491104E-5)(9433120.0;0.0)(9681360.0;8.014104824491104E-5)(9929600.0;8.014104824491104E-5)(1.017784E7;0.0)(1.042608E7;8.014104824491104E-5)(1.067432E7;8.014104824491104E-5)(1.092256E7;8.014104824491104E-5)(1.11708E7;8.014104824491104E-5)(1.141904E7;0.0)(1.166728E7;0.0)(1.191552E7;8.014104824491104E-5)(1.216376E7;0.0)(1.2412E7;0.0)(1.266024E7;0.0)(1.290848E7;0.0)(1.315672E7;0.0)(1.340496E7;0.0)(1.36532E7;0.0)(1.390144E7;0.0)(1.414968E7;0.0)(1.439792E7;0.0)(1.464616E7;0.0)(1.48944E7;0.0)(1.514264E7;0.0)(1.539088E7;8.014104824491104E-5)(1.563912E7;0.0)(1.588736E7;8.014104824491104E-5)(1.61356E7;0.0)(1.638384E7;8.014104824491104E-5)(1.663208E7;0.0)(1.688032E7;0.0)(1.712856E7;1.6028209648982208E-4)(1.73768E7;0.0)(1.762504E7;1.6028209648982208E-4)(1.787328E7;8.014104824491104E-5)(1.812152E7;0.0)(1.836976E7;0.0)(1.8618E7;0.0)(1.886624E7;8.014104824491104E-5)(1.911448E7;8.014104824491104E-5)(1.936272E7;0.0)(1.961096E7;8.014104824491104E-5)(1.98592E7;0.0)(2.010744E7;0.0)(2.035568E7;0.0)(2.060392E7;0.0)(2.085216E7;8.014104824491104E-5)(2.11004E7;0.0)(2.134864E7;0.0)(2.159688E7;0.0)(2.184512E7;0.0)(2.209336E7;0.0)(2.23416E7;0.0)(2.258984E7;0.0)(2.283808E7;0.0)(2.308632E7;0.0)(2.333456E7;0.0)(2.35828E7;0.0)(2.383104E7;0.0)(2.407928E7;0.0)(2.432752E7;8.014104824491104E-5)(2.457576E7;0.0)(2.4824E7;0.0)(2.507224E7;8.014104824491104E-5)]"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_RxPpAL0JEeSAHuL4ItXOLQ" predecessor_AbstractAction="_EYjFULjyEeSXKbmerxH1uA" successor_AbstractAction="_mvhqIHD0EeSqnN80MQ2uGw">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage type="BYTESIZE">
+            <specification_VariableCharacterisation specification="temp.BYTESIZE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_o10-YHDrEeSqnN80MQ2uGw" entityName="Reencoding">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_s18OwHD0EeSqnN80MQ2uGw" entityName="Provided_IDownload_Reencoding" providedInterface__OperationProvidedRole="_4QwQwHDqEeSqnN80MQ2uGw"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_uCAZQHD0EeSqnN80MQ2uGw" entityName="Required_IDownload_Reencoding" requiredInterface__OperationRequiredRole="_4QwQwHDqEeSqnN80MQ2uGw"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_s1810HD0EeSqnN80MQ2uGw" describedService__SEFF="_-LhmEHDqEeSqnN80MQ2uGw">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_s19c4HD0EeSqnN80MQ2uGw" entityName="start" successor_AbstractAction="_Gk0aYLzpEeSAHuL4ItXOLQ"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_s1-D8HD0EeSqnN80MQ2uGw" entityName="stop" predecessor_AbstractAction="_NPzEoLzpEeSAHuL4ItXOLQ"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_0E7ekHQhEeSabL89DKH5bQ" predecessor_AbstractAction="_Gk0aYLzpEeSAHuL4ItXOLQ" successor_AbstractAction="_PKKfkLzpEeSAHuL4ItXOLQ" calledService_ExternalService="_-LhmEHDqEeSqnN80MQ2uGw" role_ExternalService="_uCAZQHD0EeSqnN80MQ2uGw">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="audioRequest.Count.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:NamespaceReference" referenceName="audioRequest">
+            <innerReference_NamespaceReference xsi:type="stoex:VariableReference" referenceName="Count"/>
+          </namedReference__VariableUsage>
+        </inputVariableUsages__CallAction>
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="audioRequest.Size.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:NamespaceReference" referenceName="audioRequest">
+            <innerReference_NamespaceReference xsi:type="stoex:VariableReference" referenceName="Size"/>
+          </namedReference__VariableUsage>
+        </inputVariableUsages__CallAction>
+        <returnVariableUsage__CallReturnAction>
+          <variableCharacterisation_VariableUsage type="BYTESIZE">
+            <specification_VariableCharacterisation specification="RETURN.BYTESIZE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="temp"/>
+        </returnVariableUsage__CallReturnAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_Gk0aYLzpEeSAHuL4ItXOLQ" entityName="JNDI RMI overhead" predecessor_AbstractAction="_s19c4HD0EeSqnN80MQ2uGw" successor_AbstractAction="_0E7ekHQhEeSabL89DKH5bQ">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="DoublePDF[(248240.0;0.0021638083026125983)(496480.0;0.8275364641769515)(744720.0;0.09104023080621894)(992960.0;0.047844205802211895)(1241200.0;0.021958647219105627)(1489440.0;0.0028850777368167975)(1737680.0;0.0016829620131431319)(1985920.0;7.212694342041994E-4)(2234160.0;3.2056419297964416E-4)(2482400.0;3.2056419297964416E-4)(2730640.0;2.4042314473473312E-4)(2978880.0;1.6028209648982208E-4)(3227120.0;8.014104824491104E-5)(3475360.0;8.014104824491104E-5)(3723600.0;0.0)(3971840.0;0.0)(4220080.0;0.0)(4468320.0;0.0)(4716560.0;8.014104824491104E-5)(4964800.0;8.014104824491104E-5)(5213040.0;8.014104824491104E-5)(5461280.0;1.6028209648982208E-4)(5709520.0;0.0)(5957760.0;8.014104824491104E-5)(6206000.0;8.014104824491104E-5)(6454240.0;1.6028209648982208E-4)(6702480.0;0.0)(6950720.0;8.014104824491104E-5)(7198960.0;0.0)(7447200.0;8.014104824491104E-5)(7695440.0;0.0)(7943680.0;8.014104824491104E-5)(8191920.0;0.0)(8440160.0;1.6028209648982208E-4)(8688400.0;8.014104824491104E-5)(8936640.0;0.0)(9184880.0;8.014104824491104E-5)(9433120.0;0.0)(9681360.0;8.014104824491104E-5)(9929600.0;8.014104824491104E-5)(1.017784E7;0.0)(1.042608E7;8.014104824491104E-5)(1.067432E7;8.014104824491104E-5)(1.092256E7;8.014104824491104E-5)(1.11708E7;8.014104824491104E-5)(1.141904E7;0.0)(1.166728E7;0.0)(1.191552E7;8.014104824491104E-5)(1.216376E7;0.0)(1.2412E7;0.0)(1.266024E7;0.0)(1.290848E7;0.0)(1.315672E7;0.0)(1.340496E7;0.0)(1.36532E7;0.0)(1.390144E7;0.0)(1.414968E7;0.0)(1.439792E7;0.0)(1.464616E7;0.0)(1.48944E7;0.0)(1.514264E7;0.0)(1.539088E7;8.014104824491104E-5)(1.563912E7;0.0)(1.588736E7;8.014104824491104E-5)(1.61356E7;0.0)(1.638384E7;8.014104824491104E-5)(1.663208E7;0.0)(1.688032E7;0.0)(1.712856E7;1.6028209648982208E-4)(1.73768E7;0.0)(1.762504E7;1.6028209648982208E-4)(1.787328E7;8.014104824491104E-5)(1.812152E7;0.0)(1.836976E7;0.0)(1.8618E7;0.0)(1.886624E7;8.014104824491104E-5)(1.911448E7;8.014104824491104E-5)(1.936272E7;0.0)(1.961096E7;8.014104824491104E-5)(1.98592E7;0.0)(2.010744E7;0.0)(2.035568E7;0.0)(2.060392E7;0.0)(2.085216E7;8.014104824491104E-5)(2.11004E7;0.0)(2.134864E7;0.0)(2.159688E7;0.0)(2.184512E7;0.0)(2.209336E7;0.0)(2.23416E7;0.0)(2.258984E7;0.0)(2.283808E7;0.0)(2.308632E7;0.0)(2.333456E7;0.0)(2.35828E7;0.0)(2.383104E7;0.0)(2.407928E7;0.0)(2.432752E7;8.014104824491104E-5)(2.457576E7;0.0)(2.4824E7;0.0)(2.507224E7;8.014104824491104E-5)]"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_NPzEoLzpEeSAHuL4ItXOLQ" predecessor_AbstractAction="_PKKfkLzpEeSAHuL4ItXOLQ" successor_AbstractAction="_s1-D8HD0EeSqnN80MQ2uGw">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage type="BYTESIZE">
+            <specification_VariableCharacterisation specification="temp.BYTESIZE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_PKKfkLzpEeSAHuL4ItXOLQ" entityName="reencode" predecessor_AbstractAction="_0E7ekHQhEeSabL89DKH5bQ" successor_AbstractAction="_NPzEoLzpEeSAHuL4ItXOLQ">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="audioRequest.Count.VALUE*DoublePMF[(16850000000;0.004347826)(16950000000;0.034782609)(17050000000;0.117391304)(17150000000;0.026086957)(17350000000;0.004347826)(17550000000;0.004347826)(19850000000;0.030434783)(19950000000;0.052173913)(20050000000;0.065217391)(20150000000;0.008695652)(20250000000;0.004347826)(20450000000;0.004347826)(20550000000;0.004347826)(20650000000;0)(20750000000;0)(20850000000;0)(20950000000;0)(21050000000;0)(21150000000;0.004347826)(21250000000;0)(21350000000;0)(21450000000;0)(21550000000;0)(21650000000;0)(21750000000;0)(21850000000;0)(21950000000;0)(22050000000;0)(22150000000;0)(22250000000;0)(22350000000;0)(22450000000;0.030434783)(22550000000;0.047826087)(22650000000;0.017391304)(22750000000;0.004347826)(22850000000;0)(22950000000;0.004347826)(23050000000;0)(23150000000;0)(23250000000;0)(23350000000;0.004347826)(27550000000;0.013043478)(27650000000;0.069565217)(27750000000;0.052173913)(27850000000;0.017391304)(27950000000;0.008695652)(28050000000;0.008695652)(28150000000;0.004347826)(28250000000;0)(28350000000;0)(28450000000;0)(28550000000;0)(28650000000;0)(28750000000;0)(28850000000;0.004347826)(28950000000;0)(29050000000;0)(29150000000;0)(29250000000;0)(29350000000;0)(29450000000;0)(29550000000;0.004347826)(29650000000;0.02173913)(29750000000;0.060869565)(29850000000;0.039130435)(29950000000;0.008695652)(30050000000;0.013043478)(30150000000;0.008695652)(30250000000;0.004347826)(30350000000;0)(30450000000;0)(30550000000;0.008695652)(30650000000;0)(30750000000;0)(30850000000;0)(30950000000;0)(31050000000;0.004347826)(31150000000;0)(31250000000;0.008695652)(31350000000;0)(31450000000;0)(31550000000;0)(31650000000;0)(31750000000;0)(31850000000;0)(31950000000;0)(32050000000;0)(32150000000;0)(32250000000;0)(32350000000;0)(32450000000;0)(32550000000;0)(32650000000;0)(32750000000;0)(32850000000;0)(32950000000;0)(33050000000;0)(33150000000;0)(33250000000;0)(33350000000;0)(33450000000;0)(33550000000;0)(33650000000;0)(33750000000;0)(33850000000;0)(33950000000;0)(34050000000;0)(34150000000;0)(34250000000;0)(34350000000;0)(34450000000;0)(34550000000;0)(34650000000;0)(34750000000;0)(34850000000;0.047826087)(34950000000;0.034782609)(35050000000;0.039130435)(35150000000;0.017391304)(35250000000;0)(35350000000;0.013043478)(35450000000;0.008695652)(35550000000;0)(35650000000;0)(35750000000;0)(35850000000;0)(35950000000;0)(36050000000;0.004347826)(18050000000;0)]"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+        <internalFailureOccurrenceDescriptions__InternalAction failureProbability="1.0E-5" softwareInducedFailureType__InternalFailureOccurrenceDescription="_R-DpyUg-EeGGjNgy6wh7Uw"/>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_p_EeYHDrEeSqnN80MQ2uGw" entityName="MediaManagement">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_frEeAHD2EeSA4fySuX9I2Q" entityName="Provided_IMediaManagement_MediaManagement" providedInterface__OperationProvidedRole="_Nv-1oHDvEeSqnN80MQ2uGw"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_T0JTUHD2EeSA4fySuX9I2Q" entityName="Required_IDownload_MediaManagement" requiredInterface__OperationRequiredRole="_4QwQwHDqEeSqnN80MQ2uGw"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_cljekHD2EeSA4fySuX9I2Q" entityName="Required_IPackaging_MediaManagement" requiredInterface__OperationRequiredRole="_s3KlgHDuEeSqnN80MQ2uGw"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_mYCsUHD2EeSA4fySuX9I2Q" entityName="Required_IMediaAccess_MediaManagement" requiredInterface__OperationRequiredRole="_psfEIHDsEeSqnN80MQ2uGw"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_frGTMHD2EeSA4fySuX9I2Q" describedService__SEFF="_Qa8AAHDvEeSqnN80MQ2uGw">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_frG6QHD2EeSA4fySuX9I2Q" entityName="start" successor_AbstractAction="_8e4gcLzNEeSAHuL4ItXOLQ"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_frG6QXD2EeSA4fySuX9I2Q" entityName="stop" predecessor_AbstractAction="_mqKtIHQiEeSabL89DKH5bQ"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_mqKtIHQiEeSabL89DKH5bQ" predecessor_AbstractAction="_8e4gcLzNEeSAHuL4ItXOLQ" successor_AbstractAction="_frG6QXD2EeSA4fySuX9I2Q" calledService_ExternalService="_xHigcHDsEeSqnN80MQ2uGw" role_ExternalService="_mYCsUHD2EeSA4fySuX9I2Q">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage type="BYTESIZE">
+            <specification_VariableCharacterisation specification="file.BYTESIZE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="file"/>
+        </inputVariableUsages__CallAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_8e4gcLzNEeSAHuL4ItXOLQ" entityName="JNDI RMI overhead" predecessor_AbstractAction="_frG6QHD2EeSA4fySuX9I2Q" successor_AbstractAction="_mqKtIHQiEeSabL89DKH5bQ">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="DoublePDF[(248240.0;0.0021638083026125983)(496480.0;0.8275364641769515)(744720.0;0.09104023080621894)(992960.0;0.047844205802211895)(1241200.0;0.021958647219105627)(1489440.0;0.0028850777368167975)(1737680.0;0.0016829620131431319)(1985920.0;7.212694342041994E-4)(2234160.0;3.2056419297964416E-4)(2482400.0;3.2056419297964416E-4)(2730640.0;2.4042314473473312E-4)(2978880.0;1.6028209648982208E-4)(3227120.0;8.014104824491104E-5)(3475360.0;8.014104824491104E-5)(3723600.0;0.0)(3971840.0;0.0)(4220080.0;0.0)(4468320.0;0.0)(4716560.0;8.014104824491104E-5)(4964800.0;8.014104824491104E-5)(5213040.0;8.014104824491104E-5)(5461280.0;1.6028209648982208E-4)(5709520.0;0.0)(5957760.0;8.014104824491104E-5)(6206000.0;8.014104824491104E-5)(6454240.0;1.6028209648982208E-4)(6702480.0;0.0)(6950720.0;8.014104824491104E-5)(7198960.0;0.0)(7447200.0;8.014104824491104E-5)(7695440.0;0.0)(7943680.0;8.014104824491104E-5)(8191920.0;0.0)(8440160.0;1.6028209648982208E-4)(8688400.0;8.014104824491104E-5)(8936640.0;0.0)(9184880.0;8.014104824491104E-5)(9433120.0;0.0)(9681360.0;8.014104824491104E-5)(9929600.0;8.014104824491104E-5)(1.017784E7;0.0)(1.042608E7;8.014104824491104E-5)(1.067432E7;8.014104824491104E-5)(1.092256E7;8.014104824491104E-5)(1.11708E7;8.014104824491104E-5)(1.141904E7;0.0)(1.166728E7;0.0)(1.191552E7;8.014104824491104E-5)(1.216376E7;0.0)(1.2412E7;0.0)(1.266024E7;0.0)(1.290848E7;0.0)(1.315672E7;0.0)(1.340496E7;0.0)(1.36532E7;0.0)(1.390144E7;0.0)(1.414968E7;0.0)(1.439792E7;0.0)(1.464616E7;0.0)(1.48944E7;0.0)(1.514264E7;0.0)(1.539088E7;8.014104824491104E-5)(1.563912E7;0.0)(1.588736E7;8.014104824491104E-5)(1.61356E7;0.0)(1.638384E7;8.014104824491104E-5)(1.663208E7;0.0)(1.688032E7;0.0)(1.712856E7;1.6028209648982208E-4)(1.73768E7;0.0)(1.762504E7;1.6028209648982208E-4)(1.787328E7;8.014104824491104E-5)(1.812152E7;0.0)(1.836976E7;0.0)(1.8618E7;0.0)(1.886624E7;8.014104824491104E-5)(1.911448E7;8.014104824491104E-5)(1.936272E7;0.0)(1.961096E7;8.014104824491104E-5)(1.98592E7;0.0)(2.010744E7;0.0)(2.035568E7;0.0)(2.060392E7;0.0)(2.085216E7;8.014104824491104E-5)(2.11004E7;0.0)(2.134864E7;0.0)(2.159688E7;0.0)(2.184512E7;0.0)(2.209336E7;0.0)(2.23416E7;0.0)(2.258984E7;0.0)(2.283808E7;0.0)(2.308632E7;0.0)(2.333456E7;0.0)(2.35828E7;0.0)(2.383104E7;0.0)(2.407928E7;0.0)(2.432752E7;8.014104824491104E-5)(2.457576E7;0.0)(2.4824E7;0.0)(2.507224E7;8.014104824491104E-5)]"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_frHhUHD2EeSA4fySuX9I2Q" describedService__SEFF="_Q_yZgHDvEeSqnN80MQ2uGw">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_frIIYHD2EeSA4fySuX9I2Q" entityName="start" successor_AbstractAction="_VCCJULzSEeSAHuL4ItXOLQ"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_frIIYXD2EeSA4fySuX9I2Q" entityName="stop" predecessor_AbstractAction="_wrGaQLzWEeSAHuL4ItXOLQ"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_2I7hMHQiEeSabL89DKH5bQ" predecessor_AbstractAction="_VCCJULzSEeSAHuL4ItXOLQ" successor_AbstractAction="_3GxaALzSEeSAHuL4ItXOLQ" calledService_ExternalService="_-LhmEHDqEeSqnN80MQ2uGw" role_ExternalService="_T0JTUHD2EeSA4fySuX9I2Q">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="audioRequest.Count.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:NamespaceReference" referenceName="audioRequest">
+            <innerReference_NamespaceReference xsi:type="stoex:VariableReference" referenceName="Count"/>
+          </namedReference__VariableUsage>
+        </inputVariableUsages__CallAction>
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="audioRequest.Size.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:NamespaceReference" referenceName="audioRequest">
+            <innerReference_NamespaceReference xsi:type="stoex:VariableReference" referenceName="Size"/>
+          </namedReference__VariableUsage>
+        </inputVariableUsages__CallAction>
+        <returnVariableUsage__CallReturnAction>
+          <variableCharacterisation_VariableUsage type="BYTESIZE">
+            <specification_VariableCharacterisation specification="RETURN.BYTESIZE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="audioRequestReturn"/>
+        </returnVariableUsage__CallReturnAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_VCCJULzSEeSAHuL4ItXOLQ" entityName="JNDI RMI overhead" predecessor_AbstractAction="_frIIYHD2EeSA4fySuX9I2Q" successor_AbstractAction="_2I7hMHQiEeSabL89DKH5bQ">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="DoublePDF[(248240.0;0.0021638083026125983)(496480.0;0.8275364641769515)(744720.0;0.09104023080621894)(992960.0;0.047844205802211895)(1241200.0;0.021958647219105627)(1489440.0;0.0028850777368167975)(1737680.0;0.0016829620131431319)(1985920.0;7.212694342041994E-4)(2234160.0;3.2056419297964416E-4)(2482400.0;3.2056419297964416E-4)(2730640.0;2.4042314473473312E-4)(2978880.0;1.6028209648982208E-4)(3227120.0;8.014104824491104E-5)(3475360.0;8.014104824491104E-5)(3723600.0;0.0)(3971840.0;0.0)(4220080.0;0.0)(4468320.0;0.0)(4716560.0;8.014104824491104E-5)(4964800.0;8.014104824491104E-5)(5213040.0;8.014104824491104E-5)(5461280.0;1.6028209648982208E-4)(5709520.0;0.0)(5957760.0;8.014104824491104E-5)(6206000.0;8.014104824491104E-5)(6454240.0;1.6028209648982208E-4)(6702480.0;0.0)(6950720.0;8.014104824491104E-5)(7198960.0;0.0)(7447200.0;8.014104824491104E-5)(7695440.0;0.0)(7943680.0;8.014104824491104E-5)(8191920.0;0.0)(8440160.0;1.6028209648982208E-4)(8688400.0;8.014104824491104E-5)(8936640.0;0.0)(9184880.0;8.014104824491104E-5)(9433120.0;0.0)(9681360.0;8.014104824491104E-5)(9929600.0;8.014104824491104E-5)(1.017784E7;0.0)(1.042608E7;8.014104824491104E-5)(1.067432E7;8.014104824491104E-5)(1.092256E7;8.014104824491104E-5)(1.11708E7;8.014104824491104E-5)(1.141904E7;0.0)(1.166728E7;0.0)(1.191552E7;8.014104824491104E-5)(1.216376E7;0.0)(1.2412E7;0.0)(1.266024E7;0.0)(1.290848E7;0.0)(1.315672E7;0.0)(1.340496E7;0.0)(1.36532E7;0.0)(1.390144E7;0.0)(1.414968E7;0.0)(1.439792E7;0.0)(1.464616E7;0.0)(1.48944E7;0.0)(1.514264E7;0.0)(1.539088E7;8.014104824491104E-5)(1.563912E7;0.0)(1.588736E7;8.014104824491104E-5)(1.61356E7;0.0)(1.638384E7;8.014104824491104E-5)(1.663208E7;0.0)(1.688032E7;0.0)(1.712856E7;1.6028209648982208E-4)(1.73768E7;0.0)(1.762504E7;1.6028209648982208E-4)(1.787328E7;8.014104824491104E-5)(1.812152E7;0.0)(1.836976E7;0.0)(1.8618E7;0.0)(1.886624E7;8.014104824491104E-5)(1.911448E7;8.014104824491104E-5)(1.936272E7;0.0)(1.961096E7;8.014104824491104E-5)(1.98592E7;0.0)(2.010744E7;0.0)(2.035568E7;0.0)(2.060392E7;0.0)(2.085216E7;8.014104824491104E-5)(2.11004E7;0.0)(2.134864E7;0.0)(2.159688E7;0.0)(2.184512E7;0.0)(2.209336E7;0.0)(2.23416E7;0.0)(2.258984E7;0.0)(2.283808E7;0.0)(2.308632E7;0.0)(2.333456E7;0.0)(2.35828E7;0.0)(2.383104E7;0.0)(2.407928E7;0.0)(2.432752E7;8.014104824491104E-5)(2.457576E7;0.0)(2.4824E7;0.0)(2.507224E7;8.014104824491104E-5)]"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:BranchAction" id="_3GxaALzSEeSAHuL4ItXOLQ" entityName="PackagingBranch" predecessor_AbstractAction="_2I7hMHQiEeSabL89DKH5bQ" successor_AbstractAction="_wrGaQLzWEeSAHuL4ItXOLQ">
+        <branches_Branch xsi:type="seff:GuardedBranchTransition" id="_4QyWELzSEeSAHuL4ItXOLQ">
+          <branchBehaviour_BranchTransition id="_4RC0wLzSEeSAHuL4ItXOLQ">
+            <steps_Behaviour xsi:type="seff:StartAction" id="_4RC0wbzSEeSAHuL4ItXOLQ" successor_AbstractAction="_B2sgYLzTEeSAHuL4ItXOLQ"/>
+            <steps_Behaviour xsi:type="seff:StopAction" id="_4RDb0LzSEeSAHuL4ItXOLQ" predecessor_AbstractAction="_B2sgYLzTEeSAHuL4ItXOLQ"/>
+            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_B2sgYLzTEeSAHuL4ItXOLQ" predecessor_AbstractAction="_4RC0wbzSEeSAHuL4ItXOLQ" successor_AbstractAction="_4RDb0LzSEeSAHuL4ItXOLQ" calledService_ExternalService="_ydHhYHDuEeSqnN80MQ2uGw" role_ExternalService="_cljekHD2EeSA4fySuX9I2Q">
+              <inputVariableUsages__CallAction>
+                <variableCharacterisation_VariableUsage type="BYTESIZE">
+                  <specification_VariableCharacterisation specification="audioRequestReturn.BYTESIZE"/>
+                </variableCharacterisation_VariableUsage>
+                <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="audios"/>
+              </inputVariableUsages__CallAction>
+            </steps_Behaviour>
+          </branchBehaviour_BranchTransition>
+          <branchCondition_GuardedBranchTransition specification="audioRequest.Count.VALUE > 1"/>
+        </branches_Branch>
+        <branches_Branch xsi:type="seff:GuardedBranchTransition" id="_wj7NEMcPEeSDae6OpXziLw">
+          <branchBehaviour_BranchTransition id="_wj7NEccPEeSDae6OpXziLw">
+            <steps_Behaviour xsi:type="seff:StartAction" id="_wj7NEscPEeSDae6OpXziLw" successor_AbstractAction="_wj7NE8cPEeSDae6OpXziLw"/>
+            <steps_Behaviour xsi:type="seff:StopAction" id="_wj7NE8cPEeSDae6OpXziLw" predecessor_AbstractAction="_wj7NEscPEeSDae6OpXziLw"/>
+          </branchBehaviour_BranchTransition>
+          <branchCondition_GuardedBranchTransition specification="audioRequest.Count.VALUE == 1"/>
+        </branches_Branch>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_wrGaQLzWEeSAHuL4ItXOLQ" entityName="Set Return" predecessor_AbstractAction="_3GxaALzSEeSAHuL4ItXOLQ" successor_AbstractAction="_frIIYXD2EeSA4fySuX9I2Q">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage type="BYTESIZE">
+            <specification_VariableCharacterisation specification="audioRequestReturn.BYTESIZE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_frIvcHD2EeSA4fySuX9I2Q" describedService__SEFF="_Rv19cHDvEeSqnN80MQ2uGw">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_frJWgHD2EeSA4fySuX9I2Q" entityName="start" successor_AbstractAction="_YywlwLzOEeSAHuL4ItXOLQ"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_frJWgXD2EeSA4fySuX9I2Q" entityName="stop" predecessor_AbstractAction="_8M4AoHQiEeSabL89DKH5bQ"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_8M4AoHQiEeSabL89DKH5bQ" predecessor_AbstractAction="_YywlwLzOEeSAHuL4ItXOLQ" successor_AbstractAction="_frJWgXD2EeSA4fySuX9I2Q" calledService_ExternalService="_z17ZUHDsEeSqnN80MQ2uGw" role_ExternalService="_mYCsUHD2EeSA4fySuX9I2Q"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_YywlwLzOEeSAHuL4ItXOLQ" entityName="JNDI RMI overhead" predecessor_AbstractAction="_frJWgHD2EeSA4fySuX9I2Q" successor_AbstractAction="_8M4AoHQiEeSabL89DKH5bQ">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="DoublePDF[(248240.0;0.0021638083026125983)(496480.0;0.8275364641769515)(744720.0;0.09104023080621894)(992960.0;0.047844205802211895)(1241200.0;0.021958647219105627)(1489440.0;0.0028850777368167975)(1737680.0;0.0016829620131431319)(1985920.0;7.212694342041994E-4)(2234160.0;3.2056419297964416E-4)(2482400.0;3.2056419297964416E-4)(2730640.0;2.4042314473473312E-4)(2978880.0;1.6028209648982208E-4)(3227120.0;8.014104824491104E-5)(3475360.0;8.014104824491104E-5)(3723600.0;0.0)(3971840.0;0.0)(4220080.0;0.0)(4468320.0;0.0)(4716560.0;8.014104824491104E-5)(4964800.0;8.014104824491104E-5)(5213040.0;8.014104824491104E-5)(5461280.0;1.6028209648982208E-4)(5709520.0;0.0)(5957760.0;8.014104824491104E-5)(6206000.0;8.014104824491104E-5)(6454240.0;1.6028209648982208E-4)(6702480.0;0.0)(6950720.0;8.014104824491104E-5)(7198960.0;0.0)(7447200.0;8.014104824491104E-5)(7695440.0;0.0)(7943680.0;8.014104824491104E-5)(8191920.0;0.0)(8440160.0;1.6028209648982208E-4)(8688400.0;8.014104824491104E-5)(8936640.0;0.0)(9184880.0;8.014104824491104E-5)(9433120.0;0.0)(9681360.0;8.014104824491104E-5)(9929600.0;8.014104824491104E-5)(1.017784E7;0.0)(1.042608E7;8.014104824491104E-5)(1.067432E7;8.014104824491104E-5)(1.092256E7;8.014104824491104E-5)(1.11708E7;8.014104824491104E-5)(1.141904E7;0.0)(1.166728E7;0.0)(1.191552E7;8.014104824491104E-5)(1.216376E7;0.0)(1.2412E7;0.0)(1.266024E7;0.0)(1.290848E7;0.0)(1.315672E7;0.0)(1.340496E7;0.0)(1.36532E7;0.0)(1.390144E7;0.0)(1.414968E7;0.0)(1.439792E7;0.0)(1.464616E7;0.0)(1.48944E7;0.0)(1.514264E7;0.0)(1.539088E7;8.014104824491104E-5)(1.563912E7;0.0)(1.588736E7;8.014104824491104E-5)(1.61356E7;0.0)(1.638384E7;8.014104824491104E-5)(1.663208E7;0.0)(1.688032E7;0.0)(1.712856E7;1.6028209648982208E-4)(1.73768E7;0.0)(1.762504E7;1.6028209648982208E-4)(1.787328E7;8.014104824491104E-5)(1.812152E7;0.0)(1.836976E7;0.0)(1.8618E7;0.0)(1.886624E7;8.014104824491104E-5)(1.911448E7;8.014104824491104E-5)(1.936272E7;0.0)(1.961096E7;8.014104824491104E-5)(1.98592E7;0.0)(2.010744E7;0.0)(2.035568E7;0.0)(2.060392E7;0.0)(2.085216E7;8.014104824491104E-5)(2.11004E7;0.0)(2.134864E7;0.0)(2.159688E7;0.0)(2.184512E7;0.0)(2.209336E7;0.0)(2.23416E7;0.0)(2.258984E7;0.0)(2.283808E7;0.0)(2.308632E7;0.0)(2.333456E7;0.0)(2.35828E7;0.0)(2.383104E7;0.0)(2.407928E7;0.0)(2.432752E7;8.014104824491104E-5)(2.457576E7;0.0)(2.4824E7;0.0)(2.507224E7;8.014104824491104E-5)]"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_st2Y0HDrEeSqnN80MQ2uGw" entityName="Facade">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_CPbfYHD2EeSA4fySuX9I2Q" entityName="Provided_IWebGui_Facade" providedInterface__OperationProvidedRole="_NeTaUHDwEeSqnN80MQ2uGw"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_JLDNsHD2EeSA4fySuX9I2Q" entityName="Required_IMediaManagement_Facade" requiredInterface__OperationRequiredRole="_Nv-1oHDvEeSqnN80MQ2uGw"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_5ZXgYLhAEeSNPorBlo7x9g" entityName="Required_IUserDB_Facade" requiredInterface__OperationRequiredRole="_jAJnML0YEeSAHuL4ItXOLQ"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_CPgX4HD2EeSA4fySuX9I2Q" describedService__SEFF="_Ss-eoHDwEeSqnN80MQ2uGw">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_CPg-8HD2EeSA4fySuX9I2Q" entityName="start" successor_AbstractAction="_T6Un0LhHEeSNPorBlo7x9g"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_CPhmAHD2EeSA4fySuX9I2Q" entityName="stop" predecessor_AbstractAction="_cwo4sHQhEeSabL89DKH5bQ"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_cwo4sHQhEeSabL89DKH5bQ" predecessor_AbstractAction="_T6Un0LhHEeSNPorBlo7x9g" successor_AbstractAction="_CPhmAHD2EeSA4fySuX9I2Q" calledService_ExternalService="_Qa8AAHDvEeSqnN80MQ2uGw" role_ExternalService="_JLDNsHD2EeSA4fySuX9I2Q">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage type="BYTESIZE">
+            <specification_VariableCharacterisation specification="file.BYTESIZE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="file"/>
+        </inputVariableUsages__CallAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_T6Un0LhHEeSNPorBlo7x9g" entityName="JNDI RMI overhead" predecessor_AbstractAction="_CPg-8HD2EeSA4fySuX9I2Q" successor_AbstractAction="_cwo4sHQhEeSabL89DKH5bQ">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="DoublePDF[(248240.0;0.0021638083026125983)(496480.0;0.8275364641769515)(744720.0;0.09104023080621894)(992960.0;0.047844205802211895)(1241200.0;0.021958647219105627)(1489440.0;0.0028850777368167975)(1737680.0;0.0016829620131431319)(1985920.0;7.212694342041994E-4)(2234160.0;3.2056419297964416E-4)(2482400.0;3.2056419297964416E-4)(2730640.0;2.4042314473473312E-4)(2978880.0;1.6028209648982208E-4)(3227120.0;8.014104824491104E-5)(3475360.0;8.014104824491104E-5)(3723600.0;0.0)(3971840.0;0.0)(4220080.0;0.0)(4468320.0;0.0)(4716560.0;8.014104824491104E-5)(4964800.0;8.014104824491104E-5)(5213040.0;8.014104824491104E-5)(5461280.0;1.6028209648982208E-4)(5709520.0;0.0)(5957760.0;8.014104824491104E-5)(6206000.0;8.014104824491104E-5)(6454240.0;1.6028209648982208E-4)(6702480.0;0.0)(6950720.0;8.014104824491104E-5)(7198960.0;0.0)(7447200.0;8.014104824491104E-5)(7695440.0;0.0)(7943680.0;8.014104824491104E-5)(8191920.0;0.0)(8440160.0;1.6028209648982208E-4)(8688400.0;8.014104824491104E-5)(8936640.0;0.0)(9184880.0;8.014104824491104E-5)(9433120.0;0.0)(9681360.0;8.014104824491104E-5)(9929600.0;8.014104824491104E-5)(1.017784E7;0.0)(1.042608E7;8.014104824491104E-5)(1.067432E7;8.014104824491104E-5)(1.092256E7;8.014104824491104E-5)(1.11708E7;8.014104824491104E-5)(1.141904E7;0.0)(1.166728E7;0.0)(1.191552E7;8.014104824491104E-5)(1.216376E7;0.0)(1.2412E7;0.0)(1.266024E7;0.0)(1.290848E7;0.0)(1.315672E7;0.0)(1.340496E7;0.0)(1.36532E7;0.0)(1.390144E7;0.0)(1.414968E7;0.0)(1.439792E7;0.0)(1.464616E7;0.0)(1.48944E7;0.0)(1.514264E7;0.0)(1.539088E7;8.014104824491104E-5)(1.563912E7;0.0)(1.588736E7;8.014104824491104E-5)(1.61356E7;0.0)(1.638384E7;8.014104824491104E-5)(1.663208E7;0.0)(1.688032E7;0.0)(1.712856E7;1.6028209648982208E-4)(1.73768E7;0.0)(1.762504E7;1.6028209648982208E-4)(1.787328E7;8.014104824491104E-5)(1.812152E7;0.0)(1.836976E7;0.0)(1.8618E7;0.0)(1.886624E7;8.014104824491104E-5)(1.911448E7;8.014104824491104E-5)(1.936272E7;0.0)(1.961096E7;8.014104824491104E-5)(1.98592E7;0.0)(2.010744E7;0.0)(2.035568E7;0.0)(2.060392E7;0.0)(2.085216E7;8.014104824491104E-5)(2.11004E7;0.0)(2.134864E7;0.0)(2.159688E7;0.0)(2.184512E7;0.0)(2.209336E7;0.0)(2.23416E7;0.0)(2.258984E7;0.0)(2.283808E7;0.0)(2.308632E7;0.0)(2.333456E7;0.0)(2.35828E7;0.0)(2.383104E7;0.0)(2.407928E7;0.0)(2.432752E7;8.014104824491104E-5)(2.457576E7;0.0)(2.4824E7;0.0)(2.507224E7;8.014104824491104E-5)]"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_CPkCQHD2EeSA4fySuX9I2Q" describedService__SEFF="_SxZroHDwEeSqnN80MQ2uGw">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_CPkCQXD2EeSA4fySuX9I2Q" entityName="start" successor_AbstractAction="_fKxh4Lw4EeSAHuL4ItXOLQ"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_CPkpUHD2EeSA4fySuX9I2Q" entityName="stop" predecessor_AbstractAction="_G3_8AHQiEeSabL89DKH5bQ"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_G3_8AHQiEeSabL89DKH5bQ" predecessor_AbstractAction="_fKxh4Lw4EeSAHuL4ItXOLQ" successor_AbstractAction="_CPkpUHD2EeSA4fySuX9I2Q" calledService_ExternalService="_Rv19cHDvEeSqnN80MQ2uGw" role_ExternalService="_JLDNsHD2EeSA4fySuX9I2Q"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_fKxh4Lw4EeSAHuL4ItXOLQ" entityName="JNDI RMI overhead" predecessor_AbstractAction="_CPkCQXD2EeSA4fySuX9I2Q" successor_AbstractAction="_G3_8AHQiEeSabL89DKH5bQ">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="DoublePDF[(248240.0;0.0021638083026125983)(496480.0;0.8275364641769515)(744720.0;0.09104023080621894)(992960.0;0.047844205802211895)(1241200.0;0.021958647219105627)(1489440.0;0.0028850777368167975)(1737680.0;0.0016829620131431319)(1985920.0;7.212694342041994E-4)(2234160.0;3.2056419297964416E-4)(2482400.0;3.2056419297964416E-4)(2730640.0;2.4042314473473312E-4)(2978880.0;1.6028209648982208E-4)(3227120.0;8.014104824491104E-5)(3475360.0;8.014104824491104E-5)(3723600.0;0.0)(3971840.0;0.0)(4220080.0;0.0)(4468320.0;0.0)(4716560.0;8.014104824491104E-5)(4964800.0;8.014104824491104E-5)(5213040.0;8.014104824491104E-5)(5461280.0;1.6028209648982208E-4)(5709520.0;0.0)(5957760.0;8.014104824491104E-5)(6206000.0;8.014104824491104E-5)(6454240.0;1.6028209648982208E-4)(6702480.0;0.0)(6950720.0;8.014104824491104E-5)(7198960.0;0.0)(7447200.0;8.014104824491104E-5)(7695440.0;0.0)(7943680.0;8.014104824491104E-5)(8191920.0;0.0)(8440160.0;1.6028209648982208E-4)(8688400.0;8.014104824491104E-5)(8936640.0;0.0)(9184880.0;8.014104824491104E-5)(9433120.0;0.0)(9681360.0;8.014104824491104E-5)(9929600.0;8.014104824491104E-5)(1.017784E7;0.0)(1.042608E7;8.014104824491104E-5)(1.067432E7;8.014104824491104E-5)(1.092256E7;8.014104824491104E-5)(1.11708E7;8.014104824491104E-5)(1.141904E7;0.0)(1.166728E7;0.0)(1.191552E7;8.014104824491104E-5)(1.216376E7;0.0)(1.2412E7;0.0)(1.266024E7;0.0)(1.290848E7;0.0)(1.315672E7;0.0)(1.340496E7;0.0)(1.36532E7;0.0)(1.390144E7;0.0)(1.414968E7;0.0)(1.439792E7;0.0)(1.464616E7;0.0)(1.48944E7;0.0)(1.514264E7;0.0)(1.539088E7;8.014104824491104E-5)(1.563912E7;0.0)(1.588736E7;8.014104824491104E-5)(1.61356E7;0.0)(1.638384E7;8.014104824491104E-5)(1.663208E7;0.0)(1.688032E7;0.0)(1.712856E7;1.6028209648982208E-4)(1.73768E7;0.0)(1.762504E7;1.6028209648982208E-4)(1.787328E7;8.014104824491104E-5)(1.812152E7;0.0)(1.836976E7;0.0)(1.8618E7;0.0)(1.886624E7;8.014104824491104E-5)(1.911448E7;8.014104824491104E-5)(1.936272E7;0.0)(1.961096E7;8.014104824491104E-5)(1.98592E7;0.0)(2.010744E7;0.0)(2.035568E7;0.0)(2.060392E7;0.0)(2.085216E7;8.014104824491104E-5)(2.11004E7;0.0)(2.134864E7;0.0)(2.159688E7;0.0)(2.184512E7;0.0)(2.209336E7;0.0)(2.23416E7;0.0)(2.258984E7;0.0)(2.283808E7;0.0)(2.308632E7;0.0)(2.333456E7;0.0)(2.35828E7;0.0)(2.383104E7;0.0)(2.407928E7;0.0)(2.432752E7;8.014104824491104E-5)(2.457576E7;0.0)(2.4824E7;0.0)(2.507224E7;8.014104824491104E-5)]"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_CPlQYHD2EeSA4fySuX9I2Q" describedService__SEFF="_SzTwIHDwEeSqnN80MQ2uGw">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_CPl3cHD2EeSA4fySuX9I2Q" entityName="start" successor_AbstractAction="_rXLNULw4EeSAHuL4ItXOLQ"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_CPl3cXD2EeSA4fySuX9I2Q" entityName="stop" predecessor_AbstractAction="_PED2wL0ZEeSAHuL4ItXOLQ"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_rXLNULw4EeSAHuL4ItXOLQ" entityName="JNDI RMI overhead" predecessor_AbstractAction="_CPl3cHD2EeSA4fySuX9I2Q" successor_AbstractAction="_PED2wL0ZEeSAHuL4ItXOLQ">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="DoublePDF[(248240.0;0.0021638083026125983)(496480.0;0.8275364641769515)(744720.0;0.09104023080621894)(992960.0;0.047844205802211895)(1241200.0;0.021958647219105627)(1489440.0;0.0028850777368167975)(1737680.0;0.0016829620131431319)(1985920.0;7.212694342041994E-4)(2234160.0;3.2056419297964416E-4)(2482400.0;3.2056419297964416E-4)(2730640.0;2.4042314473473312E-4)(2978880.0;1.6028209648982208E-4)(3227120.0;8.014104824491104E-5)(3475360.0;8.014104824491104E-5)(3723600.0;0.0)(3971840.0;0.0)(4220080.0;0.0)(4468320.0;0.0)(4716560.0;8.014104824491104E-5)(4964800.0;8.014104824491104E-5)(5213040.0;8.014104824491104E-5)(5461280.0;1.6028209648982208E-4)(5709520.0;0.0)(5957760.0;8.014104824491104E-5)(6206000.0;8.014104824491104E-5)(6454240.0;1.6028209648982208E-4)(6702480.0;0.0)(6950720.0;8.014104824491104E-5)(7198960.0;0.0)(7447200.0;8.014104824491104E-5)(7695440.0;0.0)(7943680.0;8.014104824491104E-5)(8191920.0;0.0)(8440160.0;1.6028209648982208E-4)(8688400.0;8.014104824491104E-5)(8936640.0;0.0)(9184880.0;8.014104824491104E-5)(9433120.0;0.0)(9681360.0;8.014104824491104E-5)(9929600.0;8.014104824491104E-5)(1.017784E7;0.0)(1.042608E7;8.014104824491104E-5)(1.067432E7;8.014104824491104E-5)(1.092256E7;8.014104824491104E-5)(1.11708E7;8.014104824491104E-5)(1.141904E7;0.0)(1.166728E7;0.0)(1.191552E7;8.014104824491104E-5)(1.216376E7;0.0)(1.2412E7;0.0)(1.266024E7;0.0)(1.290848E7;0.0)(1.315672E7;0.0)(1.340496E7;0.0)(1.36532E7;0.0)(1.390144E7;0.0)(1.414968E7;0.0)(1.439792E7;0.0)(1.464616E7;0.0)(1.48944E7;0.0)(1.514264E7;0.0)(1.539088E7;8.014104824491104E-5)(1.563912E7;0.0)(1.588736E7;8.014104824491104E-5)(1.61356E7;0.0)(1.638384E7;8.014104824491104E-5)(1.663208E7;0.0)(1.688032E7;0.0)(1.712856E7;1.6028209648982208E-4)(1.73768E7;0.0)(1.762504E7;1.6028209648982208E-4)(1.787328E7;8.014104824491104E-5)(1.812152E7;0.0)(1.836976E7;0.0)(1.8618E7;0.0)(1.886624E7;8.014104824491104E-5)(1.911448E7;8.014104824491104E-5)(1.936272E7;0.0)(1.961096E7;8.014104824491104E-5)(1.98592E7;0.0)(2.010744E7;0.0)(2.035568E7;0.0)(2.060392E7;0.0)(2.085216E7;8.014104824491104E-5)(2.11004E7;0.0)(2.134864E7;0.0)(2.159688E7;0.0)(2.184512E7;0.0)(2.209336E7;0.0)(2.23416E7;0.0)(2.258984E7;0.0)(2.283808E7;0.0)(2.308632E7;0.0)(2.333456E7;0.0)(2.35828E7;0.0)(2.383104E7;0.0)(2.407928E7;0.0)(2.432752E7;8.014104824491104E-5)(2.457576E7;0.0)(2.4824E7;0.0)(2.507224E7;8.014104824491104E-5)]"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_PED2wL0ZEeSAHuL4ItXOLQ" predecessor_AbstractAction="_rXLNULw4EeSAHuL4ItXOLQ" successor_AbstractAction="_CPl3cXD2EeSA4fySuX9I2Q" calledService_ExternalService="_kEq_QL0YEeSAHuL4ItXOLQ" role_ExternalService="_5ZXgYLhAEeSNPorBlo7x9g"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_CPmegHD2EeSA4fySuX9I2Q" describedService__SEFF="_gMMc0HDwEeSqnN80MQ2uGw">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_CPnFkHD2EeSA4fySuX9I2Q" entityName="start" successor_AbstractAction="_vx0MoLw4EeSAHuL4ItXOLQ"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_CPnFkXD2EeSA4fySuX9I2Q" entityName="stop" predecessor_AbstractAction="_K8K0UL0ZEeSAHuL4ItXOLQ"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_vx0MoLw4EeSAHuL4ItXOLQ" entityName="JNDI RMI overhead" predecessor_AbstractAction="_CPnFkHD2EeSA4fySuX9I2Q" successor_AbstractAction="_K8K0UL0ZEeSAHuL4ItXOLQ">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="DoublePDF[(248240.0;0.0021638083026125983)(496480.0;0.8275364641769515)(744720.0;0.09104023080621894)(992960.0;0.047844205802211895)(1241200.0;0.021958647219105627)(1489440.0;0.0028850777368167975)(1737680.0;0.0016829620131431319)(1985920.0;7.212694342041994E-4)(2234160.0;3.2056419297964416E-4)(2482400.0;3.2056419297964416E-4)(2730640.0;2.4042314473473312E-4)(2978880.0;1.6028209648982208E-4)(3227120.0;8.014104824491104E-5)(3475360.0;8.014104824491104E-5)(3723600.0;0.0)(3971840.0;0.0)(4220080.0;0.0)(4468320.0;0.0)(4716560.0;8.014104824491104E-5)(4964800.0;8.014104824491104E-5)(5213040.0;8.014104824491104E-5)(5461280.0;1.6028209648982208E-4)(5709520.0;0.0)(5957760.0;8.014104824491104E-5)(6206000.0;8.014104824491104E-5)(6454240.0;1.6028209648982208E-4)(6702480.0;0.0)(6950720.0;8.014104824491104E-5)(7198960.0;0.0)(7447200.0;8.014104824491104E-5)(7695440.0;0.0)(7943680.0;8.014104824491104E-5)(8191920.0;0.0)(8440160.0;1.6028209648982208E-4)(8688400.0;8.014104824491104E-5)(8936640.0;0.0)(9184880.0;8.014104824491104E-5)(9433120.0;0.0)(9681360.0;8.014104824491104E-5)(9929600.0;8.014104824491104E-5)(1.017784E7;0.0)(1.042608E7;8.014104824491104E-5)(1.067432E7;8.014104824491104E-5)(1.092256E7;8.014104824491104E-5)(1.11708E7;8.014104824491104E-5)(1.141904E7;0.0)(1.166728E7;0.0)(1.191552E7;8.014104824491104E-5)(1.216376E7;0.0)(1.2412E7;0.0)(1.266024E7;0.0)(1.290848E7;0.0)(1.315672E7;0.0)(1.340496E7;0.0)(1.36532E7;0.0)(1.390144E7;0.0)(1.414968E7;0.0)(1.439792E7;0.0)(1.464616E7;0.0)(1.48944E7;0.0)(1.514264E7;0.0)(1.539088E7;8.014104824491104E-5)(1.563912E7;0.0)(1.588736E7;8.014104824491104E-5)(1.61356E7;0.0)(1.638384E7;8.014104824491104E-5)(1.663208E7;0.0)(1.688032E7;0.0)(1.712856E7;1.6028209648982208E-4)(1.73768E7;0.0)(1.762504E7;1.6028209648982208E-4)(1.787328E7;8.014104824491104E-5)(1.812152E7;0.0)(1.836976E7;0.0)(1.8618E7;0.0)(1.886624E7;8.014104824491104E-5)(1.911448E7;8.014104824491104E-5)(1.936272E7;0.0)(1.961096E7;8.014104824491104E-5)(1.98592E7;0.0)(2.010744E7;0.0)(2.035568E7;0.0)(2.060392E7;0.0)(2.085216E7;8.014104824491104E-5)(2.11004E7;0.0)(2.134864E7;0.0)(2.159688E7;0.0)(2.184512E7;0.0)(2.209336E7;0.0)(2.23416E7;0.0)(2.258984E7;0.0)(2.283808E7;0.0)(2.308632E7;0.0)(2.333456E7;0.0)(2.35828E7;0.0)(2.383104E7;0.0)(2.407928E7;0.0)(2.432752E7;8.014104824491104E-5)(2.457576E7;0.0)(2.4824E7;0.0)(2.507224E7;8.014104824491104E-5)]"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_K8K0UL0ZEeSAHuL4ItXOLQ" predecessor_AbstractAction="_vx0MoLw4EeSAHuL4ItXOLQ" successor_AbstractAction="_CPnFkXD2EeSA4fySuX9I2Q" calledService_ExternalService="_ktDN4L0YEeSAHuL4ItXOLQ" role_ExternalService="_5ZXgYLhAEeSNPorBlo7x9g"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_CPoTsHD2EeSA4fySuX9I2Q" describedService__SEFF="_gQd40HDwEeSqnN80MQ2uGw">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_CPoTsXD2EeSA4fySuX9I2Q" entityName="start" successor_AbstractAction="_oAMDYLw4EeSAHuL4ItXOLQ"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_CPo6wHD2EeSA4fySuX9I2Q" entityName="stop" predecessor_AbstractAction="_dCXscHQiEeSabL89DKH5bQ"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_dCXscHQiEeSabL89DKH5bQ" predecessor_AbstractAction="_oAMDYLw4EeSAHuL4ItXOLQ" successor_AbstractAction="_CPo6wHD2EeSA4fySuX9I2Q" calledService_ExternalService="_Q_yZgHDvEeSqnN80MQ2uGw" role_ExternalService="_JLDNsHD2EeSA4fySuX9I2Q">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="audioRequest.Count.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:NamespaceReference" referenceName="audioRequest">
+            <innerReference_NamespaceReference xsi:type="stoex:VariableReference" referenceName="Count"/>
+          </namedReference__VariableUsage>
+        </inputVariableUsages__CallAction>
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="audioRequest.Size.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:NamespaceReference" referenceName="audioRequest">
+            <innerReference_NamespaceReference xsi:type="stoex:VariableReference" referenceName="Size"/>
+          </namedReference__VariableUsage>
+        </inputVariableUsages__CallAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_oAMDYLw4EeSAHuL4ItXOLQ" entityName="JNDI RMI overhead" predecessor_AbstractAction="_CPoTsXD2EeSA4fySuX9I2Q" successor_AbstractAction="_dCXscHQiEeSabL89DKH5bQ">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="DoublePDF[(248240.0;0.0021638083026125983)(496480.0;0.8275364641769515)(744720.0;0.09104023080621894)(992960.0;0.047844205802211895)(1241200.0;0.021958647219105627)(1489440.0;0.0028850777368167975)(1737680.0;0.0016829620131431319)(1985920.0;7.212694342041994E-4)(2234160.0;3.2056419297964416E-4)(2482400.0;3.2056419297964416E-4)(2730640.0;2.4042314473473312E-4)(2978880.0;1.6028209648982208E-4)(3227120.0;8.014104824491104E-5)(3475360.0;8.014104824491104E-5)(3723600.0;0.0)(3971840.0;0.0)(4220080.0;0.0)(4468320.0;0.0)(4716560.0;8.014104824491104E-5)(4964800.0;8.014104824491104E-5)(5213040.0;8.014104824491104E-5)(5461280.0;1.6028209648982208E-4)(5709520.0;0.0)(5957760.0;8.014104824491104E-5)(6206000.0;8.014104824491104E-5)(6454240.0;1.6028209648982208E-4)(6702480.0;0.0)(6950720.0;8.014104824491104E-5)(7198960.0;0.0)(7447200.0;8.014104824491104E-5)(7695440.0;0.0)(7943680.0;8.014104824491104E-5)(8191920.0;0.0)(8440160.0;1.6028209648982208E-4)(8688400.0;8.014104824491104E-5)(8936640.0;0.0)(9184880.0;8.014104824491104E-5)(9433120.0;0.0)(9681360.0;8.014104824491104E-5)(9929600.0;8.014104824491104E-5)(1.017784E7;0.0)(1.042608E7;8.014104824491104E-5)(1.067432E7;8.014104824491104E-5)(1.092256E7;8.014104824491104E-5)(1.11708E7;8.014104824491104E-5)(1.141904E7;0.0)(1.166728E7;0.0)(1.191552E7;8.014104824491104E-5)(1.216376E7;0.0)(1.2412E7;0.0)(1.266024E7;0.0)(1.290848E7;0.0)(1.315672E7;0.0)(1.340496E7;0.0)(1.36532E7;0.0)(1.390144E7;0.0)(1.414968E7;0.0)(1.439792E7;0.0)(1.464616E7;0.0)(1.48944E7;0.0)(1.514264E7;0.0)(1.539088E7;8.014104824491104E-5)(1.563912E7;0.0)(1.588736E7;8.014104824491104E-5)(1.61356E7;0.0)(1.638384E7;8.014104824491104E-5)(1.663208E7;0.0)(1.688032E7;0.0)(1.712856E7;1.6028209648982208E-4)(1.73768E7;0.0)(1.762504E7;1.6028209648982208E-4)(1.787328E7;8.014104824491104E-5)(1.812152E7;0.0)(1.836976E7;0.0)(1.8618E7;0.0)(1.886624E7;8.014104824491104E-5)(1.911448E7;8.014104824491104E-5)(1.936272E7;0.0)(1.961096E7;8.014104824491104E-5)(1.98592E7;0.0)(2.010744E7;0.0)(2.035568E7;0.0)(2.060392E7;0.0)(2.085216E7;8.014104824491104E-5)(2.11004E7;0.0)(2.134864E7;0.0)(2.159688E7;0.0)(2.184512E7;0.0)(2.209336E7;0.0)(2.23416E7;0.0)(2.258984E7;0.0)(2.283808E7;0.0)(2.308632E7;0.0)(2.333456E7;0.0)(2.35828E7;0.0)(2.383104E7;0.0)(2.407928E7;0.0)(2.432752E7;8.014104824491104E-5)(2.457576E7;0.0)(2.4824E7;0.0)(2.507224E7;8.014104824491104E-5)]"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_9eK7YHDrEeSqnN80MQ2uGw" entityName="MediaAccess">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_z2B7cHD2EeSA4fySuX9I2Q" entityName="Provided_IMediaAccess_MediaAccess" providedInterface__OperationProvidedRole="_psfEIHDsEeSqnN80MQ2uGw"/>
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_4t0w0HD2EeSA4fySuX9I2Q" entityName="Provided_IDownload_MediaAccess" providedInterface__OperationProvidedRole="_4QwQwHDqEeSqnN80MQ2uGw"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_Ep1TkLg3EeSNPorBlo7x9g" entityName="Required_IDB_MediaAccess" requiredInterface__OperationRequiredRole="_68uVELg2EeSNPorBlo7x9g"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_vU0HsLg_EeSNPorBlo7x9g" entityName="Required_IDataStorage_MediaAccess" requiredInterface__OperationRequiredRole="_jf7hMLg7EeSNPorBlo7x9g"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_z2DwoHD2EeSA4fySuX9I2Q" describedService__SEFF="_xHigcHDsEeSqnN80MQ2uGw">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_z2EXsHD2EeSA4fySuX9I2Q" entityName="start" successor_AbstractAction="_P8vJAL0KEeSAHuL4ItXOLQ"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_z2EXsXD2EeSA4fySuX9I2Q" entityName="stop" predecessor_AbstractAction="_SxR3wL0LEeSAHuL4ItXOLQ"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_P8vJAL0KEeSAHuL4ItXOLQ" entityName="JNDI RMI overhead and query building" predecessor_AbstractAction="_z2EXsHD2EeSA4fySuX9I2Q" successor_AbstractAction="_QOBtUL0KEeSAHuL4ItXOLQ">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="DoublePDF[(248240.0;0.0021638083026125983)(496480.0;0.8275364641769515)(744720.0;0.09104023080621894)(992960.0;0.047844205802211895)(1241200.0;0.021958647219105627)(1489440.0;0.0028850777368167975)(1737680.0;0.0016829620131431319)(1985920.0;7.212694342041994E-4)(2234160.0;3.2056419297964416E-4)(2482400.0;3.2056419297964416E-4)(2730640.0;2.4042314473473312E-4)(2978880.0;1.6028209648982208E-4)(3227120.0;8.014104824491104E-5)(3475360.0;8.014104824491104E-5)(3723600.0;0.0)(3971840.0;0.0)(4220080.0;0.0)(4468320.0;0.0)(4716560.0;8.014104824491104E-5)(4964800.0;8.014104824491104E-5)(5213040.0;8.014104824491104E-5)(5461280.0;1.6028209648982208E-4)(5709520.0;0.0)(5957760.0;8.014104824491104E-5)(6206000.0;8.014104824491104E-5)(6454240.0;1.6028209648982208E-4)(6702480.0;0.0)(6950720.0;8.014104824491104E-5)(7198960.0;0.0)(7447200.0;8.014104824491104E-5)(7695440.0;0.0)(7943680.0;8.014104824491104E-5)(8191920.0;0.0)(8440160.0;1.6028209648982208E-4)(8688400.0;8.014104824491104E-5)(8936640.0;0.0)(9184880.0;8.014104824491104E-5)(9433120.0;0.0)(9681360.0;8.014104824491104E-5)(9929600.0;8.014104824491104E-5)(1.017784E7;0.0)(1.042608E7;8.014104824491104E-5)(1.067432E7;8.014104824491104E-5)(1.092256E7;8.014104824491104E-5)(1.11708E7;8.014104824491104E-5)(1.141904E7;0.0)(1.166728E7;0.0)(1.191552E7;8.014104824491104E-5)(1.216376E7;0.0)(1.2412E7;0.0)(1.266024E7;0.0)(1.290848E7;0.0)(1.315672E7;0.0)(1.340496E7;0.0)(1.36532E7;0.0)(1.390144E7;0.0)(1.414968E7;0.0)(1.439792E7;0.0)(1.464616E7;0.0)(1.48944E7;0.0)(1.514264E7;0.0)(1.539088E7;8.014104824491104E-5)(1.563912E7;0.0)(1.588736E7;8.014104824491104E-5)(1.61356E7;0.0)(1.638384E7;8.014104824491104E-5)(1.663208E7;0.0)(1.688032E7;0.0)(1.712856E7;1.6028209648982208E-4)(1.73768E7;0.0)(1.762504E7;1.6028209648982208E-4)(1.787328E7;8.014104824491104E-5)(1.812152E7;0.0)(1.836976E7;0.0)(1.8618E7;0.0)(1.886624E7;8.014104824491104E-5)(1.911448E7;8.014104824491104E-5)(1.936272E7;0.0)(1.961096E7;8.014104824491104E-5)(1.98592E7;0.0)(2.010744E7;0.0)(2.035568E7;0.0)(2.060392E7;0.0)(2.085216E7;8.014104824491104E-5)(2.11004E7;0.0)(2.134864E7;0.0)(2.159688E7;0.0)(2.184512E7;0.0)(2.209336E7;0.0)(2.23416E7;0.0)(2.258984E7;0.0)(2.283808E7;0.0)(2.308632E7;0.0)(2.333456E7;0.0)(2.35828E7;0.0)(2.383104E7;0.0)(2.407928E7;0.0)(2.432752E7;8.014104824491104E-5)(2.457576E7;0.0)(2.4824E7;0.0)(2.507224E7;8.014104824491104E-5)]"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+        <internalFailureOccurrenceDescriptions__InternalAction failureProbability="1.0E-5" softwareInducedFailureType__InternalFailureOccurrenceDescription="_R-DpyUg-EeGGjNgy6wh7Uw"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_QOBtUL0KEeSAHuL4ItXOLQ" predecessor_AbstractAction="_P8vJAL0KEeSAHuL4ItXOLQ" successor_AbstractAction="_SxR3wL0LEeSAHuL4ItXOLQ" calledService_ExternalService="_72wUYLg2EeSNPorBlo7x9g" role_ExternalService="_Ep1TkLg3EeSNPorBlo7x9g"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_SxR3wL0LEeSAHuL4ItXOLQ" predecessor_AbstractAction="_QOBtUL0KEeSAHuL4ItXOLQ" successor_AbstractAction="_z2EXsXD2EeSA4fySuX9I2Q" calledService_ExternalService="_ZlS-sL0KEeSAHuL4ItXOLQ" role_ExternalService="_vU0HsLg_EeSNPorBlo7x9g">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage type="BYTESIZE">
+            <specification_VariableCharacterisation specification="file.BYTESIZE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="file"/>
+        </inputVariableUsages__CallAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_z2Fl0HD2EeSA4fySuX9I2Q" describedService__SEFF="_z17ZUHDsEeSqnN80MQ2uGw">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_z2GM4HD2EeSA4fySuX9I2Q" entityName="start" successor_AbstractAction="_e0GLsHmnEeSGtbTG2d9Ipg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_z2Gz8HD2EeSA4fySuX9I2Q" entityName="stop" predecessor_AbstractAction="_6k_BoL5kEeSjpppo_XMujw"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_e0GLsHmnEeSGtbTG2d9Ipg" entityName="JNDI RMI overhead and query building" predecessor_AbstractAction="_z2GM4HD2EeSA4fySuX9I2Q" successor_AbstractAction="_6k_BoL5kEeSjpppo_XMujw">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="DoublePDF[(248240.0;0.0021638083026125983)(496480.0;0.8275364641769515)(744720.0;0.09104023080621894)(992960.0;0.047844205802211895)(1241200.0;0.021958647219105627)(1489440.0;0.0028850777368167975)(1737680.0;0.0016829620131431319)(1985920.0;7.212694342041994E-4)(2234160.0;3.2056419297964416E-4)(2482400.0;3.2056419297964416E-4)(2730640.0;2.4042314473473312E-4)(2978880.0;1.6028209648982208E-4)(3227120.0;8.014104824491104E-5)(3475360.0;8.014104824491104E-5)(3723600.0;0.0)(3971840.0;0.0)(4220080.0;0.0)(4468320.0;0.0)(4716560.0;8.014104824491104E-5)(4964800.0;8.014104824491104E-5)(5213040.0;8.014104824491104E-5)(5461280.0;1.6028209648982208E-4)(5709520.0;0.0)(5957760.0;8.014104824491104E-5)(6206000.0;8.014104824491104E-5)(6454240.0;1.6028209648982208E-4)(6702480.0;0.0)(6950720.0;8.014104824491104E-5)(7198960.0;0.0)(7447200.0;8.014104824491104E-5)(7695440.0;0.0)(7943680.0;8.014104824491104E-5)(8191920.0;0.0)(8440160.0;1.6028209648982208E-4)(8688400.0;8.014104824491104E-5)(8936640.0;0.0)(9184880.0;8.014104824491104E-5)(9433120.0;0.0)(9681360.0;8.014104824491104E-5)(9929600.0;8.014104824491104E-5)(1.017784E7;0.0)(1.042608E7;8.014104824491104E-5)(1.067432E7;8.014104824491104E-5)(1.092256E7;8.014104824491104E-5)(1.11708E7;8.014104824491104E-5)(1.141904E7;0.0)(1.166728E7;0.0)(1.191552E7;8.014104824491104E-5)(1.216376E7;0.0)(1.2412E7;0.0)(1.266024E7;0.0)(1.290848E7;0.0)(1.315672E7;0.0)(1.340496E7;0.0)(1.36532E7;0.0)(1.390144E7;0.0)(1.414968E7;0.0)(1.439792E7;0.0)(1.464616E7;0.0)(1.48944E7;0.0)(1.514264E7;0.0)(1.539088E7;8.014104824491104E-5)(1.563912E7;0.0)(1.588736E7;8.014104824491104E-5)(1.61356E7;0.0)(1.638384E7;8.014104824491104E-5)(1.663208E7;0.0)(1.688032E7;0.0)(1.712856E7;1.6028209648982208E-4)(1.73768E7;0.0)(1.762504E7;1.6028209648982208E-4)(1.787328E7;8.014104824491104E-5)(1.812152E7;0.0)(1.836976E7;0.0)(1.8618E7;0.0)(1.886624E7;8.014104824491104E-5)(1.911448E7;8.014104824491104E-5)(1.936272E7;0.0)(1.961096E7;8.014104824491104E-5)(1.98592E7;0.0)(2.010744E7;0.0)(2.035568E7;0.0)(2.060392E7;0.0)(2.085216E7;8.014104824491104E-5)(2.11004E7;0.0)(2.134864E7;0.0)(2.159688E7;0.0)(2.184512E7;0.0)(2.209336E7;0.0)(2.23416E7;0.0)(2.258984E7;0.0)(2.283808E7;0.0)(2.308632E7;0.0)(2.333456E7;0.0)(2.35828E7;0.0)(2.383104E7;0.0)(2.407928E7;0.0)(2.432752E7;8.014104824491104E-5)(2.457576E7;0.0)(2.4824E7;0.0)(2.507224E7;8.014104824491104E-5)]"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+        <internalFailureOccurrenceDescriptions__InternalAction failureProbability="1.0E-5" softwareInducedFailureType__InternalFailureOccurrenceDescription="_R-DpyUg-EeGGjNgy6wh7Uw"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_6k_BoL5kEeSjpppo_XMujw" predecessor_AbstractAction="_e0GLsHmnEeSGtbTG2d9Ipg" successor_AbstractAction="_z2Gz8HD2EeSA4fySuX9I2Q" calledService_ExternalService="_YeL7cL5kEeSjpppo_XMujw" role_ExternalService="_Ep1TkLg3EeSNPorBlo7x9g"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_4t2mAHD2EeSA4fySuX9I2Q" describedService__SEFF="_-LhmEHDqEeSqnN80MQ2uGw">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_4t2mAXD2EeSA4fySuX9I2Q" entityName="start" successor_AbstractAction="_nEHogHmkEeSGtbTG2d9Ipg"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_4t3NEHD2EeSA4fySuX9I2Q" entityName="stop" predecessor_AbstractAction="_Nb34UL0WEeSAHuL4ItXOLQ"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_nEHogHmkEeSGtbTG2d9Ipg" entityName="JNDI RMI overhead" predecessor_AbstractAction="_4t2mAXD2EeSA4fySuX9I2Q" successor_AbstractAction="_y6vREL0XEeSAHuL4ItXOLQ">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="DoublePDF[(248240.0;0.0021638083026125983)(496480.0;0.8275364641769515)(744720.0;0.09104023080621894)(992960.0;0.047844205802211895)(1241200.0;0.021958647219105627)(1489440.0;0.0028850777368167975)(1737680.0;0.0016829620131431319)(1985920.0;7.212694342041994E-4)(2234160.0;3.2056419297964416E-4)(2482400.0;3.2056419297964416E-4)(2730640.0;2.4042314473473312E-4)(2978880.0;1.6028209648982208E-4)(3227120.0;8.014104824491104E-5)(3475360.0;8.014104824491104E-5)(3723600.0;0.0)(3971840.0;0.0)(4220080.0;0.0)(4468320.0;0.0)(4716560.0;8.014104824491104E-5)(4964800.0;8.014104824491104E-5)(5213040.0;8.014104824491104E-5)(5461280.0;1.6028209648982208E-4)(5709520.0;0.0)(5957760.0;8.014104824491104E-5)(6206000.0;8.014104824491104E-5)(6454240.0;1.6028209648982208E-4)(6702480.0;0.0)(6950720.0;8.014104824491104E-5)(7198960.0;0.0)(7447200.0;8.014104824491104E-5)(7695440.0;0.0)(7943680.0;8.014104824491104E-5)(8191920.0;0.0)(8440160.0;1.6028209648982208E-4)(8688400.0;8.014104824491104E-5)(8936640.0;0.0)(9184880.0;8.014104824491104E-5)(9433120.0;0.0)(9681360.0;8.014104824491104E-5)(9929600.0;8.014104824491104E-5)(1.017784E7;0.0)(1.042608E7;8.014104824491104E-5)(1.067432E7;8.014104824491104E-5)(1.092256E7;8.014104824491104E-5)(1.11708E7;8.014104824491104E-5)(1.141904E7;0.0)(1.166728E7;0.0)(1.191552E7;8.014104824491104E-5)(1.216376E7;0.0)(1.2412E7;0.0)(1.266024E7;0.0)(1.290848E7;0.0)(1.315672E7;0.0)(1.340496E7;0.0)(1.36532E7;0.0)(1.390144E7;0.0)(1.414968E7;0.0)(1.439792E7;0.0)(1.464616E7;0.0)(1.48944E7;0.0)(1.514264E7;0.0)(1.539088E7;8.014104824491104E-5)(1.563912E7;0.0)(1.588736E7;8.014104824491104E-5)(1.61356E7;0.0)(1.638384E7;8.014104824491104E-5)(1.663208E7;0.0)(1.688032E7;0.0)(1.712856E7;1.6028209648982208E-4)(1.73768E7;0.0)(1.762504E7;1.6028209648982208E-4)(1.787328E7;8.014104824491104E-5)(1.812152E7;0.0)(1.836976E7;0.0)(1.8618E7;0.0)(1.886624E7;8.014104824491104E-5)(1.911448E7;8.014104824491104E-5)(1.936272E7;0.0)(1.961096E7;8.014104824491104E-5)(1.98592E7;0.0)(2.010744E7;0.0)(2.035568E7;0.0)(2.060392E7;0.0)(2.085216E7;8.014104824491104E-5)(2.11004E7;0.0)(2.134864E7;0.0)(2.159688E7;0.0)(2.184512E7;0.0)(2.209336E7;0.0)(2.23416E7;0.0)(2.258984E7;0.0)(2.283808E7;0.0)(2.308632E7;0.0)(2.333456E7;0.0)(2.35828E7;0.0)(2.383104E7;0.0)(2.407928E7;0.0)(2.432752E7;8.014104824491104E-5)(2.457576E7;0.0)(2.4824E7;0.0)(2.507224E7;8.014104824491104E-5)]"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+        <internalFailureOccurrenceDescriptions__InternalAction failureProbability="1.0E-5" softwareInducedFailureType__InternalFailureOccurrenceDescription="_R-DpyUg-EeGGjNgy6wh7Uw"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_LAT00L0WEeSAHuL4ItXOLQ" predecessor_AbstractAction="_y6vREL0XEeSAHuL4ItXOLQ" successor_AbstractAction="_Nb34UL0WEeSAHuL4ItXOLQ" calledService_ExternalService="_lLuUoLg7EeSNPorBlo7x9g" role_ExternalService="_vU0HsLg_EeSNPorBlo7x9g">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="audioRequest.Count.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:NamespaceReference" referenceName="audioRequest">
+            <innerReference_NamespaceReference xsi:type="stoex:VariableReference" referenceName="Count"/>
+          </namedReference__VariableUsage>
+        </inputVariableUsages__CallAction>
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="audioRequest.Size.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:NamespaceReference" referenceName="audioRequest">
+            <innerReference_NamespaceReference xsi:type="stoex:VariableReference" referenceName="Size"/>
+          </namedReference__VariableUsage>
+        </inputVariableUsages__CallAction>
+        <returnVariableUsage__CallReturnAction>
+          <variableCharacterisation_VariableUsage type="BYTESIZE">
+            <specification_VariableCharacterisation specification="RETURN.BYTESIZE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="temp"/>
+        </returnVariableUsage__CallReturnAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_Nb34UL0WEeSAHuL4ItXOLQ" predecessor_AbstractAction="_LAT00L0WEeSAHuL4ItXOLQ" successor_AbstractAction="_4t3NEHD2EeSA4fySuX9I2Q">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage type="BYTESIZE">
+            <specification_VariableCharacterisation specification="temp.BYTESIZE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_y6vREL0XEeSAHuL4ItXOLQ" predecessor_AbstractAction="_nEHogHmkEeSGtbTG2d9Ipg" successor_AbstractAction="_LAT00L0WEeSAHuL4ItXOLQ" calledService_ExternalService="_72wUYLg2EeSNPorBlo7x9g" role_ExternalService="_Ep1TkLg3EeSNPorBlo7x9g"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_B5geQHDsEeSqnN80MQ2uGw" entityName="Packaging">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_MtSiMHDyEeSqnN80MQ2uGw" entityName="Provided_IPackaging_Packaging" providedInterface__OperationProvidedRole="_s3KlgHDuEeSqnN80MQ2uGw"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_MtVlgHDyEeSqnN80MQ2uGw" describedService__SEFF="_ydHhYHDuEeSqnN80MQ2uGw">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_MtWMkHDyEeSqnN80MQ2uGw" entityName="start" successor_AbstractAction="_EimJILzXEeSAHuL4ItXOLQ"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_MtWMkXDyEeSqnN80MQ2uGw" entityName="stop" predecessor_AbstractAction="_OC0O0HQgEeSabL89DKH5bQ"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_OC0O0HQgEeSabL89DKH5bQ" entityName="Zipping" predecessor_AbstractAction="_EimJILzXEeSAHuL4ItXOLQ" successor_AbstractAction="_MtWMkXDyEeSqnN80MQ2uGw">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="1.0512*audios.BYTESIZE+ 400000000"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_EimJILzXEeSAHuL4ItXOLQ" entityName="JNDI RMI overhead" predecessor_AbstractAction="_MtWMkHDyEeSqnN80MQ2uGw" successor_AbstractAction="_OC0O0HQgEeSabL89DKH5bQ">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="DoublePDF[(248240.0;0.0021638083026125983)(496480.0;0.8275364641769515)(744720.0;0.09104023080621894)(992960.0;0.047844205802211895)(1241200.0;0.021958647219105627)(1489440.0;0.0028850777368167975)(1737680.0;0.0016829620131431319)(1985920.0;7.212694342041994E-4)(2234160.0;3.2056419297964416E-4)(2482400.0;3.2056419297964416E-4)(2730640.0;2.4042314473473312E-4)(2978880.0;1.6028209648982208E-4)(3227120.0;8.014104824491104E-5)(3475360.0;8.014104824491104E-5)(3723600.0;0.0)(3971840.0;0.0)(4220080.0;0.0)(4468320.0;0.0)(4716560.0;8.014104824491104E-5)(4964800.0;8.014104824491104E-5)(5213040.0;8.014104824491104E-5)(5461280.0;1.6028209648982208E-4)(5709520.0;0.0)(5957760.0;8.014104824491104E-5)(6206000.0;8.014104824491104E-5)(6454240.0;1.6028209648982208E-4)(6702480.0;0.0)(6950720.0;8.014104824491104E-5)(7198960.0;0.0)(7447200.0;8.014104824491104E-5)(7695440.0;0.0)(7943680.0;8.014104824491104E-5)(8191920.0;0.0)(8440160.0;1.6028209648982208E-4)(8688400.0;8.014104824491104E-5)(8936640.0;0.0)(9184880.0;8.014104824491104E-5)(9433120.0;0.0)(9681360.0;8.014104824491104E-5)(9929600.0;8.014104824491104E-5)(1.017784E7;0.0)(1.042608E7;8.014104824491104E-5)(1.067432E7;8.014104824491104E-5)(1.092256E7;8.014104824491104E-5)(1.11708E7;8.014104824491104E-5)(1.141904E7;0.0)(1.166728E7;0.0)(1.191552E7;8.014104824491104E-5)(1.216376E7;0.0)(1.2412E7;0.0)(1.266024E7;0.0)(1.290848E7;0.0)(1.315672E7;0.0)(1.340496E7;0.0)(1.36532E7;0.0)(1.390144E7;0.0)(1.414968E7;0.0)(1.439792E7;0.0)(1.464616E7;0.0)(1.48944E7;0.0)(1.514264E7;0.0)(1.539088E7;8.014104824491104E-5)(1.563912E7;0.0)(1.588736E7;8.014104824491104E-5)(1.61356E7;0.0)(1.638384E7;8.014104824491104E-5)(1.663208E7;0.0)(1.688032E7;0.0)(1.712856E7;1.6028209648982208E-4)(1.73768E7;0.0)(1.762504E7;1.6028209648982208E-4)(1.787328E7;8.014104824491104E-5)(1.812152E7;0.0)(1.836976E7;0.0)(1.8618E7;0.0)(1.886624E7;8.014104824491104E-5)(1.911448E7;8.014104824491104E-5)(1.936272E7;0.0)(1.961096E7;8.014104824491104E-5)(1.98592E7;0.0)(2.010744E7;0.0)(2.035568E7;0.0)(2.060392E7;0.0)(2.085216E7;8.014104824491104E-5)(2.11004E7;0.0)(2.134864E7;0.0)(2.159688E7;0.0)(2.184512E7;0.0)(2.209336E7;0.0)(2.23416E7;0.0)(2.258984E7;0.0)(2.283808E7;0.0)(2.308632E7;0.0)(2.333456E7;0.0)(2.35828E7;0.0)(2.383104E7;0.0)(2.407928E7;0.0)(2.432752E7;8.014104824491104E-5)(2.457576E7;0.0)(2.4824E7;0.0)(2.507224E7;8.014104824491104E-5)]"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+        <internalFailureOccurrenceDescriptions__InternalAction failureProbability="1.0E-5" softwareInducedFailureType__InternalFailureOccurrenceDescription="_R-DpyUg-EeGGjNgy6wh7Uw"/>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_5LN7MLg2EeSNPorBlo7x9g" entityName="DB">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_A02mELg3EeSNPorBlo7x9g" entityName="Provided_IDB_DB" providedInterface__OperationProvidedRole="_68uVELg2EeSNPorBlo7x9g"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_A1AXELg3EeSNPorBlo7x9g" describedService__SEFF="_72wUYLg2EeSNPorBlo7x9g">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_A1AXEbg3EeSNPorBlo7x9g" entityName="start" successor_AbstractAction="_IXsFYLg3EeSNPorBlo7x9g"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_A1AXErg3EeSNPorBlo7x9g" entityName="stop" predecessor_AbstractAction="_IXsFYLg3EeSNPorBlo7x9g"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_IXsFYLg3EeSNPorBlo7x9g" entityName="queryDB" predecessor_AbstractAction="_A1AXEbg3EeSNPorBlo7x9g" successor_AbstractAction="_A1AXErg3EeSNPorBlo7x9g">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="399355.7771&#xD;&#xA;"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+        <internalFailureOccurrenceDescriptions__InternalAction failureProbability="5.0E-6" softwareInducedFailureType__InternalFailureOccurrenceDescription="_R-DpyUg-EeGGjNgy6wh7Uw"/>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_Z4GUsL5kEeSjpppo_XMujw" describedService__SEFF="_YeL7cL5kEeSjpppo_XMujw">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_aKaMsL5kEeSjpppo_XMujw" entityName="start" successor_AbstractAction="_bUokIL5kEeSjpppo_XMujw"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_aKaMsb5kEeSjpppo_XMujw" entityName="stop" predecessor_AbstractAction="_bUokIL5kEeSjpppo_XMujw"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_bUokIL5kEeSjpppo_XMujw" entityName="get file list" predecessor_AbstractAction="_aKaMsL5kEeSjpppo_XMujw" successor_AbstractAction="_aKaMsb5kEeSjpppo_XMujw">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="DoublePDF[(1096641.0;0.0)(1148862.0;0.0014344115326687227)(1201083.0;0.16667862009610557)(1253304.0;0.34418704726386)(1305525.0;0.35774223624757945)(1357746.0;0.08441511869755433)(1409967.0;0.014989600516388151)(1462188.0;0.009610557268880441)(1514409.0;0.004159793444739296)(1566630.0;0.00222333787563652)(1618851.0;0.002079896722369648)(1671072.0;0.0015061321093021588)(1723293.0;7.889263429677975E-4)(1775514.0;4.303234598006168E-4)(1827735.0;7.889263429677975E-4)(1879956.0;5.737646130674891E-4)(1932177.0;7.889263429677975E-4)(1984398.0;3.586028831671807E-4)(2036619.0;3.586028831671807E-4)(2088840.0;3.586028831671807E-4)(2141061.0;1.4344115326687227E-4)(2193282.0;2.151617299003084E-4)(2245503.0;2.151617299003084E-4)(2297724.0;0.0)(2349945.0;1.4344115326687227E-4)(2402166.0;2.151617299003084E-4)(2454387.0;1.4344115326687227E-4)(2506608.0;5.020440364340529E-4)(2558829.0;2.8688230653374454E-4)(2611050.0;5.737646130674891E-4)(2663271.0;2.151617299003084E-4)(2715492.0;0.0)(2767713.0;2.151617299003084E-4)(2819934.0;7.172057663343613E-5)(2872155.0;7.172057663343613E-5)(2924376.0;1.4344115326687227E-4)(2976597.0;0.0)(3028818.0;0.0)(3081039.0;7.172057663343613E-5)(3133260.0;0.0)(3185481.0;0.0)(3237702.0;1.4344115326687227E-4)(3289923.0;7.172057663343613E-5)(3342144.0;7.172057663343613E-5)(3394365.0;0.0)(3446586.0;0.0)(3498807.0;7.172057663343613E-5)(3551028.0;0.0)(3603249.0;0.0)(3655470.0;7.172057663343613E-5)(3707691.0;0.0)(3759912.0;7.172057663343613E-5)(3812133.0;7.172057663343613E-5)(3864354.0;0.0)(3916575.0;0.0)(3968796.0;0.0)(4021017.0;0.0)(4073238.0;0.0)(4125459.0;0.0)(4177680.0;0.0)(4229901.0;0.0)(4282122.0;0.0)(4334343.0;0.0)(4386564.0;0.0)(4438785.0;0.0)(4491006.0;0.0)(4543227.0;0.0)(4595448.0;0.0)(4647669.0;0.0)(4699890.0;0.0)(4752111.0;0.0)(4804332.0;0.0)(4856553.0;0.0)(4908774.0;0.0)(4960995.0;0.0)(5013216.0;0.0)(5065437.0;0.0)(5117658.0;0.0)(5169879.0;0.0)(5222100.0;0.0)(5274321.0;0.0)(5326542.0;0.0)(5378763.0;7.172057663343613E-5)(5430984.0;0.0)(5483205.0;0.0)(5535426.0;0.0)(5587647.0;0.0)(5639868.0;0.0)(5692089.0;0.0)(5744310.0;0.0)(5796531.0;0.0)(5848752.0;0.0)(5900973.0;0.0)(5953194.0;0.0)(6005415.0;0.0)(6057636.0;0.0)(6109857.0;0.0)(6162078.0;0.0)(6214299.0;0.0)(6266520.0;0.0)(6318741.0;0.0)(6370962.0;0.0)(6423183.0;0.0)(6475404.0;0.0)(6527625.0;0.0)(6579846.0;0.0)(6632067.0;0.0)(6684288.0;0.0)(6736509.0;0.0)(6788730.0;0.0)(6840951.0;0.0)(6893172.0;0.0)(6945393.0;0.0)(6997614.0;0.0)(7049835.0;0.0)(7102056.0;0.0)(7154277.0;0.0)(7206498.0;0.0)(7258719.0;0.0)(7310940.0;0.0)(7363161.0;0.0)(7415382.0;0.0)(7467603.0;0.0)(7519824.0;0.0)(7572045.0;0.0)(7624266.0;0.0)(7676487.0;0.0)(7728708.0;0.0)(7780929.0;0.0)(7833150.0;0.0)(7885371.0;0.0)(7937592.0;0.0)(7989813.0;0.0)(8042034.0;0.0)(8094255.0;0.0)(8146476.0;0.0)(8198697.0;0.0)(8250918.0;0.0)(8303139.0;0.0)(8355360.0;0.0)(8407581.0;0.0)(8459802.0;0.0)(8512023.0;0.0)(8564244.0;0.0)(8616465.0;0.0)(8668686.0;0.0)(8720907.0;0.0)(8773128.0;0.0)(8825349.0;0.0)(8877570.0;0.0)(8929791.0;0.0)(8982012.0;0.0)(9034233.0;0.0)(9086454.0;0.0)(9138675.0;0.0)(9190896.0;0.0)(9243117.0;0.0)(9295338.0;0.0)(9347559.0;0.0)(9399780.0;0.0)(9452001.0;0.0)(9504222.0;0.0)(9556443.0;0.0)(9608664.0;0.0)(9660885.0;0.0)(9713106.0;0.0)(9765327.0;0.0)(9817548.0;0.0)(9869769.0;0.0)(9921990.0;0.0)(9974211.0;0.0)(1.0026432E7;0.0)(1.0078653E7;0.0)(1.0130874E7;0.0)(1.0183095E7;0.0)(1.0235316E7;0.0)(1.0287537E7;0.0)(1.0339758E7;0.0)(1.0391979E7;0.0)(1.04442E7;0.0)(1.0496421E7;0.0)(1.0548642E7;0.0)(1.0600863E7;0.0)(1.0653084E7;0.0)(1.0705305E7;0.0)(1.0757526E7;0.0)(1.0809747E7;0.0)(1.0861968E7;0.0)(1.0914189E7;0.0)(1.096641E7;0.0)(1.1018631E7;0.0)(1.1070852E7;0.0)(1.1123073E7;0.0)(1.1175294E7;0.0)(1.1227515E7;0.0)(1.1279736E7;0.0)(1.1331957E7;0.0)(1.1384178E7;0.0)(1.1436399E7;0.0)(1.148862E7;0.0)(1.1540841E7;0.0)(1.1593062E7;0.0)(1.1645283E7;0.0)(1.1697504E7;0.0)(1.1749725E7;0.0)(1.1801946E7;0.0)(1.1854167E7;0.0)(1.1906388E7;0.0)(1.1958609E7;0.0)(1.201083E7;0.0)(1.2063051E7;0.0)(1.2115272E7;0.0)(1.2167493E7;0.0)(1.2219714E7;0.0)(1.2271935E7;0.0)(1.2324156E7;0.0)(1.2376377E7;0.0)(1.2428598E7;0.0)(1.2480819E7;0.0)(1.253304E7;0.0)(1.2585261E7;0.0)(1.2637482E7;0.0)(1.2689703E7;0.0)(1.2741924E7;0.0)(1.2794145E7;0.0)(1.2846366E7;0.0)(1.2898587E7;0.0)(1.2950808E7;0.0)(1.3003029E7;0.0)(1.305525E7;0.0)(1.3107471E7;0.0)(1.3159692E7;0.0)(1.3211913E7;0.0)(1.3264134E7;0.0)(1.3316355E7;0.0)(1.3368576E7;0.0)(1.3420797E7;0.0)(1.3473018E7;0.0)(1.3525239E7;0.0)(1.357746E7;0.0)(1.3629681E7;0.0)(1.3681902E7;0.0)(1.3734123E7;0.0)(1.3786344E7;0.0)(1.3838565E7;0.0)(1.3890786E7;0.0)(1.3943007E7;0.0)(1.3995228E7;0.0)(1.4047449E7;0.0)(1.409967E7;0.0)(1.4151891E7;0.0)(1.4204112E7;0.0)(1.4256333E7;0.0)(1.4308554E7;0.0)(1.4360775E7;0.0)(1.4412996E7;0.0)(1.4465217E7;0.0)(1.4517438E7;0.0)(1.4569659E7;0.0)(1.462188E7;0.0)(1.4674101E7;0.0)(1.4726322E7;0.0)(1.4778543E7;0.0)(1.4830764E7;0.0)(1.4882985E7;0.0)(1.4935206E7;0.0)(1.4987427E7;0.0)(1.5039648E7;0.0)(1.5091869E7;0.0)(1.514409E7;0.0)(1.5196311E7;0.0)(1.5248532E7;0.0)(1.5300753E7;0.0)(1.5352974E7;0.0)(1.5405195E7;0.0)(1.5457416E7;0.0)(1.5509637E7;0.0)(1.5561858E7;7.172057663343613E-5)(1.5614079E7;0.0)(1.56663E7;0.0)(1.5718521E7;0.0)(1.5770742E7;0.0)(1.5822963E7;0.0)(1.5875184E7;0.0)(1.5927405E7;0.0)(1.5979626E7;0.0)(1.6031847E7;0.0)(1.6084068E7;0.0)(1.6136289E7;0.0)(1.618851E7;0.0)(1.6240731E7;0.0)(1.6292952E7;0.0)(1.6345173E7;0.0)(1.6397394E7;0.0)(1.6449615E7;0.0)(1.6501836E7;0.0)(1.6554057E7;0.0)(1.6606278E7;0.0)(1.6658499E7;0.0)(1.671072E7;0.0)(1.6762941E7;0.0)(1.6815162E7;0.0)(1.6867383E7;0.0)(1.6919604E7;0.0)(1.6971825E7;0.0)(1.7024046E7;0.0)(1.7076267E7;0.0)(1.7128488E7;0.0)(1.7180709E7;0.0)(1.723293E7;0.0)(1.7285151E7;7.172057663343613E-5)(1.7337372E7;0.0)(1.7389593E7;0.0)(1.7441814E7;0.0)(1.7494035E7;7.172057663343613E-5)(1.7546256E7;7.172057663343613E-5)(1.7598477E7;7.172057663343613E-5)(1.7650698E7;0.0)(1.7702919E7;7.172057663343613E-5)(1.775514E7;0.0)(1.7807361E7;0.0)(1.7859582E7;7.172057663343613E-5)(1.7911803E7;7.172057663343613E-5)(1.7964024E7;7.172057663343613E-5)(1.8016245E7;1.4344115326687227E-4)(1.8068466E7;7.172057663343613E-5)(1.8120687E7;7.172057663343613E-5)(1.8172908E7;7.172057663343613E-5)(1.8225129E7;0.0)(1.827735E7;0.0)(1.8329571E7;7.172057663343613E-5)(1.8381792E7;7.172057663343613E-5)(1.8434013E7;7.172057663343613E-5)(1.8486234E7;7.172057663343613E-5)(1.8538455E7;7.172057663343613E-5)(1.8590676E7;7.172057663343613E-5)(1.8642897E7;0.0)(1.8695118E7;0.0)(1.8747339E7;0.0)(1.879956E7;0.0)(1.8851781E7;7.172057663343613E-5)(1.8904002E7;0.0)(1.8956223E7;0.0)(1.9008444E7;0.0)(1.9060665E7;7.172057663343613E-5)(1.9112886E7;0.0)(1.9165107E7;0.0)(1.9217328E7;0.0)(1.9269549E7;7.172057663343613E-5)(1.932177E7;0.0)(1.9373991E7;0.0)(1.9426212E7;0.0)(1.9478433E7;0.0)(1.9530654E7;0.0)(1.9582875E7;7.172057663343613E-5)(1.9635096E7;0.0)(1.9687317E7;2.151617299003084E-4)(1.9739538E7;2.151617299003084E-4)(1.9791759E7;7.172057663343613E-5)(1.984398E7;7.172057663343613E-5)(1.9896201E7;0.0)(1.9948422E7;7.172057663343613E-5)(2.0000643E7;0.0)(2.0052864E7;0.0)(2.0105085E7;0.0)(2.0157306E7;0.0)(2.0209527E7;0.0)(2.0261748E7;1.4344115326687227E-4)(2.0313969E7;7.172057663343613E-5)(2.036619E7;7.172057663343613E-5)]-349351.3513514"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_qxAiILg7EeSNPorBlo7x9g" entityName="FileStorage">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_sFS0gLg7EeSNPorBlo7x9g" entityName="Provided_IDataStorage_DataStorage" providedInterface__OperationProvidedRole="_jf7hMLg7EeSNPorBlo7x9g"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_sFS0gbg7EeSNPorBlo7x9g" describedService__SEFF="_lLuUoLg7EeSNPorBlo7x9g">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_sFS0grg7EeSNPorBlo7x9g" entityName="start" successor_AbstractAction="_vwTL0L0LEeSAHuL4ItXOLQ"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_sFS0g7g7EeSNPorBlo7x9g" entityName="stop" predecessor_AbstractAction="_rFQ_EL0WEeSAHuL4ItXOLQ"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_vwTL0L0LEeSAHuL4ItXOLQ" entityName="get files" predecessor_AbstractAction="_sFS0grg7EeSNPorBlo7x9g" successor_AbstractAction="_rFQ_EL0WEeSAHuL4ItXOLQ">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="audioRequest.Count.VALUE*75182981.91"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+        <internalFailureOccurrenceDescriptions__InternalAction failureProbability="1.0E-5" softwareInducedFailureType__InternalFailureOccurrenceDescription="_R-DpyUg-EeGGjNgy6wh7Uw"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_rFQ_EL0WEeSAHuL4ItXOLQ" predecessor_AbstractAction="_vwTL0L0LEeSAHuL4ItXOLQ" successor_AbstractAction="_sFS0g7g7EeSNPorBlo7x9g">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage type="BYTESIZE">
+            <specification_VariableCharacterisation specification="audioRequest.Count.VALUE*audioRequest.Size.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_25SdML0KEeSAHuL4ItXOLQ" describedService__SEFF="_ZlS-sL0KEeSAHuL4ItXOLQ">
+      <steps_Behaviour xsi:type="seff:StartAction" id="__WDOIL0KEeSAHuL4ItXOLQ" entityName="start" successor_AbstractAction="_RXdHoL0XEeSAHuL4ItXOLQ"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="__WDOIb0KEeSAHuL4ItXOLQ" entityName="stop" predecessor_AbstractAction="_RXdHoL0XEeSAHuL4ItXOLQ"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_RXdHoL0XEeSAHuL4ItXOLQ" entityName="store file" predecessor_AbstractAction="__WDOIL0KEeSAHuL4ItXOLQ" successor_AbstractAction="__WDOIb0KEeSAHuL4ItXOLQ">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="75182981.91"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+        <internalFailureOccurrenceDescriptions__InternalAction failureProbability="1.0E-5" softwareInducedFailureType__InternalFailureOccurrenceDescription="_R-DpyUg-EeGGjNgy6wh7Uw"/>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_h_QpkLhEEeSNPorBlo7x9g" entityName="TagWatermarking">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_qrFKMLhEEeSNPorBlo7x9g" entityName="Provided_IDownload_TagWatermarking" providedInterface__OperationProvidedRole="_4QwQwHDqEeSqnN80MQ2uGw"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_oyc0oLhEEeSNPorBlo7x9g" entityName="Required_IDownload_TagWatermarking" requiredInterface__OperationRequiredRole="_4QwQwHDqEeSqnN80MQ2uGw"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_qrFKMbhEEeSNPorBlo7x9g" describedService__SEFF="_-LhmEHDqEeSqnN80MQ2uGw">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_qrFKMrhEEeSNPorBlo7x9g" entityName="start" successor_AbstractAction="_9fFNoLzXEeSAHuL4ItXOLQ"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_qrFKM7hEEeSNPorBlo7x9g" entityName="stop" predecessor_AbstractAction="_EpHycLzYEeSAHuL4ItXOLQ"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_9fFNoLzXEeSAHuL4ItXOLQ" entityName="JNDI RMI overhead" predecessor_AbstractAction="_qrFKMrhEEeSNPorBlo7x9g" successor_AbstractAction="_BVVtgLzYEeSAHuL4ItXOLQ">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="DoublePDF[(248240.0;0.0021638083026125983)(496480.0;0.8275364641769515)(744720.0;0.09104023080621894)(992960.0;0.047844205802211895)(1241200.0;0.021958647219105627)(1489440.0;0.0028850777368167975)(1737680.0;0.0016829620131431319)(1985920.0;7.212694342041994E-4)(2234160.0;3.2056419297964416E-4)(2482400.0;3.2056419297964416E-4)(2730640.0;2.4042314473473312E-4)(2978880.0;1.6028209648982208E-4)(3227120.0;8.014104824491104E-5)(3475360.0;8.014104824491104E-5)(3723600.0;0.0)(3971840.0;0.0)(4220080.0;0.0)(4468320.0;0.0)(4716560.0;8.014104824491104E-5)(4964800.0;8.014104824491104E-5)(5213040.0;8.014104824491104E-5)(5461280.0;1.6028209648982208E-4)(5709520.0;0.0)(5957760.0;8.014104824491104E-5)(6206000.0;8.014104824491104E-5)(6454240.0;1.6028209648982208E-4)(6702480.0;0.0)(6950720.0;8.014104824491104E-5)(7198960.0;0.0)(7447200.0;8.014104824491104E-5)(7695440.0;0.0)(7943680.0;8.014104824491104E-5)(8191920.0;0.0)(8440160.0;1.6028209648982208E-4)(8688400.0;8.014104824491104E-5)(8936640.0;0.0)(9184880.0;8.014104824491104E-5)(9433120.0;0.0)(9681360.0;8.014104824491104E-5)(9929600.0;8.014104824491104E-5)(1.017784E7;0.0)(1.042608E7;8.014104824491104E-5)(1.067432E7;8.014104824491104E-5)(1.092256E7;8.014104824491104E-5)(1.11708E7;8.014104824491104E-5)(1.141904E7;0.0)(1.166728E7;0.0)(1.191552E7;8.014104824491104E-5)(1.216376E7;0.0)(1.2412E7;0.0)(1.266024E7;0.0)(1.290848E7;0.0)(1.315672E7;0.0)(1.340496E7;0.0)(1.36532E7;0.0)(1.390144E7;0.0)(1.414968E7;0.0)(1.439792E7;0.0)(1.464616E7;0.0)(1.48944E7;0.0)(1.514264E7;0.0)(1.539088E7;8.014104824491104E-5)(1.563912E7;0.0)(1.588736E7;8.014104824491104E-5)(1.61356E7;0.0)(1.638384E7;8.014104824491104E-5)(1.663208E7;0.0)(1.688032E7;0.0)(1.712856E7;1.6028209648982208E-4)(1.73768E7;0.0)(1.762504E7;1.6028209648982208E-4)(1.787328E7;8.014104824491104E-5)(1.812152E7;0.0)(1.836976E7;0.0)(1.8618E7;0.0)(1.886624E7;8.014104824491104E-5)(1.911448E7;8.014104824491104E-5)(1.936272E7;0.0)(1.961096E7;8.014104824491104E-5)(1.98592E7;0.0)(2.010744E7;0.0)(2.035568E7;0.0)(2.060392E7;0.0)(2.085216E7;8.014104824491104E-5)(2.11004E7;0.0)(2.134864E7;0.0)(2.159688E7;0.0)(2.184512E7;0.0)(2.209336E7;0.0)(2.23416E7;0.0)(2.258984E7;0.0)(2.283808E7;0.0)(2.308632E7;0.0)(2.333456E7;0.0)(2.35828E7;0.0)(2.383104E7;0.0)(2.407928E7;0.0)(2.432752E7;8.014104824491104E-5)(2.457576E7;0.0)(2.4824E7;0.0)(2.507224E7;8.014104824491104E-5)]"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_BVVtgLzYEeSAHuL4ItXOLQ" predecessor_AbstractAction="_9fFNoLzXEeSAHuL4ItXOLQ" successor_AbstractAction="_90_MMLzXEeSAHuL4ItXOLQ" calledService_ExternalService="_-LhmEHDqEeSqnN80MQ2uGw" role_ExternalService="_oyc0oLhEEeSNPorBlo7x9g">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="audioRequest.Count.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:NamespaceReference" referenceName="audioRequest">
+            <innerReference_NamespaceReference xsi:type="stoex:VariableReference" referenceName="Count"/>
+          </namedReference__VariableUsage>
+        </inputVariableUsages__CallAction>
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="audioRequest.Size.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:NamespaceReference" referenceName="audioRequest">
+            <innerReference_NamespaceReference xsi:type="stoex:VariableReference" referenceName="Size"/>
+          </namedReference__VariableUsage>
+        </inputVariableUsages__CallAction>
+        <returnVariableUsage__CallReturnAction>
+          <variableCharacterisation_VariableUsage type="BYTESIZE">
+            <specification_VariableCharacterisation specification="RETURN.BYTESIZE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="temp"/>
+        </returnVariableUsage__CallReturnAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_EpHycLzYEeSAHuL4ItXOLQ" predecessor_AbstractAction="_90_MMLzXEeSAHuL4ItXOLQ" successor_AbstractAction="_qrFKM7hEEeSNPorBlo7x9g">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage type="BYTESIZE">
+            <specification_VariableCharacterisation specification="temp.BYTESIZE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_90_MMLzXEeSAHuL4ItXOLQ" entityName="add tag to files" predecessor_AbstractAction="_BVVtgLzYEeSAHuL4ItXOLQ" successor_AbstractAction="_EpHycLzYEeSAHuL4ItXOLQ">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="Trunc(audioRequest.Count.VALUE)*DoublePDF[(4.0E7;0.0)(6.0E7;0.013043478260869565)(8.0E7;0.4956521739130435)(1.0E8;0.2826086956521739)(1.2E8;0.09130434782608696)(1.4E8;0.021739130434782608)(1.6E8;0.02608695652173913)(1.8E8;0.017391304347826087)(2.0E8;0.008695652173913044)(2.2E8;0.004347826086956522)(2.4E8;0.008695652173913044)(2.6E8;0.013043478260869565)(2.8E8;0.004347826086956522)(3.0E8;0.0)(3.2E8;0.004347826086956522)(3.4E8;0.0)(3.6E8;0.0)(3.8E8;0.0)(4.0E8;0.0)(4.2E8;0.0)(4.4E8;0.0)(4.6E8;0.0)(4.8E8;0.0)(5.0E8;0.0)(5.2E8;0.0)(5.4E8;0.0)(5.6E8;0.0)(5.8E8;0.0)(6.0E8;0.0)(6.2E8;0.0)(6.4E8;0.0)(6.6E8;0.0)(6.8E8;0.0)(7.0E8;0.0)(7.2E8;0.0)(7.4E8;0.0)(7.6E8;0.0)(7.8E8;0.0)(8.0E8;0.004347826086956522)(8.2E8;0.0)(8.4E8;0.0)(8.6E8;0.0)(8.8E8;0.0)(9.0E8;0.0)(9.2E8;0.0)(9.4E8;0.0)(9.6E8;0.0)(9.8E8;0.0)(1.0E9;0.0)(1.02E9;0.0)(1.04E9;0.0)(1.06E9;0.0)(1.08E9;0.0)(1.1E9;0.0)(1.12E9;0.0)(1.14E9;0.0)(1.16E9;0.0)(1.18E9;0.0)(1.2E9;0.0)(1.22E9;0.0)(1.24E9;0.0)(1.26E9;0.0)(1.28E9;0.0)(1.3E9;0.0)(1.32E9;0.0)(1.34E9;0.0)(1.36E9;0.0)(1.38E9;0.0)(1.4E9;0.0)(1.42E9;0.0)(1.44E9;0.0)(1.46E9;0.0)(1.48E9;0.0)(1.5E9;0.0)(1.52E9;0.0)(1.54E9;0.0)(1.56E9;0.0)(1.58E9;0.0)(1.6E9;0.0)(1.62E9;0.0)(1.64E9;0.0)(1.66E9;0.0)(1.68E9;0.0)(1.7E9;0.0)(1.72E9;0.0)(1.74E9;0.0)(1.76E9;0.0)(1.78E9;0.0)(1.8E9;0.0)(1.82E9;0.0)(1.84E9;0.0)(1.86E9;0.0)(1.88E9;0.0)(1.9E9;0.0)(1.92E9;0.0)(1.94E9;0.0)(1.96E9;0.0)(1.98E9;0.0)(2.0E9;0.0)(2.02E9;0.0)(2.04E9;0.0)(2.06E9;0.0)(2.08E9;0.0)(2.1E9;0.0)(2.12E9;0.0)(2.14E9;0.0)(2.16E9;0.0)(2.18E9;0.0)(2.2E9;0.0)(2.22E9;0.0)(2.24E9;0.0)(2.26E9;0.0)(2.28E9;0.0)(2.3E9;0.0)(2.32E9;0.0)(2.34E9;0.0)(2.36E9;0.0)(2.38E9;0.0)(2.4E9;0.0)(2.42E9;0.0)(2.44E9;0.0)(2.46E9;0.0)(2.48E9;0.0)(2.5E9;0.0)(2.52E9;0.0)(2.54E9;0.0)(2.56E9;0.0)(2.58E9;0.0)(2.6E9;0.0)(2.62E9;0.0)(2.64E9;0.0)(2.66E9;0.0)(2.68E9;0.0)(2.7E9;0.0)(2.72E9;0.0)(2.74E9;0.0)(2.76E9;0.0)(2.78E9;0.0)(2.8E9;0.0)(2.82E9;0.0)(2.84E9;0.0)(2.86E9;0.0)(2.88E9;0.0)(2.9E9;0.0)(2.92E9;0.0)(2.94E9;0.0)(2.96E9;0.0)(2.98E9;0.0)(3.0E9;0.0)(3.02E9;0.0)(3.04E9;0.0)(3.06E9;0.0)(3.08E9;0.0)(3.1E9;0.0)(3.12E9;0.0)(3.14E9;0.0)(3.16E9;0.0)(3.18E9;0.0)(3.2E9;0.0)(3.22E9;0.0)(3.24E9;0.0)(3.26E9;0.0)(3.28E9;0.0)(3.3E9;0.0)(3.32E9;0.0)(3.34E9;0.0)(3.36E9;0.0)(3.38E9;0.0)(3.4E9;0.0)(3.42E9;0.0)(3.44E9;0.004347826086956522)]"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+        <internalFailureOccurrenceDescriptions__InternalAction failureProbability="1.0E-5" softwareInducedFailureType__InternalFailureOccurrenceDescription="_R-DpyUg-EeGGjNgy6wh7Uw"/>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_j5vZQLhEEeSNPorBlo7x9g" entityName="Cache">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_qErRgLhEEeSNPorBlo7x9g" entityName="Provided_IDownload_Cache" providedInterface__OperationProvidedRole="_4QwQwHDqEeSqnN80MQ2uGw"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_pWhLALhEEeSNPorBlo7x9g" entityName="Required_IDownload_Cache" requiredInterface__OperationRequiredRole="_4QwQwHDqEeSqnN80MQ2uGw"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_qErRgbhEEeSNPorBlo7x9g" describedService__SEFF="_-LhmEHDqEeSqnN80MQ2uGw">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_qErRgrhEEeSNPorBlo7x9g" entityName="start" successor_AbstractAction="_O_Z-4MG8EeSIWsmXhQZfeA"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_qErRg7hEEeSNPorBlo7x9g" entityName="stop" predecessor_AbstractAction="_3OYkQMG8EeSIWsmXhQZfeA"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_0q4VkL2yEeSVWpDAPvBY2w" entityName="accessCache" predecessor_AbstractAction="_O_Z-4MG8EeSIWsmXhQZfeA" successor_AbstractAction="_3OYkQMG8EeSIWsmXhQZfeA">
+        <internalFailureOccurrenceDescriptions__InternalAction failureProbability="1.0E-5" softwareInducedFailureType__InternalFailureOccurrenceDescription="_R-DpyUg-EeGGjNgy6wh7Uw"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_O_Z-4MG8EeSIWsmXhQZfeA" entityName="JNDI RMI overhead" predecessor_AbstractAction="_qErRgrhEEeSNPorBlo7x9g" successor_AbstractAction="_0q4VkL2yEeSVWpDAPvBY2w">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="DoublePDF[(248240.0;0.0021638083026125983)(496480.0;0.8275364641769515)(744720.0;0.09104023080621894)(992960.0;0.047844205802211895)(1241200.0;0.021958647219105627)(1489440.0;0.0028850777368167975)(1737680.0;0.0016829620131431319)(1985920.0;7.212694342041994E-4)(2234160.0;3.2056419297964416E-4)(2482400.0;3.2056419297964416E-4)(2730640.0;2.4042314473473312E-4)(2978880.0;1.6028209648982208E-4)(3227120.0;8.014104824491104E-5)(3475360.0;8.014104824491104E-5)(3723600.0;0.0)(3971840.0;0.0)(4220080.0;0.0)(4468320.0;0.0)(4716560.0;8.014104824491104E-5)(4964800.0;8.014104824491104E-5)(5213040.0;8.014104824491104E-5)(5461280.0;1.6028209648982208E-4)(5709520.0;0.0)(5957760.0;8.014104824491104E-5)(6206000.0;8.014104824491104E-5)(6454240.0;1.6028209648982208E-4)(6702480.0;0.0)(6950720.0;8.014104824491104E-5)(7198960.0;0.0)(7447200.0;8.014104824491104E-5)(7695440.0;0.0)(7943680.0;8.014104824491104E-5)(8191920.0;0.0)(8440160.0;1.6028209648982208E-4)(8688400.0;8.014104824491104E-5)(8936640.0;0.0)(9184880.0;8.014104824491104E-5)(9433120.0;0.0)(9681360.0;8.014104824491104E-5)(9929600.0;8.014104824491104E-5)(1.017784E7;0.0)(1.042608E7;8.014104824491104E-5)(1.067432E7;8.014104824491104E-5)(1.092256E7;8.014104824491104E-5)(1.11708E7;8.014104824491104E-5)(1.141904E7;0.0)(1.166728E7;0.0)(1.191552E7;8.014104824491104E-5)(1.216376E7;0.0)(1.2412E7;0.0)(1.266024E7;0.0)(1.290848E7;0.0)(1.315672E7;0.0)(1.340496E7;0.0)(1.36532E7;0.0)(1.390144E7;0.0)(1.414968E7;0.0)(1.439792E7;0.0)(1.464616E7;0.0)(1.48944E7;0.0)(1.514264E7;0.0)(1.539088E7;8.014104824491104E-5)(1.563912E7;0.0)(1.588736E7;8.014104824491104E-5)(1.61356E7;0.0)(1.638384E7;8.014104824491104E-5)(1.663208E7;0.0)(1.688032E7;0.0)(1.712856E7;1.6028209648982208E-4)(1.73768E7;0.0)(1.762504E7;1.6028209648982208E-4)(1.787328E7;8.014104824491104E-5)(1.812152E7;0.0)(1.836976E7;0.0)(1.8618E7;0.0)(1.886624E7;8.014104824491104E-5)(1.911448E7;8.014104824491104E-5)(1.936272E7;0.0)(1.961096E7;8.014104824491104E-5)(1.98592E7;0.0)(2.010744E7;0.0)(2.035568E7;0.0)(2.060392E7;0.0)(2.085216E7;8.014104824491104E-5)(2.11004E7;0.0)(2.134864E7;0.0)(2.159688E7;0.0)(2.184512E7;0.0)(2.209336E7;0.0)(2.23416E7;0.0)(2.258984E7;0.0)(2.283808E7;0.0)(2.308632E7;0.0)(2.333456E7;0.0)(2.35828E7;0.0)(2.383104E7;0.0)(2.407928E7;0.0)(2.432752E7;8.014104824491104E-5)(2.457576E7;0.0)(2.4824E7;0.0)(2.507224E7;8.014104824491104E-5)]"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:BranchAction" id="_3OYkQMG8EeSIWsmXhQZfeA" entityName="RequestMultiplicityBranch" predecessor_AbstractAction="_0q4VkL2yEeSVWpDAPvBY2w" successor_AbstractAction="_qErRg7hEEeSNPorBlo7x9g">
+        <branches_Branch xsi:type="seff:GuardedBranchTransition" id="_hlUUoMG9EeSIWsmXhQZfeA" entityName="Single Request">
+          <branchBehaviour_BranchTransition id="_hlUUocG9EeSIWsmXhQZfeA">
+            <steps_Behaviour xsi:type="seff:StartAction" id="_hlUUosG9EeSIWsmXhQZfeA" successor_AbstractAction="_3Vl7AMMmEeSIWsmXhQZfeA"/>
+            <steps_Behaviour xsi:type="seff:StopAction" id="_hlUUo8G9EeSIWsmXhQZfeA" predecessor_AbstractAction="_3Vl7AMMmEeSIWsmXhQZfeA"/>
+            <steps_Behaviour xsi:type="seff:BranchAction" id="_3Vl7AMMmEeSIWsmXhQZfeA" predecessor_AbstractAction="_hlUUosG9EeSIWsmXhQZfeA" successor_AbstractAction="_hlUUo8G9EeSIWsmXhQZfeA">
+              <branches_Branch xsi:type="seff:ProbabilisticBranchTransition" id="_gjRooMZ6EeSDae6OpXziLw" entityName="Hit" branchProbability="0.6">
+                <branchBehaviour_BranchTransition id="_gjaykMZ6EeSDae6OpXziLw">
+                  <steps_Behaviour xsi:type="seff:StartAction" id="_gjaykcZ6EeSDae6OpXziLw" successor_AbstractAction="_7zlYUMG9EeSIWsmXhQZfeA"/>
+                  <steps_Behaviour xsi:type="seff:StopAction" id="_gjayksZ6EeSDae6OpXziLw" predecessor_AbstractAction="_7zlYUMG9EeSIWsmXhQZfeA"/>
+                  <steps_Behaviour xsi:type="seff:SetVariableAction" id="_7zlYUMG9EeSIWsmXhQZfeA" predecessor_AbstractAction="_gjaykcZ6EeSDae6OpXziLw" successor_AbstractAction="_gjayksZ6EeSDae6OpXziLw">
+                    <localVariableUsages_SetVariableAction>
+                      <variableCharacterisation_VariableUsage type="BYTESIZE">
+                        <specification_VariableCharacterisation specification="audioRequest.Count.VALUE*audioRequest.Size.VALUE"/>
+                      </variableCharacterisation_VariableUsage>
+                      <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+                    </localVariableUsages_SetVariableAction>
+                  </steps_Behaviour>
+                </branchBehaviour_BranchTransition>
+              </branches_Branch>
+              <branches_Branch xsi:type="seff:ProbabilisticBranchTransition" id="_i2NUkMZ6EeSDae6OpXziLw" entityName="Miss" branchProbability="0.4">
+                <branchBehaviour_BranchTransition id="_i2NUkcZ6EeSDae6OpXziLw">
+                  <steps_Behaviour xsi:type="seff:StartAction" id="_i2NUksZ6EeSDae6OpXziLw" successor_AbstractAction="_AzXr4MZ7EeSDae6OpXziLw"/>
+                  <steps_Behaviour xsi:type="seff:StopAction" id="_i2NUk8Z6EeSDae6OpXziLw" predecessor_AbstractAction="_Fw4HsMZ7EeSDae6OpXziLw"/>
+                  <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_AzXr4MZ7EeSDae6OpXziLw" predecessor_AbstractAction="_i2NUksZ6EeSDae6OpXziLw" successor_AbstractAction="_Fw4HsMZ7EeSDae6OpXziLw" calledService_ExternalService="_-LhmEHDqEeSqnN80MQ2uGw" role_ExternalService="_pWhLALhEEeSNPorBlo7x9g">
+                    <inputVariableUsages__CallAction>
+                      <variableCharacterisation_VariableUsage type="VALUE">
+                        <specification_VariableCharacterisation specification="1"/>
+                      </variableCharacterisation_VariableUsage>
+                      <namedReference__VariableUsage xsi:type="stoex:NamespaceReference" referenceName="audioRequest">
+                        <innerReference_NamespaceReference xsi:type="stoex:VariableReference" referenceName="Count"/>
+                      </namedReference__VariableUsage>
+                    </inputVariableUsages__CallAction>
+                    <inputVariableUsages__CallAction>
+                      <variableCharacterisation_VariableUsage type="VALUE">
+                        <specification_VariableCharacterisation specification="audioRequest.Size.VALUE"/>
+                      </variableCharacterisation_VariableUsage>
+                      <namedReference__VariableUsage xsi:type="stoex:NamespaceReference" referenceName="audioRequest">
+                        <innerReference_NamespaceReference xsi:type="stoex:VariableReference" referenceName="Size"/>
+                      </namedReference__VariableUsage>
+                    </inputVariableUsages__CallAction>
+                    <returnVariableUsage__CallReturnAction>
+                      <variableCharacterisation_VariableUsage type="BYTESIZE">
+                        <specification_VariableCharacterisation specification="RETURN.BYTESIZE"/>
+                      </variableCharacterisation_VariableUsage>
+                      <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="temp"/>
+                    </returnVariableUsage__CallReturnAction>
+                  </steps_Behaviour>
+                  <steps_Behaviour xsi:type="seff:SetVariableAction" id="_Fw4HsMZ7EeSDae6OpXziLw" predecessor_AbstractAction="_AzXr4MZ7EeSDae6OpXziLw" successor_AbstractAction="_i2NUk8Z6EeSDae6OpXziLw">
+                    <localVariableUsages_SetVariableAction>
+                      <variableCharacterisation_VariableUsage type="BYTESIZE">
+                        <specification_VariableCharacterisation specification="temp.BYTESIZE"/>
+                      </variableCharacterisation_VariableUsage>
+                      <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+                    </localVariableUsages_SetVariableAction>
+                  </steps_Behaviour>
+                </branchBehaviour_BranchTransition>
+              </branches_Branch>
+            </steps_Behaviour>
+          </branchBehaviour_BranchTransition>
+          <branchCondition_GuardedBranchTransition specification="audioRequest.Count.VALUE == 1"/>
+        </branches_Branch>
+        <branches_Branch xsi:type="seff:GuardedBranchTransition" id="_pU52gMG9EeSIWsmXhQZfeA" entityName="Collection Request">
+          <branchBehaviour_BranchTransition id="_pU52gcG9EeSIWsmXhQZfeA">
+            <steps_Behaviour xsi:type="seff:StartAction" id="_pU52gsG9EeSIWsmXhQZfeA" successor_AbstractAction="_-MFj8MHBEeSIWsmXhQZfeA"/>
+            <steps_Behaviour xsi:type="seff:StopAction" id="_pU52g8G9EeSIWsmXhQZfeA" predecessor_AbstractAction="_BZoeAMHCEeSIWsmXhQZfeA"/>
+            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_-MFj8MHBEeSIWsmXhQZfeA" predecessor_AbstractAction="_pU52gsG9EeSIWsmXhQZfeA" successor_AbstractAction="_BZoeAMHCEeSIWsmXhQZfeA" calledService_ExternalService="_-LhmEHDqEeSqnN80MQ2uGw" role_ExternalService="_pWhLALhEEeSNPorBlo7x9g">
+              <inputVariableUsages__CallAction>
+                <variableCharacterisation_VariableUsage type="VALUE">
+                  <specification_VariableCharacterisation specification="audioRequest.Count.VALUE*0.4"/>
+                </variableCharacterisation_VariableUsage>
+                <namedReference__VariableUsage xsi:type="stoex:NamespaceReference" referenceName="audioRequest">
+                  <innerReference_NamespaceReference xsi:type="stoex:VariableReference" referenceName="Count"/>
+                </namedReference__VariableUsage>
+              </inputVariableUsages__CallAction>
+              <inputVariableUsages__CallAction>
+                <variableCharacterisation_VariableUsage type="VALUE">
+                  <specification_VariableCharacterisation specification="audioRequest.Size.VALUE"/>
+                </variableCharacterisation_VariableUsage>
+                <namedReference__VariableUsage xsi:type="stoex:NamespaceReference" referenceName="audioRequest">
+                  <innerReference_NamespaceReference xsi:type="stoex:VariableReference" referenceName="Size"/>
+                </namedReference__VariableUsage>
+              </inputVariableUsages__CallAction>
+            </steps_Behaviour>
+            <steps_Behaviour xsi:type="seff:SetVariableAction" id="_BZoeAMHCEeSIWsmXhQZfeA" predecessor_AbstractAction="_-MFj8MHBEeSIWsmXhQZfeA" successor_AbstractAction="_pU52g8G9EeSIWsmXhQZfeA">
+              <localVariableUsages_SetVariableAction>
+                <variableCharacterisation_VariableUsage type="BYTESIZE">
+                  <specification_VariableCharacterisation specification="audioRequest.Count.VALUE*audioRequest.Size.VALUE"/>
+                </variableCharacterisation_VariableUsage>
+                <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+              </localVariableUsages_SetVariableAction>
+            </steps_Behaviour>
+          </branchBehaviour_BranchTransition>
+          <branchCondition_GuardedBranchTransition specification="audioRequest.Count.VALUE > 1"/>
+        </branches_Branch>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_ahv3gL0YEeSAHuL4ItXOLQ" entityName="UserManagement">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_uDL20L0YEeSAHuL4ItXOLQ" entityName="Provided_IUserManagement_UserManagement" providedInterface__OperationProvidedRole="_jAJnML0YEeSAHuL4ItXOLQ"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_uzaZ4L0YEeSAHuL4ItXOLQ" entityName="Required_IUserDB_UserManagement" requiredInterface__OperationRequiredRole="_4TPZgHDpEeSqnN80MQ2uGw"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_uDL20b0YEeSAHuL4ItXOLQ" describedService__SEFF="_kEq_QL0YEeSAHuL4ItXOLQ">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_uDL20r0YEeSAHuL4ItXOLQ" entityName="start" successor_AbstractAction="_ykNK8L0YEeSAHuL4ItXOLQ"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_uDL2070YEeSAHuL4ItXOLQ" entityName="stop" predecessor_AbstractAction="_y4eKwL0YEeSAHuL4ItXOLQ"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_ykNK8L0YEeSAHuL4ItXOLQ" entityName="JNDI RMI overhead" predecessor_AbstractAction="_uDL20r0YEeSAHuL4ItXOLQ" successor_AbstractAction="_y4eKwL0YEeSAHuL4ItXOLQ">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="DoublePDF[(248240.0;0.0021638083026125983)(496480.0;0.8275364641769515)(744720.0;0.09104023080621894)(992960.0;0.047844205802211895)(1241200.0;0.021958647219105627)(1489440.0;0.0028850777368167975)(1737680.0;0.0016829620131431319)(1985920.0;7.212694342041994E-4)(2234160.0;3.2056419297964416E-4)(2482400.0;3.2056419297964416E-4)(2730640.0;2.4042314473473312E-4)(2978880.0;1.6028209648982208E-4)(3227120.0;8.014104824491104E-5)(3475360.0;8.014104824491104E-5)(3723600.0;0.0)(3971840.0;0.0)(4220080.0;0.0)(4468320.0;0.0)(4716560.0;8.014104824491104E-5)(4964800.0;8.014104824491104E-5)(5213040.0;8.014104824491104E-5)(5461280.0;1.6028209648982208E-4)(5709520.0;0.0)(5957760.0;8.014104824491104E-5)(6206000.0;8.014104824491104E-5)(6454240.0;1.6028209648982208E-4)(6702480.0;0.0)(6950720.0;8.014104824491104E-5)(7198960.0;0.0)(7447200.0;8.014104824491104E-5)(7695440.0;0.0)(7943680.0;8.014104824491104E-5)(8191920.0;0.0)(8440160.0;1.6028209648982208E-4)(8688400.0;8.014104824491104E-5)(8936640.0;0.0)(9184880.0;8.014104824491104E-5)(9433120.0;0.0)(9681360.0;8.014104824491104E-5)(9929600.0;8.014104824491104E-5)(1.017784E7;0.0)(1.042608E7;8.014104824491104E-5)(1.067432E7;8.014104824491104E-5)(1.092256E7;8.014104824491104E-5)(1.11708E7;8.014104824491104E-5)(1.141904E7;0.0)(1.166728E7;0.0)(1.191552E7;8.014104824491104E-5)(1.216376E7;0.0)(1.2412E7;0.0)(1.266024E7;0.0)(1.290848E7;0.0)(1.315672E7;0.0)(1.340496E7;0.0)(1.36532E7;0.0)(1.390144E7;0.0)(1.414968E7;0.0)(1.439792E7;0.0)(1.464616E7;0.0)(1.48944E7;0.0)(1.514264E7;0.0)(1.539088E7;8.014104824491104E-5)(1.563912E7;0.0)(1.588736E7;8.014104824491104E-5)(1.61356E7;0.0)(1.638384E7;8.014104824491104E-5)(1.663208E7;0.0)(1.688032E7;0.0)(1.712856E7;1.6028209648982208E-4)(1.73768E7;0.0)(1.762504E7;1.6028209648982208E-4)(1.787328E7;8.014104824491104E-5)(1.812152E7;0.0)(1.836976E7;0.0)(1.8618E7;0.0)(1.886624E7;8.014104824491104E-5)(1.911448E7;8.014104824491104E-5)(1.936272E7;0.0)(1.961096E7;8.014104824491104E-5)(1.98592E7;0.0)(2.010744E7;0.0)(2.035568E7;0.0)(2.060392E7;0.0)(2.085216E7;8.014104824491104E-5)(2.11004E7;0.0)(2.134864E7;0.0)(2.159688E7;0.0)(2.184512E7;0.0)(2.209336E7;0.0)(2.23416E7;0.0)(2.258984E7;0.0)(2.283808E7;0.0)(2.308632E7;0.0)(2.333456E7;0.0)(2.35828E7;0.0)(2.383104E7;0.0)(2.407928E7;0.0)(2.432752E7;8.014104824491104E-5)(2.457576E7;0.0)(2.4824E7;0.0)(2.507224E7;8.014104824491104E-5)]"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+        <internalFailureOccurrenceDescriptions__InternalAction failureProbability="1.0E-5" softwareInducedFailureType__InternalFailureOccurrenceDescription="_R-DpyUg-EeGGjNgy6wh7Uw"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_y4eKwL0YEeSAHuL4ItXOLQ" predecessor_AbstractAction="_ykNK8L0YEeSAHuL4ItXOLQ" successor_AbstractAction="_uDL2070YEeSAHuL4ItXOLQ" calledService_ExternalService="_7EO6cHDpEeSqnN80MQ2uGw" role_ExternalService="_uzaZ4L0YEeSAHuL4ItXOLQ"/>
+    </serviceEffectSpecifications__BasicComponent>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_uDL21L0YEeSAHuL4ItXOLQ" describedService__SEFF="_ktDN4L0YEeSAHuL4ItXOLQ">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_uDL21b0YEeSAHuL4ItXOLQ" entityName="start" successor_AbstractAction="_5JLT0L0YEeSAHuL4ItXOLQ"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_uDL21r0YEeSAHuL4ItXOLQ" entityName="stop" predecessor_AbstractAction="_7d4hYL0YEeSAHuL4ItXOLQ"/>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_5JLT0L0YEeSAHuL4ItXOLQ" entityName="JNDI RMI overhead" predecessor_AbstractAction="_uDL21b0YEeSAHuL4ItXOLQ" successor_AbstractAction="_7d4hYL0YEeSAHuL4ItXOLQ">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="DoublePDF[(248240.0;0.0021638083026125983)(496480.0;0.8275364641769515)(744720.0;0.09104023080621894)(992960.0;0.047844205802211895)(1241200.0;0.021958647219105627)(1489440.0;0.0028850777368167975)(1737680.0;0.0016829620131431319)(1985920.0;7.212694342041994E-4)(2234160.0;3.2056419297964416E-4)(2482400.0;3.2056419297964416E-4)(2730640.0;2.4042314473473312E-4)(2978880.0;1.6028209648982208E-4)(3227120.0;8.014104824491104E-5)(3475360.0;8.014104824491104E-5)(3723600.0;0.0)(3971840.0;0.0)(4220080.0;0.0)(4468320.0;0.0)(4716560.0;8.014104824491104E-5)(4964800.0;8.014104824491104E-5)(5213040.0;8.014104824491104E-5)(5461280.0;1.6028209648982208E-4)(5709520.0;0.0)(5957760.0;8.014104824491104E-5)(6206000.0;8.014104824491104E-5)(6454240.0;1.6028209648982208E-4)(6702480.0;0.0)(6950720.0;8.014104824491104E-5)(7198960.0;0.0)(7447200.0;8.014104824491104E-5)(7695440.0;0.0)(7943680.0;8.014104824491104E-5)(8191920.0;0.0)(8440160.0;1.6028209648982208E-4)(8688400.0;8.014104824491104E-5)(8936640.0;0.0)(9184880.0;8.014104824491104E-5)(9433120.0;0.0)(9681360.0;8.014104824491104E-5)(9929600.0;8.014104824491104E-5)(1.017784E7;0.0)(1.042608E7;8.014104824491104E-5)(1.067432E7;8.014104824491104E-5)(1.092256E7;8.014104824491104E-5)(1.11708E7;8.014104824491104E-5)(1.141904E7;0.0)(1.166728E7;0.0)(1.191552E7;8.014104824491104E-5)(1.216376E7;0.0)(1.2412E7;0.0)(1.266024E7;0.0)(1.290848E7;0.0)(1.315672E7;0.0)(1.340496E7;0.0)(1.36532E7;0.0)(1.390144E7;0.0)(1.414968E7;0.0)(1.439792E7;0.0)(1.464616E7;0.0)(1.48944E7;0.0)(1.514264E7;0.0)(1.539088E7;8.014104824491104E-5)(1.563912E7;0.0)(1.588736E7;8.014104824491104E-5)(1.61356E7;0.0)(1.638384E7;8.014104824491104E-5)(1.663208E7;0.0)(1.688032E7;0.0)(1.712856E7;1.6028209648982208E-4)(1.73768E7;0.0)(1.762504E7;1.6028209648982208E-4)(1.787328E7;8.014104824491104E-5)(1.812152E7;0.0)(1.836976E7;0.0)(1.8618E7;0.0)(1.886624E7;8.014104824491104E-5)(1.911448E7;8.014104824491104E-5)(1.936272E7;0.0)(1.961096E7;8.014104824491104E-5)(1.98592E7;0.0)(2.010744E7;0.0)(2.035568E7;0.0)(2.060392E7;0.0)(2.085216E7;8.014104824491104E-5)(2.11004E7;0.0)(2.134864E7;0.0)(2.159688E7;0.0)(2.184512E7;0.0)(2.209336E7;0.0)(2.23416E7;0.0)(2.258984E7;0.0)(2.283808E7;0.0)(2.308632E7;0.0)(2.333456E7;0.0)(2.35828E7;0.0)(2.383104E7;0.0)(2.407928E7;0.0)(2.432752E7;8.014104824491104E-5)(2.457576E7;0.0)(2.4824E7;0.0)(2.507224E7;8.014104824491104E-5)]"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+        <internalFailureOccurrenceDescriptions__InternalAction failureProbability="1.0E-5" softwareInducedFailureType__InternalFailureOccurrenceDescription="_R-DpyUg-EeGGjNgy6wh7Uw"/>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_7d4hYL0YEeSAHuL4ItXOLQ" predecessor_AbstractAction="_5JLT0L0YEeSAHuL4ItXOLQ" successor_AbstractAction="_uDL21r0YEeSAHuL4ItXOLQ" calledService_ExternalService="_8ARE4HDpEeSqnN80MQ2uGw" role_ExternalService="_uzaZ4L0YEeSAHuL4ItXOLQ"/>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_Fslt8OXSEeSa__lJ2-JCxw" entityName="DownloadLoadBalancer">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_IsqzwOXSEeSa__lJ2-JCxw" entityName="Provided_IDownload_DownloadLoadBalancer" providedInterface__OperationProvidedRole="_4QwQwHDqEeSqnN80MQ2uGw"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_IHHPoOXSEeSa__lJ2-JCxw" entityName="Required_IDownload_Replica2_DownloadLoadBalancer" requiredInterface__OperationRequiredRole="_4QwQwHDqEeSqnN80MQ2uGw"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_LEN58OXSEeSa__lJ2-JCxw" entityName="Required_IDownload_Replica1_DownloadLoadBalancer" requiredInterface__OperationRequiredRole="_4QwQwHDqEeSqnN80MQ2uGw"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_IsqzweXSEeSa__lJ2-JCxw" describedService__SEFF="_-LhmEHDqEeSqnN80MQ2uGw">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_IsqzwuXSEeSa__lJ2-JCxw" entityName="start" successor_AbstractAction="_PesXkL0JEeSAHuL4ItXOLQ3"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_Isqzw-XSEeSa__lJ2-JCxw" entityName="stop" predecessor_AbstractAction="_YFneQOXTEeSa__lJ2-JCxw"/>
+      <steps_Behaviour xsi:type="seff:BranchAction" id="_nJaDAOXSEeSa__lJ2-JCxw" entityName="select replica" predecessor_AbstractAction="_PesXkL0JEeSAHuL4ItXOLQ3" successor_AbstractAction="_YFneQOXTEeSa__lJ2-JCxw">
+        <branches_Branch xsi:type="seff:ProbabilisticBranchTransition" id="_nqCD0OXSEeSa__lJ2-JCxw" entityName="to first replica" branchProbability="0.5">
+          <branchBehaviour_BranchTransition id="_nqCD0eXSEeSa__lJ2-JCxw">
+            <steps_Behaviour xsi:type="seff:StartAction" id="_nqCD0uXSEeSa__lJ2-JCxw" successor_AbstractAction="_sjtvkOXSEeSa__lJ2-JCxw"/>
+            <steps_Behaviour xsi:type="seff:StopAction" id="_nqCD0-XSEeSa__lJ2-JCxw" predecessor_AbstractAction="_sjtvkOXSEeSa__lJ2-JCxw"/>
+            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_sjtvkOXSEeSa__lJ2-JCxw" predecessor_AbstractAction="_nqCD0uXSEeSa__lJ2-JCxw" successor_AbstractAction="_nqCD0-XSEeSa__lJ2-JCxw" calledService_ExternalService="_-LhmEHDqEeSqnN80MQ2uGw" role_ExternalService="_LEN58OXSEeSa__lJ2-JCxw">
+              <inputVariableUsages__CallAction>
+                <variableCharacterisation_VariableUsage type="VALUE">
+                  <specification_VariableCharacterisation specification="audioRequest.Count.VALUE"/>
+                </variableCharacterisation_VariableUsage>
+                <namedReference__VariableUsage xsi:type="stoex:NamespaceReference" referenceName="audioRequest">
+                  <innerReference_NamespaceReference xsi:type="stoex:VariableReference" referenceName="Count"/>
+                </namedReference__VariableUsage>
+              </inputVariableUsages__CallAction>
+              <inputVariableUsages__CallAction>
+                <variableCharacterisation_VariableUsage type="VALUE">
+                  <specification_VariableCharacterisation specification="audioRequest.Size.VALUE"/>
+                </variableCharacterisation_VariableUsage>
+                <namedReference__VariableUsage xsi:type="stoex:NamespaceReference" referenceName="audioRequest">
+                  <innerReference_NamespaceReference xsi:type="stoex:VariableReference" referenceName="Size"/>
+                </namedReference__VariableUsage>
+              </inputVariableUsages__CallAction>
+              <returnVariableUsage__CallReturnAction>
+                <variableCharacterisation_VariableUsage type="BYTESIZE">
+                  <specification_VariableCharacterisation specification="RETURN.BYTESIZE"/>
+                </variableCharacterisation_VariableUsage>
+                <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="audioRequestReturn"/>
+              </returnVariableUsage__CallReturnAction>
+            </steps_Behaviour>
+          </branchBehaviour_BranchTransition>
+        </branches_Branch>
+        <branches_Branch xsi:type="seff:ProbabilisticBranchTransition" id="_pKmesOXSEeSa__lJ2-JCxw" entityName="to second replica" branchProbability="0.5">
+          <branchBehaviour_BranchTransition id="_pKmeseXSEeSa__lJ2-JCxw">
+            <steps_Behaviour xsi:type="seff:StartAction" id="_pKmesuXSEeSa__lJ2-JCxw" successor_AbstractAction="_tbS30OXSEeSa__lJ2-JCxw"/>
+            <steps_Behaviour xsi:type="seff:StopAction" id="_pKmes-XSEeSa__lJ2-JCxw" predecessor_AbstractAction="_tbS30OXSEeSa__lJ2-JCxw"/>
+            <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_tbS30OXSEeSa__lJ2-JCxw" predecessor_AbstractAction="_pKmesuXSEeSa__lJ2-JCxw" successor_AbstractAction="_pKmes-XSEeSa__lJ2-JCxw" calledService_ExternalService="_-LhmEHDqEeSqnN80MQ2uGw" role_ExternalService="_IHHPoOXSEeSa__lJ2-JCxw">
+              <inputVariableUsages__CallAction>
+                <variableCharacterisation_VariableUsage type="VALUE">
+                  <specification_VariableCharacterisation specification="audioRequest.Count.VALUE"/>
+                </variableCharacterisation_VariableUsage>
+                <namedReference__VariableUsage xsi:type="stoex:NamespaceReference" referenceName="audioRequest">
+                  <innerReference_NamespaceReference xsi:type="stoex:VariableReference" referenceName="Count"/>
+                </namedReference__VariableUsage>
+              </inputVariableUsages__CallAction>
+              <inputVariableUsages__CallAction>
+                <variableCharacterisation_VariableUsage type="VALUE">
+                  <specification_VariableCharacterisation specification="audioRequest.Size.VALUE"/>
+                </variableCharacterisation_VariableUsage>
+                <namedReference__VariableUsage xsi:type="stoex:NamespaceReference" referenceName="audioRequest">
+                  <innerReference_NamespaceReference xsi:type="stoex:VariableReference" referenceName="Size"/>
+                </namedReference__VariableUsage>
+              </inputVariableUsages__CallAction>
+              <returnVariableUsage__CallReturnAction>
+                <variableCharacterisation_VariableUsage type="BYTESIZE">
+                  <specification_VariableCharacterisation specification="RETURN.BYTESIZE"/>
+                </variableCharacterisation_VariableUsage>
+                <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="audioRequestReturn"/>
+              </returnVariableUsage__CallReturnAction>
+            </steps_Behaviour>
+          </branchBehaviour_BranchTransition>
+        </branches_Branch>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_YFneQOXTEeSa__lJ2-JCxw" entityName="set return load balancer" predecessor_AbstractAction="_nJaDAOXSEeSa__lJ2-JCxw" successor_AbstractAction="_Isqzw-XSEeSa__lJ2-JCxw">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage type="BYTESIZE">
+            <specification_VariableCharacterisation specification="audioRequestReturn.BYTESIZE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_PesXkL0JEeSAHuL4ItXOLQ3" entityName="JNDI RMI overhead" predecessor_AbstractAction="_IsqzwuXSEeSa__lJ2-JCxw" successor_AbstractAction="_nJaDAOXSEeSa__lJ2-JCxw">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="DoublePDF[(248240.0;0.0021638083026125983)(496480.0;0.8275364641769515)(744720.0;0.09104023080621894)(992960.0;0.047844205802211895)(1241200.0;0.021958647219105627)(1489440.0;0.0028850777368167975)(1737680.0;0.0016829620131431319)(1985920.0;7.212694342041994E-4)(2234160.0;3.2056419297964416E-4)(2482400.0;3.2056419297964416E-4)(2730640.0;2.4042314473473312E-4)(2978880.0;1.6028209648982208E-4)(3227120.0;8.014104824491104E-5)(3475360.0;8.014104824491104E-5)(3723600.0;0.0)(3971840.0;0.0)(4220080.0;0.0)(4468320.0;0.0)(4716560.0;8.014104824491104E-5)(4964800.0;8.014104824491104E-5)(5213040.0;8.014104824491104E-5)(5461280.0;1.6028209648982208E-4)(5709520.0;0.0)(5957760.0;8.014104824491104E-5)(6206000.0;8.014104824491104E-5)(6454240.0;1.6028209648982208E-4)(6702480.0;0.0)(6950720.0;8.014104824491104E-5)(7198960.0;0.0)(7447200.0;8.014104824491104E-5)(7695440.0;0.0)(7943680.0;8.014104824491104E-5)(8191920.0;0.0)(8440160.0;1.6028209648982208E-4)(8688400.0;8.014104824491104E-5)(8936640.0;0.0)(9184880.0;8.014104824491104E-5)(9433120.0;0.0)(9681360.0;8.014104824491104E-5)(9929600.0;8.014104824491104E-5)(1.017784E7;0.0)(1.042608E7;8.014104824491104E-5)(1.067432E7;8.014104824491104E-5)(1.092256E7;8.014104824491104E-5)(1.11708E7;8.014104824491104E-5)(1.141904E7;0.0)(1.166728E7;0.0)(1.191552E7;8.014104824491104E-5)(1.216376E7;0.0)(1.2412E7;0.0)(1.266024E7;0.0)(1.290848E7;0.0)(1.315672E7;0.0)(1.340496E7;0.0)(1.36532E7;0.0)(1.390144E7;0.0)(1.414968E7;0.0)(1.439792E7;0.0)(1.464616E7;0.0)(1.48944E7;0.0)(1.514264E7;0.0)(1.539088E7;8.014104824491104E-5)(1.563912E7;0.0)(1.588736E7;8.014104824491104E-5)(1.61356E7;0.0)(1.638384E7;8.014104824491104E-5)(1.663208E7;0.0)(1.688032E7;0.0)(1.712856E7;1.6028209648982208E-4)(1.73768E7;0.0)(1.762504E7;1.6028209648982208E-4)(1.787328E7;8.014104824491104E-5)(1.812152E7;0.0)(1.836976E7;0.0)(1.8618E7;0.0)(1.886624E7;8.014104824491104E-5)(1.911448E7;8.014104824491104E-5)(1.936272E7;0.0)(1.961096E7;8.014104824491104E-5)(1.98592E7;0.0)(2.010744E7;0.0)(2.035568E7;0.0)(2.060392E7;0.0)(2.085216E7;8.014104824491104E-5)(2.11004E7;0.0)(2.134864E7;0.0)(2.159688E7;0.0)(2.184512E7;0.0)(2.209336E7;0.0)(2.23416E7;0.0)(2.258984E7;0.0)(2.283808E7;0.0)(2.308632E7;0.0)(2.333456E7;0.0)(2.35828E7;0.0)(2.383104E7;0.0)(2.407928E7;0.0)(2.432752E7;8.014104824491104E-5)(2.457576E7;0.0)(2.4824E7;0.0)(2.507224E7;8.014104824491104E-5)]"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+        <internalFailureOccurrenceDescriptions__InternalAction failureProbability="1.0E-5" softwareInducedFailureType__InternalFailureOccurrenceDescription="_R-DpyUg-EeGGjNgy6wh7Uw"/>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <components__Repository xsi:type="repository:BasicComponent" id="_S-lawHDqEeSqnN80MQ2uGw2" entityName="ParallelWatermarking">
+    <providedRoles_InterfaceProvidingEntity xsi:type="repository:OperationProvidedRole" id="_mvf08HD0EeSqnN80MQ2uGw2" entityName="Provided_IDownload_Watermarking" providedInterface__OperationProvidedRole="_4QwQwHDqEeSqnN80MQ2uGw"/>
+    <requiredRoles_InterfaceRequiringEntity xsi:type="repository:OperationRequiredRole" id="_oSvwYHD0EeSqnN80MQ2uGw2" entityName="Required_IDownload_Watermarking" requiredInterface__OperationRequiredRole="_4QwQwHDqEeSqnN80MQ2uGw"/>
+    <serviceEffectSpecifications__BasicComponent xsi:type="seff:ResourceDemandingSEFF" id="_mvgcAHD0EeSqnN80MQ2uGw2" describedService__SEFF="_-LhmEHDqEeSqnN80MQ2uGw">
+      <steps_Behaviour xsi:type="seff:StartAction" id="_mvhDEHD0EeSqnN80MQ2uGw2" entityName="start" successor_AbstractAction="_PesXkL0JEeSAHuL4ItXOLQ2"/>
+      <steps_Behaviour xsi:type="seff:StopAction" id="_mvhqIHD0EeSqnN80MQ2uGw2" entityName="stop" predecessor_AbstractAction="_RxPpAL0JEeSAHuL4ItXOLQ2"/>
+      <steps_Behaviour xsi:type="seff:ExternalCallAction" id="_tZUiMHQhEeSabL89DKH5bQ2" predecessor_AbstractAction="_PesXkL0JEeSAHuL4ItXOLQ2" successor_AbstractAction="_VZEREOXWEeSa__lJ2-JCxw" calledService_ExternalService="_-LhmEHDqEeSqnN80MQ2uGw" role_ExternalService="_oSvwYHD0EeSqnN80MQ2uGw2">
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="audioRequest.Count.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:NamespaceReference" referenceName="audioRequest">
+            <innerReference_NamespaceReference xsi:type="stoex:VariableReference" referenceName="Count"/>
+          </namedReference__VariableUsage>
+        </inputVariableUsages__CallAction>
+        <inputVariableUsages__CallAction>
+          <variableCharacterisation_VariableUsage type="VALUE">
+            <specification_VariableCharacterisation specification="audioRequest.Size.VALUE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:NamespaceReference" referenceName="audioRequest">
+            <innerReference_NamespaceReference xsi:type="stoex:VariableReference" referenceName="Size"/>
+          </namedReference__VariableUsage>
+        </inputVariableUsages__CallAction>
+        <returnVariableUsage__CallReturnAction>
+          <variableCharacterisation_VariableUsage type="BYTESIZE">
+            <specification_VariableCharacterisation specification="RETURN.BYTESIZE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="temp"/>
+        </returnVariableUsage__CallReturnAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:InternalAction" id="_PesXkL0JEeSAHuL4ItXOLQ2" entityName="JNDI RMI overhead" predecessor_AbstractAction="_mvhDEHD0EeSqnN80MQ2uGw2" successor_AbstractAction="_tZUiMHQhEeSabL89DKH5bQ2">
+        <resourceDemand_Action>
+          <specification_ParametericResourceDemand specification="DoublePDF[(248240.0;0.0021638083026125983)(496480.0;0.8275364641769515)(744720.0;0.09104023080621894)(992960.0;0.047844205802211895)(1241200.0;0.021958647219105627)(1489440.0;0.0028850777368167975)(1737680.0;0.0016829620131431319)(1985920.0;7.212694342041994E-4)(2234160.0;3.2056419297964416E-4)(2482400.0;3.2056419297964416E-4)(2730640.0;2.4042314473473312E-4)(2978880.0;1.6028209648982208E-4)(3227120.0;8.014104824491104E-5)(3475360.0;8.014104824491104E-5)(3723600.0;0.0)(3971840.0;0.0)(4220080.0;0.0)(4468320.0;0.0)(4716560.0;8.014104824491104E-5)(4964800.0;8.014104824491104E-5)(5213040.0;8.014104824491104E-5)(5461280.0;1.6028209648982208E-4)(5709520.0;0.0)(5957760.0;8.014104824491104E-5)(6206000.0;8.014104824491104E-5)(6454240.0;1.6028209648982208E-4)(6702480.0;0.0)(6950720.0;8.014104824491104E-5)(7198960.0;0.0)(7447200.0;8.014104824491104E-5)(7695440.0;0.0)(7943680.0;8.014104824491104E-5)(8191920.0;0.0)(8440160.0;1.6028209648982208E-4)(8688400.0;8.014104824491104E-5)(8936640.0;0.0)(9184880.0;8.014104824491104E-5)(9433120.0;0.0)(9681360.0;8.014104824491104E-5)(9929600.0;8.014104824491104E-5)(1.017784E7;0.0)(1.042608E7;8.014104824491104E-5)(1.067432E7;8.014104824491104E-5)(1.092256E7;8.014104824491104E-5)(1.11708E7;8.014104824491104E-5)(1.141904E7;0.0)(1.166728E7;0.0)(1.191552E7;8.014104824491104E-5)(1.216376E7;0.0)(1.2412E7;0.0)(1.266024E7;0.0)(1.290848E7;0.0)(1.315672E7;0.0)(1.340496E7;0.0)(1.36532E7;0.0)(1.390144E7;0.0)(1.414968E7;0.0)(1.439792E7;0.0)(1.464616E7;0.0)(1.48944E7;0.0)(1.514264E7;0.0)(1.539088E7;8.014104824491104E-5)(1.563912E7;0.0)(1.588736E7;8.014104824491104E-5)(1.61356E7;0.0)(1.638384E7;8.014104824491104E-5)(1.663208E7;0.0)(1.688032E7;0.0)(1.712856E7;1.6028209648982208E-4)(1.73768E7;0.0)(1.762504E7;1.6028209648982208E-4)(1.787328E7;8.014104824491104E-5)(1.812152E7;0.0)(1.836976E7;0.0)(1.8618E7;0.0)(1.886624E7;8.014104824491104E-5)(1.911448E7;8.014104824491104E-5)(1.936272E7;0.0)(1.961096E7;8.014104824491104E-5)(1.98592E7;0.0)(2.010744E7;0.0)(2.035568E7;0.0)(2.060392E7;0.0)(2.085216E7;8.014104824491104E-5)(2.11004E7;0.0)(2.134864E7;0.0)(2.159688E7;0.0)(2.184512E7;0.0)(2.209336E7;0.0)(2.23416E7;0.0)(2.258984E7;0.0)(2.283808E7;0.0)(2.308632E7;0.0)(2.333456E7;0.0)(2.35828E7;0.0)(2.383104E7;0.0)(2.407928E7;0.0)(2.432752E7;8.014104824491104E-5)(2.457576E7;0.0)(2.4824E7;0.0)(2.507224E7;8.014104824491104E-5)]"/>
+          <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+        </resourceDemand_Action>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:SetVariableAction" id="_RxPpAL0JEeSAHuL4ItXOLQ2" predecessor_AbstractAction="_VZEREOXWEeSa__lJ2-JCxw" successor_AbstractAction="_mvhqIHD0EeSqnN80MQ2uGw2">
+        <localVariableUsages_SetVariableAction>
+          <variableCharacterisation_VariableUsage type="BYTESIZE">
+            <specification_VariableCharacterisation specification="temp.BYTESIZE"/>
+          </variableCharacterisation_VariableUsage>
+          <namedReference__VariableUsage xsi:type="stoex:VariableReference" referenceName="RETURN"/>
+        </localVariableUsages_SetVariableAction>
+      </steps_Behaviour>
+      <steps_Behaviour xsi:type="seff:ForkAction" id="_VZEREOXWEeSa__lJ2-JCxw" predecessor_AbstractAction="_tZUiMHQhEeSabL89DKH5bQ2" successor_AbstractAction="_RxPpAL0JEeSAHuL4ItXOLQ2">
+        <synchronisingBehaviours_ForkAction id="_ZKzcwJPJEeiPMvu1Fp6zqQ">
+          <synchronousForkedBehaviours_SynchronisationPoint id="_dHf8YOXWEeSa__lJ2-JCxw">
+            <steps_Behaviour xsi:type="seff:StartAction" id="_sC92IOXWEeSa__lJ2-JCxw" successor_AbstractAction="_6YA9EOdrEeSABYdOmkr4cA"/>
+            <steps_Behaviour xsi:type="seff:StopAction" id="_sSBl0OXWEeSa__lJ2-JCxw" predecessor_AbstractAction="_6YA9EOdrEeSABYdOmkr4cA"/>
+            <steps_Behaviour xsi:type="seff:BranchAction" id="_6YA9EOdrEeSABYdOmkr4cA" entityName="is two or more files?" predecessor_AbstractAction="_sC92IOXWEeSa__lJ2-JCxw" successor_AbstractAction="_sSBl0OXWEeSa__lJ2-JCxw">
+              <branches_Branch xsi:type="seff:GuardedBranchTransition" id="_-HVHcOdrEeSABYdOmkr4cA" entityName="is more than two files">
+                <branchBehaviour_BranchTransition id="_-HeRYOdrEeSABYdOmkr4cA">
+                  <steps_Behaviour xsi:type="seff:StartAction" id="_-HeRYedrEeSABYdOmkr4cA" successor_AbstractAction="_EYjFULjyEeSXKbmerxH1uA2"/>
+                  <steps_Behaviour xsi:type="seff:StopAction" id="_-HeRYudrEeSABYdOmkr4cA" predecessor_AbstractAction="_EYjFULjyEeSXKbmerxH1uA2"/>
+                  <steps_Behaviour xsi:type="seff:InternalAction" id="_EYjFULjyEeSXKbmerxH1uA2" entityName="watermark" predecessor_AbstractAction="_-HeRYedrEeSABYdOmkr4cA" successor_AbstractAction="_-HeRYudrEeSABYdOmkr4cA">
+                    <resourceDemand_Action>
+                      <specification_ParametericResourceDemand specification="(Trunc(Trunc(audioRequest.Count.VALUE)/2)+Trunc(audioRequest.Count.VALUE)%2)*DoublePDF[(2.7599156144E10;0.0)(2.7845577181E10;0.03571428571428571)(2.8091998218E10;0.1)(2.8338419255E10;0.014285714285714285)(2.8584840292E10;0.0)(2.8831261329E10;0.0)(2.9077682366E10;0.0)(2.9324103403E10;0.0)(2.957052444E10;0.0)(2.9816945477E10;0.0)(3.0063366514E10;0.0)(3.0309787551E10;0.0)(3.0556208588E10;0.0)(3.0802629625E10;0.0)(3.1049050662E10;0.1)(3.1295471699E10;0.09285714285714286)(3.1541892736E10;0.014285714285714285)(3.1788313773E10;0.007142857142857143)(3.203473481E10;0.0)(3.2281155847E10;0.0)(3.2527576884E10;0.0)(3.2773997921E10;0.0)(3.3020418958E10;0.0)(3.3266839995E10;0.007142857142857143)(3.3513261032E10;0.12857142857142856)(3.3759682069E10;0.02857142857142857)(3.4006103106E10;0.0)(3.4252524143E10;0.007142857142857143)(3.449894518E10;0.0)(3.4745366217E10;0.0)(3.4991787254E10;0.0)(3.5238208291E10;0.0)(3.5484629328E10;0.0)(3.5731050365E10;0.0)(3.5977471402E10;0.0)(3.6223892439E10;0.0)(3.6470313476E10;0.0)(3.6716734513E10;0.0)(3.696315555E10;0.007142857142857143)(3.7209576587E10;0.0)(3.7455997624E10;0.0)(3.7702418661E10;0.0)(3.7948839698E10;0.0)(3.8195260735E10;0.0)(3.8441681772E10;0.0)(3.8688102809E10;0.0)(3.8934523846E10;0.0)(3.9180944883E10;0.0)(3.942736592E10;0.0)(3.9673786957E10;0.0)(3.9920207994E10;0.0)(4.0166629031E10;0.0)(4.0413050068E10;0.0)(4.0659471105E10;0.0)(4.0905892142E10;0.0)(4.1152313179E10;0.0)(4.1398734216E10;0.007142857142857143)(4.1645155253E10;0.1)(4.189157629E10;0.1357142857142857)(4.2137997327E10;0.02142857142857143)(4.2384418364E10;0.0)(4.2630839401E10;0.0)(4.2877260438E10;0.0)(4.3123681475E10;0.0)(4.3370102512E10;0.0)(4.3616523549E10;0.0)(4.3862944586E10;0.0)(4.4109365623E10;0.0)(4.435578666E10;0.0)(4.4602207697E10;0.0)(4.4848628734E10;0.0)(4.5095049771E10;0.0)(4.5341470808E10;0.0)(4.5587891845E10;0.0)(4.5834312882E10;0.0)(4.6080733919E10;0.0)(4.6327154956E10;0.0)(4.6573575993E10;0.0)(4.681999703E10;0.0)(4.7066418067E10;0.0)(4.7312839104E10;0.0)(4.7559260141E10;0.0)(4.7805681178E10;0.0)(4.8052102215E10;0.0)(4.8298523252E10;0.0)(4.8544944289E10;0.0)(4.8791365326E10;0.0)(4.9037786363E10;0.0)(4.92842074E10;0.0)(4.9530628437E10;0.0)(4.9777049474E10;0.0)(5.0023470511E10;0.0)(5.0269891548E10;0.0)(5.0516312585E10;0.0)(5.0762733622E10;0.0)(5.1009154659E10;0.0)(5.1255575696E10;0.0)(5.1501996733E10;0.0)(5.174841777E10;0.05)(5.1994838807E10;0.1)(5.2241259844E10;0.02857142857142857)(5.2487680881E10;0.014285714285714285)]"/>
+                      <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+                    </resourceDemand_Action>
+                    <internalFailureOccurrenceDescriptions__InternalAction failureProbability="5.0E-6" softwareInducedFailureType__InternalFailureOccurrenceDescription="_R-DpyUg-EeGGjNgy6wh7Uw"/>
+                  </steps_Behaviour>
+                </branchBehaviour_BranchTransition>
+                <branchCondition_GuardedBranchTransition specification="audioRequest.Count.VALUE >= 2"/>
+              </branches_Branch>
+              <branches_Branch xsi:type="seff:GuardedBranchTransition" id="_OWmLYOdsEeSABYdOmkr4cA" entityName="is less than two files">
+                <branchBehaviour_BranchTransition id="_OWmLYedsEeSABYdOmkr4cA">
+                  <steps_Behaviour xsi:type="seff:StartAction" id="_OWmLYudsEeSABYdOmkr4cA" successor_AbstractAction="_OWmLY-dsEeSABYdOmkr4cA"/>
+                  <steps_Behaviour xsi:type="seff:StopAction" id="_OWmLY-dsEeSABYdOmkr4cA" predecessor_AbstractAction="_OWmLYudsEeSABYdOmkr4cA"/>
+                </branchBehaviour_BranchTransition>
+                <branchCondition_GuardedBranchTransition specification="audioRequest.Count.VALUE &lt; 2"/>
+              </branches_Branch>
+            </steps_Behaviour>
+          </synchronousForkedBehaviours_SynchronisationPoint>
+          <synchronousForkedBehaviours_SynchronisationPoint id="_drtcsOXWEeSa__lJ2-JCxw">
+            <steps_Behaviour xsi:type="seff:InternalAction" id="_EYjFULjyEeSXKbmerxH1uA3" entityName="watermark" predecessor_AbstractAction="_07A04OXWEeSa__lJ2-JCxw" successor_AbstractAction="_1fXfIOXWEeSa__lJ2-JCxw">
+              <resourceDemand_Action>
+                <specification_ParametericResourceDemand specification="(Trunc(Trunc(audioRequest.Count.VALUE)/2)+Trunc(audioRequest.Count.VALUE)%2)*DoublePDF[(2.7599156144E10;0.0)(2.7845577181E10;0.03571428571428571)(2.8091998218E10;0.1)(2.8338419255E10;0.014285714285714285)(2.8584840292E10;0.0)(2.8831261329E10;0.0)(2.9077682366E10;0.0)(2.9324103403E10;0.0)(2.957052444E10;0.0)(2.9816945477E10;0.0)(3.0063366514E10;0.0)(3.0309787551E10;0.0)(3.0556208588E10;0.0)(3.0802629625E10;0.0)(3.1049050662E10;0.1)(3.1295471699E10;0.09285714285714286)(3.1541892736E10;0.014285714285714285)(3.1788313773E10;0.007142857142857143)(3.203473481E10;0.0)(3.2281155847E10;0.0)(3.2527576884E10;0.0)(3.2773997921E10;0.0)(3.3020418958E10;0.0)(3.3266839995E10;0.007142857142857143)(3.3513261032E10;0.12857142857142856)(3.3759682069E10;0.02857142857142857)(3.4006103106E10;0.0)(3.4252524143E10;0.007142857142857143)(3.449894518E10;0.0)(3.4745366217E10;0.0)(3.4991787254E10;0.0)(3.5238208291E10;0.0)(3.5484629328E10;0.0)(3.5731050365E10;0.0)(3.5977471402E10;0.0)(3.6223892439E10;0.0)(3.6470313476E10;0.0)(3.6716734513E10;0.0)(3.696315555E10;0.007142857142857143)(3.7209576587E10;0.0)(3.7455997624E10;0.0)(3.7702418661E10;0.0)(3.7948839698E10;0.0)(3.8195260735E10;0.0)(3.8441681772E10;0.0)(3.8688102809E10;0.0)(3.8934523846E10;0.0)(3.9180944883E10;0.0)(3.942736592E10;0.0)(3.9673786957E10;0.0)(3.9920207994E10;0.0)(4.0166629031E10;0.0)(4.0413050068E10;0.0)(4.0659471105E10;0.0)(4.0905892142E10;0.0)(4.1152313179E10;0.0)(4.1398734216E10;0.007142857142857143)(4.1645155253E10;0.1)(4.189157629E10;0.1357142857142857)(4.2137997327E10;0.02142857142857143)(4.2384418364E10;0.0)(4.2630839401E10;0.0)(4.2877260438E10;0.0)(4.3123681475E10;0.0)(4.3370102512E10;0.0)(4.3616523549E10;0.0)(4.3862944586E10;0.0)(4.4109365623E10;0.0)(4.435578666E10;0.0)(4.4602207697E10;0.0)(4.4848628734E10;0.0)(4.5095049771E10;0.0)(4.5341470808E10;0.0)(4.5587891845E10;0.0)(4.5834312882E10;0.0)(4.6080733919E10;0.0)(4.6327154956E10;0.0)(4.6573575993E10;0.0)(4.681999703E10;0.0)(4.7066418067E10;0.0)(4.7312839104E10;0.0)(4.7559260141E10;0.0)(4.7805681178E10;0.0)(4.8052102215E10;0.0)(4.8298523252E10;0.0)(4.8544944289E10;0.0)(4.8791365326E10;0.0)(4.9037786363E10;0.0)(4.92842074E10;0.0)(4.9530628437E10;0.0)(4.9777049474E10;0.0)(5.0023470511E10;0.0)(5.0269891548E10;0.0)(5.0516312585E10;0.0)(5.0762733622E10;0.0)(5.1009154659E10;0.0)(5.1255575696E10;0.0)(5.1501996733E10;0.0)(5.174841777E10;0.05)(5.1994838807E10;0.1)(5.2241259844E10;0.02857142857142857)(5.2487680881E10;0.014285714285714285)]"/>
+                <requiredResource_ParametricResourceDemand href="pathmap://PCM_MODELS/Palladio.resourcetype#_oro4gG3fEdy4YaaT-RYrLQ"/>
+              </resourceDemand_Action>
+              <internalFailureOccurrenceDescriptions__InternalAction failureProbability="5.0E-6" softwareInducedFailureType__InternalFailureOccurrenceDescription="_R-DpyUg-EeGGjNgy6wh7Uw"/>
+            </steps_Behaviour>
+            <steps_Behaviour xsi:type="seff:StartAction" id="_07A04OXWEeSa__lJ2-JCxw" successor_AbstractAction="_EYjFULjyEeSXKbmerxH1uA3"/>
+            <steps_Behaviour xsi:type="seff:StopAction" id="_1fXfIOXWEeSa__lJ2-JCxw" predecessor_AbstractAction="_EYjFULjyEeSXKbmerxH1uA3"/>
+          </synchronousForkedBehaviours_SynchronisationPoint>
+        </synchronisingBehaviours_ForkAction>
+      </steps_Behaviour>
+    </serviceEffectSpecifications__BasicComponent>
+  </components__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_4TPZgHDpEeSqnN80MQ2uGw" entityName="IUserDB">
+    <signatures__OperationInterface id="_7EO6cHDpEeSqnN80MQ2uGw" entityName="addUser"/>
+    <signatures__OperationInterface id="_8ARE4HDpEeSqnN80MQ2uGw" entityName="getUserData"/>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_4QwQwHDqEeSqnN80MQ2uGw" entityName="IDownload">
+    <signatures__OperationInterface id="_-LhmEHDqEeSqnN80MQ2uGw" entityName="download" returnType__OperationSignature="_MRvPTbxMEeSAHuL4ItXOLQ">
+      <parameters__OperationSignature dataType__Parameter="_MRvPTbxMEeSAHuL4ItXOLQ" parameterName="audioRequest"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_psfEIHDsEeSqnN80MQ2uGw" entityName="IMediaAccess">
+    <signatures__OperationInterface id="_xHigcHDsEeSqnN80MQ2uGw" entityName="upload">
+      <parameters__OperationSignature dataType__Parameter="_6KA7oHDuEeSqnN80MQ2uGw" parameterName="file"/>
+    </signatures__OperationInterface>
+    <signatures__OperationInterface id="_z17ZUHDsEeSqnN80MQ2uGw" entityName="getFileList"/>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_s3KlgHDuEeSqnN80MQ2uGw" entityName="IPackaging">
+    <signatures__OperationInterface id="_ydHhYHDuEeSqnN80MQ2uGw" entityName="zip" returnType__OperationSignature="_6KA7oHDuEeSqnN80MQ2uGw">
+      <parameters__OperationSignature dataType__Parameter="_MRvPTbxMEeSAHuL4ItXOLQ" parameterName="audios"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_Nv-1oHDvEeSqnN80MQ2uGw" entityName="IMediaManagement">
+    <signatures__OperationInterface id="_Qa8AAHDvEeSqnN80MQ2uGw" entityName="upload">
+      <parameters__OperationSignature dataType__Parameter="_6KA7oHDuEeSqnN80MQ2uGw" parameterName="file"/>
+    </signatures__OperationInterface>
+    <signatures__OperationInterface id="_Q_yZgHDvEeSqnN80MQ2uGw" entityName="download" returnType__OperationSignature="_6KA7oHDuEeSqnN80MQ2uGw">
+      <parameters__OperationSignature dataType__Parameter="_MRvPTbxMEeSAHuL4ItXOLQ" parameterName="audioRequest"/>
+    </signatures__OperationInterface>
+    <signatures__OperationInterface id="_Rv19cHDvEeSqnN80MQ2uGw" entityName="getFileList"/>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_NeTaUHDwEeSqnN80MQ2uGw" entityName="IFacade">
+    <signatures__OperationInterface id="_Ss-eoHDwEeSqnN80MQ2uGw" entityName="upload">
+      <parameters__OperationSignature dataType__Parameter="_6KA7oHDuEeSqnN80MQ2uGw" parameterName="file"/>
+    </signatures__OperationInterface>
+    <signatures__OperationInterface id="_SxZroHDwEeSqnN80MQ2uGw" entityName="getFileList"/>
+    <signatures__OperationInterface id="_SzTwIHDwEeSqnN80MQ2uGw" entityName="register"/>
+    <signatures__OperationInterface id="_gMMc0HDwEeSqnN80MQ2uGw" entityName="login"/>
+    <signatures__OperationInterface id="_gQd40HDwEeSqnN80MQ2uGw" entityName="download" returnType__OperationSignature="_6KA7oHDuEeSqnN80MQ2uGw">
+      <parameters__OperationSignature dataType__Parameter="_MRvPTbxMEeSAHuL4ItXOLQ" parameterName="audioRequest"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_68uVELg2EeSNPorBlo7x9g" entityName="IDB">
+    <signatures__OperationInterface id="_72wUYLg2EeSNPorBlo7x9g" entityName="query"/>
+    <signatures__OperationInterface id="_YeL7cL5kEeSjpppo_XMujw" entityName="getFileList"/>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_jf7hMLg7EeSNPorBlo7x9g" entityName="IFileStorage">
+    <signatures__OperationInterface id="_lLuUoLg7EeSNPorBlo7x9g" entityName="getFiles" returnType__OperationSignature="_6KA7oHDuEeSqnN80MQ2uGw">
+      <parameters__OperationSignature dataType__Parameter="_MRvPTbxMEeSAHuL4ItXOLQ" parameterName="audioRequest"/>
+    </signatures__OperationInterface>
+    <signatures__OperationInterface id="_ZlS-sL0KEeSAHuL4ItXOLQ" entityName="storeFile">
+      <parameters__OperationSignature dataType__Parameter="_6KA7oHDuEeSqnN80MQ2uGw" parameterName="file"/>
+    </signatures__OperationInterface>
+  </interfaces__Repository>
+  <interfaces__Repository xsi:type="repository:OperationInterface" id="_jAJnML0YEeSAHuL4ItXOLQ" entityName="IUserManagement">
+    <signatures__OperationInterface id="_kEq_QL0YEeSAHuL4ItXOLQ" entityName="register"/>
+    <signatures__OperationInterface id="_ktDN4L0YEeSAHuL4ItXOLQ" entityName="login"/>
+  </interfaces__Repository>
+  <failureTypes__Repository xsi:type="reliability:SoftwareInducedFailureType" id="_R-DpyUg-EeGGjNgy6wh7Uw" entityName="SoftwareFailure" internalFailureOccurrenceDescriptions__SoftwareInducedFailureType="//@components__Repository.5/@serviceEffectSpecifications__BasicComponent.2/@steps_Behaviour.2/@internalFailureOccurrenceDescriptions__InternalAction.0 //@components__Repository.5/@serviceEffectSpecifications__BasicComponent.1/@steps_Behaviour.2/@internalFailureOccurrenceDescriptions__InternalAction.0 //@components__Repository.0/@serviceEffectSpecifications__BasicComponent.1/@steps_Behaviour.2/@internalFailureOccurrenceDescriptions__InternalAction.0 //@components__Repository.0/@serviceEffectSpecifications__BasicComponent.0/@steps_Behaviour.2/@internalFailureOccurrenceDescriptions__InternalAction.0 //@components__Repository.5/@serviceEffectSpecifications__BasicComponent.0/@steps_Behaviour.2/@internalFailureOccurrenceDescriptions__InternalAction.0 //@components__Repository.1/@serviceEffectSpecifications__BasicComponent.0/@steps_Behaviour.3/@internalFailureOccurrenceDescriptions__InternalAction.0 //@components__Repository.2/@serviceEffectSpecifications__BasicComponent.0/@steps_Behaviour.5/@internalFailureOccurrenceDescriptions__InternalAction.0 //@components__Repository.6/@serviceEffectSpecifications__BasicComponent.0/@steps_Behaviour.3/@internalFailureOccurrenceDescriptions__InternalAction.0 //@components__Repository.8/@serviceEffectSpecifications__BasicComponent.0/@steps_Behaviour.2/@internalFailureOccurrenceDescriptions__InternalAction.0 //@components__Repository.8/@serviceEffectSpecifications__BasicComponent.1/@steps_Behaviour.2/@internalFailureOccurrenceDescriptions__InternalAction.0 //@components__Repository.9/@serviceEffectSpecifications__BasicComponent.0/@steps_Behaviour.5/@internalFailureOccurrenceDescriptions__InternalAction.0 //@components__Repository.10/@serviceEffectSpecifications__BasicComponent.0/@steps_Behaviour.2/@internalFailureOccurrenceDescriptions__InternalAction.0 //@components__Repository.11/@serviceEffectSpecifications__BasicComponent.0/@steps_Behaviour.2/@internalFailureOccurrenceDescriptions__InternalAction.0 //@components__Repository.11/@serviceEffectSpecifications__BasicComponent.1/@steps_Behaviour.2/@internalFailureOccurrenceDescriptions__InternalAction.0 //@components__Repository.7/@serviceEffectSpecifications__BasicComponent.0/@steps_Behaviour.2/@internalFailureOccurrenceDescriptions__InternalAction.0 //@components__Repository.13/@serviceEffectSpecifications__BasicComponent.0/@steps_Behaviour.5/@synchronisingBehaviours_ForkAction/@synchronousForkedBehaviours_SynchronisationPoint.0/@steps_Behaviour.2/@branches_Branch.0/@branchBehaviour_BranchTransition/@steps_Behaviour.2/@internalFailureOccurrenceDescriptions__InternalAction.0 //@components__Repository.13/@serviceEffectSpecifications__BasicComponent.0/@steps_Behaviour.5/@synchronisingBehaviours_ForkAction/@synchronousForkedBehaviours_SynchronisationPoint.1/@steps_Behaviour.0/@internalFailureOccurrenceDescriptions__InternalAction.0 //@components__Repository.12/@serviceEffectSpecifications__BasicComponent.0/@steps_Behaviour.4/@internalFailureOccurrenceDescriptions__InternalAction.0"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_6KA7oHDuEeSqnN80MQ2uGw" entityName="FileContent"/>
+  <dataTypes__Repository xsi:type="repository:CompositeDataType" id="_MRvPTbxMEeSAHuL4ItXOLQ" entityName="AudioCollectionRequest">
+    <innerDeclaration_CompositeDataType entityName="Count">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+    </innerDeclaration_CompositeDataType>
+    <innerDeclaration_CompositeDataType entityName="Size">
+      <datatype_InnerDeclaration xsi:type="repository:PrimitiveDataType" href="pathmap://PCM_MODELS/PrimitiveTypes.repository#//@dataTypes__Repository.0"/>
+    </innerDeclaration_CompositeDataType>
+  </dataTypes__Repository>
+</repository:Repository>
