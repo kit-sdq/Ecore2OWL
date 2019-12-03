@@ -5,15 +5,12 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>edu.kit.ipd.are</groupId>
-		<artifactId>ecore2owl.parent</artifactId>
+		<artifactId>ecore2owl.releng</artifactId>
 		<version>1.0.0-SNAPSHOT</version>
 		<relativePath>../</relativePath>
 	</parent>
-	<artifactId>ecore2owl.releng</artifactId>
-	<packaging>pom</packaging>
-
-	<modules>
-		<module>edu.kit.ipd.are.ecore2owl.updatesite</module>
-	</modules>
+	<artifactId>ecore2owl.updatesite</artifactId>
+	<name>Ecore2OWL Update Site</name>
+	<packaging>eclipse-repository</packaging>
 
 </project>
