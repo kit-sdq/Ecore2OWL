@@ -2,21 +2,30 @@
 <?eclipse version="3.4"?>
 <plugin>
 
-	<extension point="org.eclipse.debug.core.launchConfigurationTypes">
-	    <launchConfigurationType
-	        name="Ecore2Owl"
-	        delegate="edu.kit.ipd.are.ecore2owl.ui.Ecore2OwlLaunchConfigurationDelegate"
-	        modes="run, debug"
-	        id="edu.kit.ipd.are.ecore2owl.ui.launchConfigurationType">
-	    </launchConfigurationType>
-	</extension>
-
 
 	<extension point="org.eclipse.debug.ui.launchConfigurationTabGroups">
         <launchConfigurationTabGroup
             type="edu.kit.ipd.are.ecore2owl.ui.launchConfigurationType"
             class="edu.kit.ipd.are.ecore2owl.ui.Ecore2OwlLaunchConfigurationTabGroup"
-            id="edu.kit.ipd.are.ecore2owl.ui.Ecore2OwlLaunchConfigurationTabGroup">
+            id="edu.kit.ipd.are.ecore2owl.ui.Ecore2OwlLaunchConfigurationTabGroupID">
+            <launchMode 
+                  mode="debug"
+                  perspective="org.eclipse.debug.ui.DebugPerspective"
+                  description="">
+            </launchMode>
+            <launchMode
+                  mode="run"
+                  description="">
+            </launchMode>
         </launchConfigurationTabGroup>
+	</extension>
+
+	<extension point="org.eclipse.debug.core.launchConfigurationTypes">
+	    <launchConfigurationType
+	        name="Ecore2OWL"
+	        delegate="edu.kit.ipd.are.ecore2owl.ui.Ecore2OwlLaunchConfigurationDelegate"
+	        modes="run, debug"
+	        id="edu.kit.ipd.are.ecore2owl.ui.launchConfigurationType">
+	    </launchConfigurationType>
 	</extension>
 </plugin>
