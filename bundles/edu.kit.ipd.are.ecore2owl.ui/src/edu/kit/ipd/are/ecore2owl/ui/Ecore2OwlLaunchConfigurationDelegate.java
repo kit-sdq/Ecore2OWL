@@ -41,12 +41,12 @@ public class Ecore2OwlLaunchConfigurationDelegate extends LaunchConfigurationDel
     public void launch(ILaunchConfiguration configuration, String mode, ILaunch launch, IProgressMonitor monitor)
             throws CoreException {
         String owlFile = getOwlOut(configuration);
-        boolean modelToOntologyNeeded = configuration.getAttribute(Ecore2OwlConfigurationAttributes.LOAD_FROM_MODEL, false);
+        boolean modelToOntologyNeeded = configuration.getAttribute(Ecore2OwlConfigurationAttributes.LOAD_FROM_MODEL,
+                false);
 
         // create ontology from models, if needed
-        OntologyAccess ontAcc = null;
         if (modelToOntologyNeeded) {
-            ontAcc = transformModelToOntology(configuration, owlFile);
+            transformModelToOntology(configuration, owlFile);
         }
         logger.info("Finished transformation of input models.");
     }

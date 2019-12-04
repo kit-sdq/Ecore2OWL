@@ -59,18 +59,18 @@
 		</plugin>
 		<plugin>
 			<groupId>org.eclipse.tycho</groupId>
-			<artifactId>tycho-versions-plugin</artifactId>
+			<artifactId>tycho-packaging-plugin</artifactId>
 			<version>${tycho.version}</version>
 			<executions>
-				<execution>
-					<id>versions</id>
-					<phase>validate</phase>
-					<goals>
-						<goal>update-pom</goal>
-					</goals>
-				</execution>
+			<execution>
+				<phase>package</phase>
+				<id>package-feature</id>
+					<configuration>
+						<finalName>${project.artifactId}_${unqualifiedVersion}.${buildQualifier}</finalName>
+					</configuration>
+        	</execution>
 			</executions>
-		</plugin>
+    	</plugin>
 		<plugin>
 			<groupId>org.eclipse.tycho</groupId>
 			<artifactId>target-platform-configuration</artifactId>

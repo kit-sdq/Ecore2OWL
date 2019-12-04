@@ -9,9 +9,7 @@
 		<version>1.0.0-SNAPSHOT</version>
 		<relativePath>../</relativePath>
 	</parent>
-	<groupId>edu.kit.ipd.are</groupId>
 	<artifactId>ecore2owl.tests</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
 	<modules>
