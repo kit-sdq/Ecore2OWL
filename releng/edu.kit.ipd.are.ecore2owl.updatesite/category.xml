@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<site>
+   <feature id="edu.kit.ipd.are.ecore2owl.feature">
+      <category name="ecore2owl"/>
+   </feature>
+   <category-def name="ecore2owl" label="Ecore2OWL">
+      <description>
+         Ecore2OWL tool transforming ecore models into ontologies (OWL)
+      </description>
+   </category-def>
+</site>

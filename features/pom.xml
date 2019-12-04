@@ -13,7 +13,7 @@
 	<packaging>pom</packaging>
 
 	<modules>
-		<!-- TODO -->
+		<module>edu.kit.ipd.are.ecore2owl.feature</module>
 	</modules>
 
 </project>
