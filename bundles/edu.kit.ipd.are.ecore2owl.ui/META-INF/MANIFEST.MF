@@ -13,10 +13,9 @@ Require-Bundle: org.apache.log4j;bundle-version="1.2.15",
  org.eclipse.debug.ui,
  org.eclipse.jface,
  org.eclipse.ui.ide,
- org.eclipse.emf.common.ui
+ org.eclipse.emf.common.ui,
+ ecore2owl.dependencies
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: edu.kit.ipd.are.adl.ui
 Bundle-Vendor: are.ipd.kit.edu
 Bundle-ActivationPolicy: lazy
-Bundle-ClassPath: .,
- lib/libs.jar

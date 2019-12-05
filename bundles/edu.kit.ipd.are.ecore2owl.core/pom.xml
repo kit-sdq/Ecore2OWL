@@ -87,7 +87,7 @@
             </goals>
             <configuration>
               <sourceFile>target/${project.artifactId}-${project.version}-jar-with-dependencies.jar</sourceFile>
-              <destinationFile>${basedir}/../edu.kit.ipd.are.ecore2owl.ui/lib/libs.jar</destinationFile>
+              <destinationFile>${basedir}/../edu.kit.ipd.are.ecore2owl.dependencies/lib/libs.jar</destinationFile>
             </configuration>
           </execution>
         </executions>

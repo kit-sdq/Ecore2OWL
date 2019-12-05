@@ -15,6 +15,7 @@
 	<modules>
 		<module>edu.kit.ipd.are.OntologyAccess</module>
 		<module>edu.kit.ipd.are.ecore2owl.core</module>
+		<module>edu.kit.ipd.are.ecore2owl.dependencies</module>
 		<module>edu.kit.ipd.are.ecore2owl.ui</module>
 	</modules>
 </project>
