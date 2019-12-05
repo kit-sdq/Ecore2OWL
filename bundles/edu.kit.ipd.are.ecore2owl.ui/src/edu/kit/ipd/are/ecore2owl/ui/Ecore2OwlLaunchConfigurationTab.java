@@ -22,7 +22,6 @@ import org.eclipse.swt.widgets.Button;
 import org.eclipse.swt.widgets.Composite;
 import org.eclipse.swt.widgets.Control;
 import org.eclipse.swt.widgets.Group;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import edu.kit.ipd.are.ecore2owl.ui.listener.fileopening.OpenEMFPackageButtonListener;
@@ -64,21 +63,21 @@ public class Ecore2OwlLaunchConfigurationTab extends AbstractLaunchConfiguration
             updateLaunchConfigurationDialog();
         };
 
-        Shell shell = getShell();
+        org.eclipse.swt.widgets.Shell shell = getShell();
 
-        this.textEcoreIn = new Text(container, SWT.SINGLE | SWT.BORDER);
-        this.textEcoreIn.setToolTipText("Input meta-model file(s) [*.ecore]");
+        textEcoreIn = new Text(container, SWT.SINGLE | SWT.BORDER);
+        textEcoreIn.setToolTipText("Input meta-model file(s) [*.ecore]");
         autoLoadMetaModelWidgets.add(textEcoreIn);
         createMetaModelInputSection(container, modifyListener, "Meta-Model input (Ecore)", ecoreFileExtensions,
                 textEcoreIn, shell);
 
-        this.textModelIn = new Text(container, SWT.SINGLE | SWT.BORDER);
-        this.textModelIn.setToolTipText("Input model file(s)");
+        textModelIn = new Text(container, SWT.SINGLE | SWT.BORDER);
+        textModelIn.setToolTipText("Input model file(s)");
         loadFromModelWidgets.add(textModelIn);
         createModelInputSection(container, modifyListener, "Model input", modelFileExtensions, textModelIn, shell);
 
-        this.textOntology = new Text(container, SWT.SINGLE | SWT.BORDER);
-        this.textOntology.setToolTipText("Output ontology file (owl)");
+        textOntology = new Text(container, SWT.SINGLE | SWT.BORDER);
+        textOntology.setToolTipText("Output ontology file (owl)");
         createOutputSection(container, modifyListener, "Ontology file", owlFileExtensions, textOntology,
                 "Set Ontology file", shell);
     }
@@ -112,7 +111,8 @@ public class Ecore2OwlLaunchConfigurationTab extends AbstractLaunchConfiguration
     }
 
     private void createMetaModelInputSection(final Composite parentContainer, final ModifyListener modifyListener,
-            final String groupLabel, final String[] fileExtensions, Text textFileNameToLoad, Shell dialogShell) {
+            final String groupLabel, final String[] fileExtensions, Text textFileNameToLoad,
+            org.eclipse.swt.widgets.Shell dialogShell) {
         final Group inputGroup = new Group(parentContainer, SWT.NONE);
         int numColumns = 4;
         GridLayoutFactory.swtDefaults()
@@ -166,7 +166,8 @@ public class Ecore2OwlLaunchConfigurationTab extends AbstractLaunchConfiguration
     }
 
     private void createModelInputSection(final Composite parentContainer, final ModifyListener modifyListener,
-            final String groupLabel, final String[] fileExtensions, Text textFileNameToLoad, Shell dialogShell) {
+            final String groupLabel, final String[] fileExtensions, Text textFileNameToLoad,
+            org.eclipse.swt.widgets.Shell dialogShell) {
         final Group inputGroup = new Group(parentContainer, SWT.NONE);
         int numColumns = 3;
         GridLayoutFactory.swtDefaults()
@@ -204,7 +205,8 @@ public class Ecore2OwlLaunchConfigurationTab extends AbstractLaunchConfiguration
     }
 
     private void createOutputSection(Composite parentContainer, ModifyListener modifyListener, String groupLabel,
-            String[] owlFileExtensions, Text textSaveFile, String dialogTitle, Shell dialogShell) {
+            String[] owlFileExtensions, Text textSaveFile, String dialogTitle,
+            org.eclipse.swt.widgets.Shell dialogShell) {
         final Group ouputGroup = new Group(parentContainer, SWT.NONE);
         int numColumns = 3;
         GridLayoutFactory.swtDefaults()
@@ -274,14 +276,17 @@ public class Ecore2OwlLaunchConfigurationTab extends AbstractLaunchConfiguration
         }
 
         if ((ecoreInput.isEmpty() && !autoLoadMetaModel) || owlOutput.isEmpty()
-                || (loadFromModel && modelInput.isEmpty()) || docInput.isEmpty())
+                || (loadFromModel && modelInput.isEmpty()) || docInput.isEmpty()) {
             return false;
+        }
 
-        if (!autoLoadMetaModel && !validateEcoreInputs(ecoreInput))
+        if (!autoLoadMetaModel && !validateEcoreInputs(ecoreInput)) {
             return false;
+        }
 
-        if (loadFromModel && !validateModelInputs(modelInput))
+        if (loadFromModel && !validateModelInputs(modelInput)) {
             return false;
+        }
 
         return validateFilenameExtensions(owlOutput, owlFileExtensions);
     }

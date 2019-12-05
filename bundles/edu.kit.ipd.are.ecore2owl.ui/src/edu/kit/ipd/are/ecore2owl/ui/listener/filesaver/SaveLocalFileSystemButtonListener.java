@@ -4,12 +4,11 @@ import java.io.File;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 /**
  * Copy of de.uka.ipd.sdq.workflow.launchconfig.tabs.LocalFileSystemButtonSelectionAdapter for import reasons
- * 
+ *
  * @author Jan Keim
  *
  */
@@ -17,7 +16,7 @@ public class SaveLocalFileSystemButtonListener extends SaveButtonListener {
 
     /**
      * Instantiates a new local file system button selection adapter.
-     * 
+     *
      * @param field
      *            the field
      * @param fileExtension
@@ -27,14 +26,15 @@ public class SaveLocalFileSystemButtonListener extends SaveButtonListener {
      * @param shell
      *            the shell
      */
-    public SaveLocalFileSystemButtonListener(Text field, String[] fileExtension, String dialogTitle, Shell shell) {
+    public SaveLocalFileSystemButtonListener(Text field, String[] fileExtension, String dialogTitle,
+            org.eclipse.swt.widgets.Shell shell) {
         super(field, fileExtension, dialogTitle, shell);
 
     }
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see edu.kit.ipd.are.emf2owl.ui.listener.FileButtonListener#openFileDialog(org.eclipse.swt.widgets.Text,
      * java.lang.String[])
      */

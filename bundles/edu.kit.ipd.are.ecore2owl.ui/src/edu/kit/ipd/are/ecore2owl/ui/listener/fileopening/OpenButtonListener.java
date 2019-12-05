@@ -1,7 +1,6 @@
 package edu.kit.ipd.are.ecore2owl.ui.listener.fileopening;
 
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import edu.kit.ipd.are.ecore2owl.ui.listener.FileButtonListener;
@@ -9,7 +8,7 @@ import edu.kit.ipd.are.ecore2owl.ui.listener.FileButtonListener;
 public abstract class OpenButtonListener extends FileButtonListener {
     /**
      * Instantiates a new local file system button selection adapter.
-     * 
+     *
      * @param field
      *            the field
      * @param fileExtension
@@ -19,14 +18,15 @@ public abstract class OpenButtonListener extends FileButtonListener {
      * @param shell
      *            the shell
      */
-    public OpenButtonListener(Text field, String[] fileExtension, String dialogTitle, Shell shell) {
+    public OpenButtonListener(Text field, String[] fileExtension, String dialogTitle,
+            org.eclipse.swt.widgets.Shell shell) {
         super(field, fileExtension, dialogTitle, shell);
 
     }
 
     /**
      * Instantiates a new local file system button selection adapter.
-     * 
+     *
      * @param field
      *            the field
      * @param fileExtension
@@ -40,8 +40,8 @@ public abstract class OpenButtonListener extends FileButtonListener {
      * @param useMultipleSelection
      *            if true, multiple files can be selected.
      */
-    public OpenButtonListener(Text field, String[] fileExtension, String dialogTitle, Shell shell,
-            boolean useMultipleSelection) {
+    public OpenButtonListener(Text field, String[] fileExtension, String dialogTitle,
+            org.eclipse.swt.widgets.Shell shell, boolean useMultipleSelection) {
         super(field, fileExtension, dialogTitle, shell, false, useMultipleSelection);
     }
 
@@ -51,7 +51,7 @@ public abstract class OpenButtonListener extends FileButtonListener {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.swt.events.SelectionAdapter#widgetSelected(org.eclipse.swt.events.SelectionEvent)
      */
     @Override

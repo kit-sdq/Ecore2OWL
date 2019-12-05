@@ -1,14 +1,14 @@
 package edu.kit.ipd.are.ecore2owl.ui.listener.filesaver;
 
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import edu.kit.ipd.are.ecore2owl.ui.listener.FileButtonListener;
 
 public abstract class SaveButtonListener extends FileButtonListener {
 
-    public SaveButtonListener(Text field, String[] fileExtensions, String dialogTitle, Shell shell) {
+    public SaveButtonListener(Text field, String[] fileExtensions, String dialogTitle,
+            org.eclipse.swt.widgets.Shell shell) {
         super(field, fileExtensions, dialogTitle, shell);
     }
 
@@ -16,7 +16,7 @@ public abstract class SaveButtonListener extends FileButtonListener {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.eclipse.swt.events.SelectionAdapter#widgetSelected(org.eclipse.swt.events.SelectionEvent)
      */
     @Override
@@ -28,11 +28,11 @@ public abstract class SaveButtonListener extends FileButtonListener {
     }
 
     protected Text getField() {
-        return this.field;
+        return field;
     }
 
     protected String[] getExtensions() {
-        return this.extensions;
+        return extensions;
     }
 
 }
