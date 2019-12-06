@@ -1,5 +1,5 @@
 /**
- * 
+ *
  */
 package edu.kit.ipd.are.ecore2owl;
 
@@ -48,11 +48,10 @@ import edu.kit.ipd.are.ontologyaccess.OntologyAccess;
 
 /**
  * Class for transforming Ecore models from the EMF into ontologies in OWL format.
- * 
+ *
  * @author Jan Keim
  *
  */
-// TODO: only process classes, objects etc. if not previously processed to speed up the processing.
 public class Ecore2OWLTransformer {
 
     private static final Logger logger = Logger.getLogger(Ecore2OWLTransformer.class);
@@ -88,7 +87,7 @@ public class Ecore2OWLTransformer {
 
     /**
      * Loads an Ecore {@link Resource} from the as {@link String} given URL and returns the loaded {@link Resource}
-     * 
+     *
      * @param inputResourceUrl
      *            URL of the input resource, that should be loaded
      * @return loaded Resource
@@ -156,13 +155,13 @@ public class Ecore2OWLTransformer {
     }
 
     private void preparePackageTransformation(EPackage ePackage) {
-        if (this.ontologyAccess == null) {
+        if (ontologyAccess == null) {
             logger.debug("Initialising OntologyAccess");
             String nsURI = ePackage.getNsURI();
             String defaultNameSpace = nsURI + "/owl#";
-            this.ontologyAccess = OntologyAccess.empty(defaultNameSpace);
-            this.ontologyAccess.addNsPrefix("model", defaultNameSpace);
-            this.ontologyAccess.setDefaultPrefix("model");
+            ontologyAccess = OntologyAccess.empty(defaultNameSpace);
+            ontologyAccess.addNsPrefix("model", defaultNameSpace);
+            ontologyAccess.setDefaultPrefix("model");
             eClassOntClass = ontologyAccess.addClass(E_CLASS);
             ePackageOntClass = ontologyAccess.addClass(E_PACKAGE);
         }
@@ -204,7 +203,6 @@ public class Ecore2OWLTransformer {
             return;
         }
 
-        // TODO set default prefix / new ontology or similar to encapsulate meta-model away from actual model
         EList<EObject> contents = inputModel.getContents();
         for (EObject object : contents) {
             processEObject(object);
@@ -263,16 +261,17 @@ public class Ecore2OWLTransformer {
     }
 
     private void processEPackage(EPackage ePackage) {
-        if (this.processedPackages.contains(ePackage)) {
+        if (processedPackages.contains(ePackage)) {
             return;
         }
         EPackage superPackage = ePackage.getESuperPackage();
         String packageName = ePackage.getName();
         String packageNsURI = ePackage.getNsURI();
         String packageNsPrefix = ePackage.getNsPrefix();
-        if (logger.isDebugEnabled())
+        if (logger.isDebugEnabled()) {
             logger.debug(String.format("Start processing EPackage with name \"%s\", NS-Prefix \"%s\" and NS-URI \"%s\"",
                     packageName, packageNsPrefix, packageNsURI));
+        }
 
         // create superclass for package
         OntClass packageClass;
@@ -524,13 +523,17 @@ public class Ecore2OWLTransformer {
             }
         }
         if (name == null) {
-            name = EcoreUtil.generateUUID();
+            name = getId(object);
             eObjectNames.put(object, name);
         }
         String className = object.eClass()
                                  .getName();
         name = className + name;
         return cleanName(name);
+    }
+
+    private String getId(EObject object) {
+        return EcoreUtil.getID(object);
     }
 
     private void processEObject(EObject object) {
