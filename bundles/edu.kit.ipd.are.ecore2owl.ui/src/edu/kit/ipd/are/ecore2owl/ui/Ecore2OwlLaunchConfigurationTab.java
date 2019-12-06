@@ -265,7 +265,6 @@ public class Ecore2OwlLaunchConfigurationTab extends AbstractLaunchConfiguration
         String ecoreInput = "";
         String modelInput = "";
         String owlOutput = "";
-        String docInput = "";
         try {
             ecoreInput = launchConfig.getAttribute(Ecore2OwlConfigurationAttributes.ECORE_IN, "");
             modelInput = launchConfig.getAttribute(Ecore2OwlConfigurationAttributes.MODEL_IN, "");
@@ -276,7 +275,7 @@ public class Ecore2OwlLaunchConfigurationTab extends AbstractLaunchConfiguration
         }
 
         if ((ecoreInput.isEmpty() && !autoLoadMetaModel) || owlOutput.isEmpty()
-                || (loadFromModel && modelInput.isEmpty()) || docInput.isEmpty()) {
+                || (loadFromModel && modelInput.isEmpty())) {
             return false;
         }
 
