@@ -92,7 +92,6 @@ public class Ecore2OWLTransformer {
      *            URL of the input resource, that should be loaded
      * @return loaded Resource
      */
-    @Deprecated
     public static Resource loadEcoreResource(String inputResourceUrl) {
         // register and load metamodel
         ResourceSet resourceSet = new ResourceSetImpl();
@@ -135,7 +134,6 @@ public class Ecore2OWLTransformer {
         }
     }
 
-    @Deprecated
     public void transformEcore(String ecoreFile) {
         if (ecoreFile == null || ecoreFile.isEmpty()) {
             throw new IllegalArgumentException("Invalid input file!");

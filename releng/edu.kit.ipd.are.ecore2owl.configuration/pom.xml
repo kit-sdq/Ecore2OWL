@@ -17,9 +17,6 @@
 	    <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
 	    <jena.version>3.7.0</jena.version>
 	    <eclipse.collections.version>9.2.0</eclipse.collections.version>
-	    <emf.version>2.15.0</emf.version>
-	    <ecf.version>1.2.15.v201012070815</ecf.version>
-	    <junit.version>4.12</junit.version>
   	</properties>
 
 

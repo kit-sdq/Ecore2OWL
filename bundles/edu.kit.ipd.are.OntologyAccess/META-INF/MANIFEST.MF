@@ -7,8 +7,7 @@ Bundle-Activator: edu.kit.ipd.are.ecore2owl.ontologyaccess.Activator
 Require-Bundle: org.eclipse.core.runtime,
  org.apache.log4j,
  org.eclipse.emf.common,
- ecore2owl.dependencies-provider,
- org.slf4j.api
+ ecore2owl.dependencies-provider
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: ecore2owl.plugin-OntologyAccess
 Bundle-ActivationPolicy: lazy
