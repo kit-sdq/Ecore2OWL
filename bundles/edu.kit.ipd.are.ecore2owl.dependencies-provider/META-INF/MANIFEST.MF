@@ -5,7 +5,7 @@ Bundle-SymbolicName: ecore2owl.dependencies-provider;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Automatic-Module-Name: ecore2owl.dependencies
 Bundle-RequiredExecutionEnvironment: JavaSE-11
-Bundle-ClassPath: libs.jar,
+Bundle-ClassPath: lib/libs.jar,
  .
 Export-Package: arq,
  arq.cmdline,

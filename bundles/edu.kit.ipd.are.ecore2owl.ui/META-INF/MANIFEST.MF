@@ -4,8 +4,7 @@ Bundle-Name: Ecore2OWL UI Plugin
 Bundle-SymbolicName: ecore2owl.ui;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: edu.kit.ipd.are.ecore2owl.ui.Activator
-Require-Bundle: org.eclipse.core.runtime;bundle-version="3.16.0",
- org.apache.log4j;bundle-version="1.2.15",
+Require-Bundle: org.apache.log4j;bundle-version="1.2.15",
  org.eclipse.debug.core,
  org.eclipse.equinox.registry,
  org.eclipse.emf.ecore;bundle-version="2.15.0",
@@ -14,9 +13,10 @@ Require-Bundle: org.eclipse.core.runtime;bundle-version="3.16.0",
  org.eclipse.debug.ui,
  org.eclipse.ui.ide,
  org.eclipse.emf.common.ui,
+ org.eclipse.osgi;bundle-version="3.15.0",
+ ecore2owl.OntologyAccess;bundle-version="1.0.0",
  ecore2owl.dependencies-provider,
- ecore2owl.core;bundle-version="1.0.0",
- ecore2owl.OntologyAccess;bundle-version="1.0.0"
+ ecore2owl.core;bundle-version="1.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: edu.kit.ipd.are.adl.ui
 Bundle-Vendor: are.ipd.kit.edu
