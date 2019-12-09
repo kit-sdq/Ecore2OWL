@@ -92,12 +92,14 @@ public class Ecore2OWLTransformer {
      *            URL of the input resource, that should be loaded
      * @return loaded Resource
      */
+    @Deprecated
     public static Resource loadEcoreResource(String inputResourceUrl) {
         // register and load metamodel
         ResourceSet resourceSet = new ResourceSetImpl();
-
+        resourceSet.setResourceFactoryRegistry(Resource.Factory.Registry.INSTANCE);
         Map<String, Object> extensionToFactoryMap = resourceSet.getResourceFactoryRegistry()
                                                                .getExtensionToFactoryMap();
+
         extensionToFactoryMap.put("ecore", new EcoreResourceFactoryImpl());
         extensionToFactoryMap.putAll(Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap());
 
@@ -133,6 +135,7 @@ public class Ecore2OWLTransformer {
         }
     }
 
+    @Deprecated
     public void transformEcore(String ecoreFile) {
         if (ecoreFile == null || ecoreFile.isEmpty()) {
             throw new IllegalArgumentException("Invalid input file!");
@@ -167,11 +170,21 @@ public class Ecore2OWLTransformer {
         }
     }
 
+    @Deprecated
     public void transformModel(String modelFile) {
         transformModel(modelFile, false);
     }
 
-    private void transformModel(Resource inputModel, boolean resolveMetaModel) {
+    @Deprecated
+    public void transformModel(String modelFile, boolean resolveMetaModel) {
+        if (modelFile == null || modelFile.isEmpty()) {
+            throw new IllegalArgumentException("Invalid input file!");
+        }
+        Resource resource = loadEcoreResource(modelFile);
+        transformModel(resource, resolveMetaModel);
+    }
+
+    public void transformModel(Resource inputModel, boolean resolveMetaModel) {
         if (resolveMetaModel) {
             EPackage ePackage = inputModel.getContents()
                                           .get(0)
@@ -185,14 +198,6 @@ public class Ecore2OWLTransformer {
             processEPackage(metaModelRoot);
         }
         transformModel(inputModel);
-    }
-
-    public void transformModel(String modelFile, boolean resolveMetaModel) {
-        if (modelFile == null || modelFile.isEmpty()) {
-            throw new IllegalArgumentException("Invalid input file!");
-        }
-        Resource resource = loadEcoreResource(modelFile);
-        transformModel(resource, resolveMetaModel);
     }
 
     private void transformModel(Resource inputModel) {

@@ -1,7 +1,7 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
 Bundle-Name: Ecore2OWL Dependencies
-Bundle-SymbolicName: ecore2owl.dependencies
+Bundle-SymbolicName: ecore2owl.dependencies;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Automatic-Module-Name: ecore2owl.dependencies
 Bundle-RequiredExecutionEnvironment: JavaSE-11
@@ -9,3 +9,4 @@ Bundle-ClassPath: lib/libs.jar,
  .
 Export-Package: edu.kit.ipd.are.ecore2owl,
  edu.kit.ipd.are.ontologyaccess
+Bundle-ActivationPolicy: lazy

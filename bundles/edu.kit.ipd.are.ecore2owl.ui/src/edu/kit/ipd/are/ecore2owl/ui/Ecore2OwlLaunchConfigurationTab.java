@@ -43,7 +43,7 @@ public class Ecore2OwlLaunchConfigurationTab extends AbstractLaunchConfiguration
     private List<Control> autoLoadMetaModelWidgets = new ArrayList<>();
 
     private Button loadFromModelButton;
-    private boolean loadFromModel = true;
+
     private List<Control> loadFromModelWidgets = new ArrayList<>();
 
     private static final String[] ecoreFileExtensions = new String[] { "*.ecore" };
@@ -158,13 +158,6 @@ public class Ecore2OwlLaunchConfigurationTab extends AbstractLaunchConfiguration
         }
     }
 
-    private void updateLoadFromModel() {
-        loadFromModelButton.setSelection(loadFromModel);
-        for (Control widget : loadFromModelWidgets) {
-            widget.setEnabled(loadFromModel);
-        }
-    }
-
     private void createModelInputSection(final Composite parentContainer, final ModifyListener modifyListener,
             final String groupLabel, final String[] fileExtensions, Text textFileNameToLoad,
             org.eclipse.swt.widgets.Shell dialogShell) {
@@ -184,24 +177,6 @@ public class Ecore2OwlLaunchConfigurationTab extends AbstractLaunchConfiguration
         List<Button> buttonsInFileGroup = createButtonsInFileGroup(inputGroup, workspaceListener,
                 localFileSystemListener);
         loadFromModelWidgets.addAll(buttonsInFileGroup);
-
-        loadFromModelButton = new Button(inputGroup, SWT.CHECK);
-        loadFromModelButton.setSelection(loadFromModel);
-        loadFromModelButton.setText("Load from model and create ontology first");
-        loadFromModelButton.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent event) {
-                loadFromModel = !loadFromModel;
-                updateLoadFromModel();
-                setDirty(true);
-                updateLaunchConfigurationDialog();
-            }
-        });
-
-        // DEACTIVATE BUTTON UNTIL A FIX FOR PROBLEM WITH USING ONTOLOGY DIRECTLY IS FOUND
-        loadFromModelButton.setEnabled(false);
-
-        updateLoadFromModel();
     }
 
     private void createOutputSection(Composite parentContainer, ModifyListener modifyListener, String groupLabel,
@@ -237,9 +212,7 @@ public class Ecore2OwlLaunchConfigurationTab extends AbstractLaunchConfiguration
             String owlOutText = configuration.getAttribute(Ecore2OwlConfigurationAttributes.OWL_OUT, "");
             textOntology.setText(owlOutText);
             autoLoadMetaModel = configuration.getAttribute(Ecore2OwlConfigurationAttributes.AUTOLOAD, true);
-            loadFromModel = configuration.getAttribute(Ecore2OwlConfigurationAttributes.LOAD_FROM_MODEL, loadFromModel);
             updateAutoLoad();
-            updateLoadFromModel();
         } catch (CoreException e) {
             logger.warning(e.getMessage());
         }
@@ -256,8 +229,6 @@ public class Ecore2OwlLaunchConfigurationTab extends AbstractLaunchConfiguration
         String owlOut = textOntology.getText();
         configuration.setAttribute(Ecore2OwlConfigurationAttributes.OWL_OUT, owlOut);
         configuration.setAttribute(Ecore2OwlConfigurationAttributes.AUTOLOAD, autoLoadMetaModel);
-
-        configuration.setAttribute(Ecore2OwlConfigurationAttributes.LOAD_FROM_MODEL, loadFromModel);
     }
 
     @Override
@@ -274,8 +245,7 @@ public class Ecore2OwlLaunchConfigurationTab extends AbstractLaunchConfiguration
             return false;
         }
 
-        if ((ecoreInput.isEmpty() && !autoLoadMetaModel) || owlOutput.isEmpty()
-                || (loadFromModel && modelInput.isEmpty())) {
+        if ((ecoreInput.isEmpty() && !autoLoadMetaModel) || owlOutput.isEmpty() || modelInput.isEmpty()) {
             return false;
         }
 
@@ -283,7 +253,7 @@ public class Ecore2OwlLaunchConfigurationTab extends AbstractLaunchConfiguration
             return false;
         }
 
-        if (loadFromModel && !validateModelInputs(modelInput)) {
+        if (!validateModelInputs(modelInput)) {
             return false;
         }
 
@@ -324,6 +294,5 @@ public class Ecore2OwlLaunchConfigurationTab extends AbstractLaunchConfiguration
         configuration.setAttribute(Ecore2OwlConfigurationAttributes.MODEL_IN, "");
         configuration.setAttribute(Ecore2OwlConfigurationAttributes.OWL_OUT, "");
         configuration.setAttribute(Ecore2OwlConfigurationAttributes.AUTOLOAD, true);
-        configuration.setAttribute(Ecore2OwlConfigurationAttributes.LOAD_FROM_MODEL, true);
     }
 }
