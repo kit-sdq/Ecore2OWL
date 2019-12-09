@@ -18,8 +18,8 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 
+import edu.kit.ipd.are.ecore2owl.core.Ecore2OWLTransformer;
 import edu.kit.ipd.are.ecore2owl.ontologyaccess.OntologyAccess;
-import edu.kit.ipd.are.ecore2owl.plugin_core.Ecore2OWLTransformer;
 
 public class Ecore2OwlLaunchConfigurationDelegate extends LaunchConfigurationDelegate {
     private static Logger logger = Logger.getLogger(Ecore2OwlLaunchConfigurationDelegate.class);
@@ -50,7 +50,7 @@ public class Ecore2OwlLaunchConfigurationDelegate extends LaunchConfigurationDel
         String owlFile = getOwlOut(configuration);
 
         transformModelToOntology(configuration, owlFile);
-        logger.info("Finished transformation of input models.");
+        logger.info("Finished.");
     }
 
     private OntologyAccess transformModelToOntology(ILaunchConfiguration configuration, String owlFile)
@@ -78,6 +78,9 @@ public class Ecore2OwlLaunchConfigurationDelegate extends LaunchConfigurationDel
                 transformer.transformModel(ecoreResource, autoLoadMetaModel);
             }
         }
+        logger.info("Finished transformation of input models.");
+        logger.info("Start saving the OWL file.");
+        transformer.saveOntology();
         return transformer.getOntologyAccess();
     }
 

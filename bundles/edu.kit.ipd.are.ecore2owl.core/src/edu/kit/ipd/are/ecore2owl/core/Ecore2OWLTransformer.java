@@ -1,7 +1,7 @@
 /**
  *
  */
-package edu.kit.ipd.are.ecore2owl.plugin_core;
+package edu.kit.ipd.are.ecore2owl.core;
 
 import java.io.IOException;
 import java.util.ArrayList;

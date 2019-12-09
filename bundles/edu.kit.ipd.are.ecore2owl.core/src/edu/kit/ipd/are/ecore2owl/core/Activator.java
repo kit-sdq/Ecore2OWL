@@ -1,4 +1,4 @@
-package edu.kit.ipd.are.ecore2owl.plugin_core;
+package edu.kit.ipd.are.ecore2owl.core;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
