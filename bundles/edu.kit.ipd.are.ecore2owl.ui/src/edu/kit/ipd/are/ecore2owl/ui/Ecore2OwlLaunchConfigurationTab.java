@@ -42,8 +42,6 @@ public class Ecore2OwlLaunchConfigurationTab extends AbstractLaunchConfiguration
     private boolean autoLoadMetaModel = true;
     private List<Control> autoLoadMetaModelWidgets = new ArrayList<>();
 
-    private Button loadFromModelButton;
-
     private List<Control> loadFromModelWidgets = new ArrayList<>();
 
     private static final String[] ecoreFileExtensions = new String[] { "*.ecore" };

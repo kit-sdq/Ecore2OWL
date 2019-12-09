@@ -18,8 +18,8 @@ import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
 import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 
-import edu.kit.ipd.are.ecore2owl.Ecore2OWLTransformer;
-import edu.kit.ipd.are.ontologyaccess.OntologyAccess;
+import edu.kit.ipd.are.ecore2owl.ontologyaccess.OntologyAccess;
+import edu.kit.ipd.are.ecore2owl.plugin_core.Ecore2OWLTransformer;
 
 public class Ecore2OwlLaunchConfigurationDelegate extends LaunchConfigurationDelegate {
     private static Logger logger = Logger.getLogger(Ecore2OwlLaunchConfigurationDelegate.class);

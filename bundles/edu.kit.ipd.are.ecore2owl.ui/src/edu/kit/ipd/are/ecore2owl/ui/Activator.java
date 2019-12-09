@@ -8,8 +8,8 @@ import org.apache.log4j.PatternLayout;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
-import edu.kit.ipd.are.ecore2owl.Ecore2OWLTransformer;
-import edu.kit.ipd.are.ontologyaccess.OntologyAccess;
+import edu.kit.ipd.are.ecore2owl.ontologyaccess.OntologyAccess;
+import edu.kit.ipd.are.ecore2owl.plugin_core.Ecore2OWLTransformer;
 
 public class Activator implements BundleActivator {
     protected static final Level LOGGING_LEVEL = Level.DEBUG;
@@ -17,7 +17,7 @@ public class Activator implements BundleActivator {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.osgi.framework.BundleActivator#start(org.osgi.framework.BundleContext)
      */
     @Override
@@ -27,7 +27,7 @@ public class Activator implements BundleActivator {
 
     /*
      * (non-Javadoc)
-     * 
+     *
      * @see org.osgi.framework.BundleActivator#stop(org.osgi.framework.BundleContext)
      */
     @Override
