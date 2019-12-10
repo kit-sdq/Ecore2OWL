@@ -10,7 +10,7 @@
 
 
 	<properties>
-		<tycho.version>1.4.0</tycho.version>
+		<tycho.version>1.5.1</tycho.version>
 	    <java.version>11</java.version>
 	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	    <project.build.optimize>true</project.build.optimize>
@@ -46,6 +46,8 @@
 			<version>${maven-compiler-plugin.version}</version>
 			<configuration>
 				<release>${java.version}</release>
+				<source>${java.version}</source>
+				<target>${java.version}</target>
 			</configuration>
 		</plugin>
 		<plugin>
