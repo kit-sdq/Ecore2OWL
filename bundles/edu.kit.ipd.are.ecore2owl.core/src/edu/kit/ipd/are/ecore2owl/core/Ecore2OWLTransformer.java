@@ -548,6 +548,12 @@ public class Ecore2OWLTransformer {
         // that might end in a loop trying to process this object over and over again
         processedEObjects.add(object);
 
+        processFeatures(object);
+    }
+
+    private void processFeatures(EObject object) {
+        EClass clazz = object.eClass();
+
         // process the references and attributes (and other features)
         List<EStructuralFeature> features = clazz.getEAllStructuralFeatures()
                                                  .stream()
@@ -667,6 +673,7 @@ public class Ecore2OWLTransformer {
             createPackageUriAnnotation(reference.getEContainingClass(), property.get());
         }
 
+        // EObject was not processed before: Process it now!
         if (!processedEObjects.contains(featureEObject)) {
             processEObject(featureEObject);
         }
