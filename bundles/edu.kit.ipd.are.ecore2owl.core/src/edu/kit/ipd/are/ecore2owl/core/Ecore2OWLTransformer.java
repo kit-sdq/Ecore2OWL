@@ -68,7 +68,6 @@ public class Ecore2OWLTransformer {
     private static final String INTERFACE = "interface";
     private static final String ABSTRACT_CLASS = "abstract";
 
-    private final String documentString;
     private OntologyAccess ontologyAccess = null;
     private Map<String, OntClass> createdEnums = new HashMap<>();
     private Map<EObject, String> eObjectNames = new HashMap<>();
@@ -78,11 +77,11 @@ public class Ecore2OWLTransformer {
     private OntClass ePackageOntClass;
     private EPackage metaModelRoot;
 
-    public Ecore2OWLTransformer(String outputDocumentFile) {
-        if (outputDocumentFile == null || outputDocumentFile.isEmpty()) {
-            throw new IllegalArgumentException("Invalid output file!");
-        }
-        documentString = outputDocumentFile;
+    /**
+     * Constructor to create a new {@link Ecore2OWLTransformer}.
+     */
+    public Ecore2OWLTransformer() {
+        super();
     }
 
     /**
@@ -92,7 +91,7 @@ public class Ecore2OWLTransformer {
      *            URL of the input resource, that should be loaded
      * @return loaded Resource
      */
-    public static Resource loadEcoreResource(String inputResourceUrl) {
+    private static Resource loadEcoreResource(String inputResourceUrl) {
         // register and load metamodel
         ResourceSet resourceSet = new ResourceSetImpl();
         resourceSet.setResourceFactoryRegistry(Resource.Factory.Registry.INSTANCE);
@@ -122,18 +121,26 @@ public class Ecore2OWLTransformer {
         return metaModel;
     }
 
-    public OntologyAccess getOntologyAccess() {
-        return ontologyAccess;
-    }
-
-    public void saveOntology() {
+    /**
+     * Saves the ontology. Writes the ontology into the provided location (file).
+     *
+     * @param fileLocation
+     *            file the ontology should be saved into.
+     */
+    public void saveOntology(String fileLocation) {
         logger.info("Saving created ontology");
-        boolean saved = ontologyAccess.save(documentString);
+        boolean saved = ontologyAccess.save(fileLocation);
         if (!saved) {
             logger.warn("Could not save ontology");
         }
     }
 
+    /**
+     * Transforms an ecore-based model and put it into the ontology.
+     *
+     * @param ecoreFile
+     *            the file of the model that should be transformed
+     */
     public void transformEcore(String ecoreFile) {
         if (ecoreFile == null || ecoreFile.isEmpty()) {
             throw new IllegalArgumentException("Invalid input file!");
@@ -142,6 +149,12 @@ public class Ecore2OWLTransformer {
         transformEcore(resource);
     }
 
+    /**
+     * Transforms an ecore-based model and put it into the ontology.
+     *
+     * @param inputEcore
+     *            the model that should be transformed
+     */
     public void transformEcore(Resource inputEcore) {
         metaModelRoot = (EPackage) inputEcore.getContents()
                                              .get(0);
@@ -168,10 +181,24 @@ public class Ecore2OWLTransformer {
         }
     }
 
+    /**
+     * Transforms a model and put it into the ontology. Does not resolve the metamodel first, just loads the Resource.
+     *
+     * @param modelFile
+     *            file of the model that should be put into the ontology
+     */
     public void transformModel(String modelFile) {
         transformModel(modelFile, false);
     }
 
+    /**
+     * Transforms a model and put it into the ontology. Resolve the metamodel first, if the boolean is set.
+     *
+     * @param modelFile
+     *            file of the model that should be put into the ontology
+     * @param resolveMetaModel
+     *            whether the meta-model should be resolved first
+     */
     public void transformModel(String modelFile, boolean resolveMetaModel) {
         if (modelFile == null || modelFile.isEmpty()) {
             throw new IllegalArgumentException("Invalid input file!");
@@ -180,6 +207,14 @@ public class Ecore2OWLTransformer {
         transformModel(resource, resolveMetaModel);
     }
 
+    /**
+     * Transforms a model and put it into the ontology. Resolve the metamodel first, if the boolean is set.
+     *
+     * @param inputModel
+     *            model that should be put into the ontology
+     * @param resolveMetaModel
+     *            whether the meta-model should be resolved first
+     */
     public void transformModel(Resource inputModel, boolean resolveMetaModel) {
         if (resolveMetaModel) {
             EPackage ePackage = inputModel.getContents()
@@ -726,15 +761,15 @@ public class Ecore2OWLTransformer {
         return cleanedName;
     }
 
-    public static String createPropertyName(String property, String domainName) {
+    private static String createPropertyName(String property, String domainName) {
         return cleanName(property + PROPERTY_TO_CLASS_SEPARATOR + domainName);
     }
 
-    public static String createAttributePropertyName(EAttribute eAttribute, EClass domain) {
+    private static String createAttributePropertyName(EAttribute eAttribute, EClass domain) {
         return createPropertyName(eAttribute.getName(), domain.getName());
     }
 
-    public static String createReferencePropertyName(EReference eReference, EClass domain) {
+    private static String createReferencePropertyName(EReference eReference, EClass domain) {
         return createPropertyName(eReference.getName(), domain.getName());
     }
 }

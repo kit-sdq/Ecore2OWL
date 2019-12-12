@@ -12,7 +12,6 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.model.LaunchConfigurationDelegate;
 
 import edu.kit.ipd.are.ecore2owl.core.Ecore2OWLTransformer;
-import edu.kit.ipd.are.ecore2owl.ontologyaccess.OntologyAccess;
 
 public class Ecore2OwlLaunchConfigurationDelegate extends LaunchConfigurationDelegate {
     private static Logger logger = Logger.getLogger(Ecore2OwlLaunchConfigurationDelegate.class);
@@ -46,12 +45,15 @@ public class Ecore2OwlLaunchConfigurationDelegate extends LaunchConfigurationDel
         logger.info("Finished.");
     }
 
-    private OntologyAccess transformModelToOntology(ILaunchConfiguration configuration, String owlFile)
-            throws CoreException {
+    private void transformModelToOntology(ILaunchConfiguration configuration, String owlFile) throws CoreException {
+        if (owlFile == null || owlFile.isEmpty()) {
+            throw new IllegalArgumentException("Invalid output file!");
+        }
+
         boolean autoLoadMetaModel = configuration.getAttribute(Ecore2OwlConfigurationAttributes.AUTOLOAD, false);
         String[] modelIn = getInput(configuration, Ecore2OwlConfigurationAttributes.MODEL_IN);
 
-        Ecore2OWLTransformer transformer = new Ecore2OWLTransformer(owlFile);
+        Ecore2OWLTransformer transformer = new Ecore2OWLTransformer();
         if (!autoLoadMetaModel) {
             logger.info("Start loading and transforming meta models.");
             String[] ecoreIn = getInput(configuration, Ecore2OwlConfigurationAttributes.ECORE_IN);
@@ -71,8 +73,7 @@ public class Ecore2OwlLaunchConfigurationDelegate extends LaunchConfigurationDel
         }
         logger.info("Finished transformation of input models.");
         logger.info("Start saving the OWL file.");
-        transformer.saveOntology();
-        return transformer.getOntologyAccess();
+        transformer.saveOntology(owlFile);
     }
 
     private String[] getInput(ILaunchConfiguration configuration, String attribute) {
