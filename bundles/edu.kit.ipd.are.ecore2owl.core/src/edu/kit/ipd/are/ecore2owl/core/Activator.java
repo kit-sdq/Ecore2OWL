@@ -5,18 +5,20 @@ import org.osgi.framework.BundleContext;
 
 public class Activator implements BundleActivator {
 
-	private static BundleContext context;
+    private static BundleContext context;
 
-	static BundleContext getContext() {
-		return context;
-	}
+    static BundleContext getContext() {
+        return context;
+    }
 
-	public void start(BundleContext bundleContext) throws Exception {
-		Activator.context = bundleContext;
-	}
+    @Override
+    public void start(BundleContext bundleContext) throws Exception {
+        Activator.context = bundleContext;
+    }
 
-	public void stop(BundleContext bundleContext) throws Exception {
-		Activator.context = null;
-	}
+    @Override
+    public void stop(BundleContext bundleContext) throws Exception {
+        Activator.context = null;
+    }
 
 }

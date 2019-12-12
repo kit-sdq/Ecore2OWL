@@ -4,12 +4,12 @@ Bundle-Name: Ecore2OWL Plugin-core
 Bundle-SymbolicName: ecore2owl.core
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: edu.kit.ipd.are.ecore2owl.core.Activator
-Require-Bundle: ecore2owl.dependencies-provider,
- org.apache.log4j,
+Require-Bundle: org.apache.log4j,
  org.eclipse.core.runtime,
  org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi,
- ecore2owl.OntologyAccess
+ ecore2owl.OntologyAccess,
+ ecore2owl.dependencies-provider
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: ecore2owl.plugin-core
 Bundle-ActivationPolicy: lazy

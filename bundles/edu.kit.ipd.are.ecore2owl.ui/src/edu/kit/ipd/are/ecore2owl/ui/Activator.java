@@ -15,6 +15,12 @@ public class Activator implements BundleActivator {
     protected static final Level LOGGING_LEVEL = Level.DEBUG;
     private static final String PATTERN = "%d{HH:mm:ss} [%-5p | %c]: %m%n";
 
+    private static BundleContext context;
+
+    static BundleContext getContext() {
+        return context;
+    }
+
     /*
      * (non-Javadoc)
      *
@@ -22,6 +28,7 @@ public class Activator implements BundleActivator {
      */
     @Override
     public void start(BundleContext bundleContext) throws Exception {
+        Activator.context = bundleContext;
         configureLogger();
     }
 

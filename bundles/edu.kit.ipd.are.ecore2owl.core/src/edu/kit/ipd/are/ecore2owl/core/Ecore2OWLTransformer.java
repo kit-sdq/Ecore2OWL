@@ -128,7 +128,6 @@ public class Ecore2OWLTransformer {
      *            file the ontology should be saved into.
      */
     public void saveOntology(String fileLocation) {
-        logger.info("Saving created ontology");
         boolean saved = ontologyAccess.save(fileLocation);
         if (!saved) {
             logger.warn("Could not save ontology");
@@ -221,11 +220,9 @@ public class Ecore2OWLTransformer {
                                           .get(0)
                                           .eClass()
                                           .getEPackage();
-            ePackage = getHighestSuperEPackage(ePackage);
-            metaModelRoot = ePackage;
+            metaModelRoot = getHighestSuperEPackage(ePackage);
 
             preparePackageTransformation(metaModelRoot);
-
             processEPackage(metaModelRoot);
         }
         transformModel(inputModel);
@@ -343,7 +340,6 @@ public class Ecore2OWLTransformer {
 
     private void processEClass(EClass eClass) {
         OntClass addedClass;
-        // TODO how to properly model, that abstract classes and interfaces can have no instances
         addedClass = ontologyAccess.addClass(eClass.getName());
         if (eClass.isAbstract()) {
             ontologyAccess.addComment(addedClass, ABSTRACT_CLASS, CLASS_TYPE);
@@ -579,7 +575,7 @@ public class Ecore2OWLTransformer {
         checkClassExistence(clazz);
         ontologyAccess.addNamedIndividual(className, objectIdentifier);
 
-        // add eObject to the set of processed eObjects already here, because of recursive nature of the loop below,
+        // add eObject to the set of processed eObjects already here, because of recursive nature of the function below,
         // that might end in a loop trying to process this object over and over again
         processedEObjects.add(object);
 
