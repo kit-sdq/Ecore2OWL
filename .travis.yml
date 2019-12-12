@@ -6,4 +6,8 @@ cache:
   directories:
    - $HOME/.m2
 
+before_install:
+    - git clone --depth 1 https://github.com/kit-sdq/BuildUtilities.git /tmp/BuildUtilities
+    - . /tmp/BuildUtilities/travis-ci/setupenvironment.sh
+
 script: mvn clean verify
