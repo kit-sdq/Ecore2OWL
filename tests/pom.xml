@@ -9,11 +9,11 @@
 		<version>1.0.0-SNAPSHOT</version>
 		<relativePath>../</relativePath>
 	</parent>
-	<artifactId>ecore2owl.tests</artifactId>
+	<artifactId>ecore2owl.tests.parent</artifactId>
 	<packaging>pom</packaging>
 
 	<modules>
-		<!-- TODO -->
+		<module>edu.kit.ipd.are.ecore2owl.tests</module>
 	</modules>
 
 </project>
