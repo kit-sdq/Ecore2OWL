@@ -13,6 +13,14 @@
     <relativePath>./releng/edu.kit.ipd.are.ecore2owl.configuration</relativePath>
   </parent>
 
+  <licenses>
+    <license>
+      <name>EPL-1.0</name>
+      <url>https://www.eclipse.org/legal/epl-v10.html</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
   <modules>
     <module>bundles</module>
     <module>features</module>
