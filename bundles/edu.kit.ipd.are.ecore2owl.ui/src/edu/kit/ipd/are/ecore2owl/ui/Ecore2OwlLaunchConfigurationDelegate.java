@@ -55,11 +55,11 @@ public class Ecore2OwlLaunchConfigurationDelegate extends LaunchConfigurationDel
 
         Ecore2OWLTransformer transformer = new Ecore2OWLTransformer();
         if (!autoLoadMetaModel) {
-            logger.info("Start loading and transforming meta models.");
+            logger.info("Start loading meta models.");
             String[] ecoreIn = getInput(configuration, Ecore2OwlConfigurationAttributes.ECORE_IN);
             for (String ecoreInput : ecoreIn) {
                 if (!ecoreInput.isEmpty()) {
-                    transformer.transformEcore(ecoreInput);
+                    Ecore2OWLTransformer.registerEcoreFile(ecoreInput);
                 }
             }
         }

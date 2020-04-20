@@ -41,7 +41,10 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
+import org.eclipse.emf.ecore.util.BasicExtendedMetaData;
 import org.eclipse.emf.ecore.util.EcoreUtil;
+import org.eclipse.emf.ecore.util.ExtendedMetaData;
+import org.eclipse.emf.ecore.xmi.XMLResource;
 import org.eclipse.emf.ecore.xmi.impl.EcoreResourceFactoryImpl;
 
 import edu.kit.ipd.are.ecore2owl.ontologyaccess.OntologyAccess;
@@ -82,6 +85,41 @@ public class Ecore2OWLTransformer {
      */
     public Ecore2OWLTransformer() {
         super();
+
+    }
+
+    /**
+     * Register a meta-model presented in a ecore-file to the Package-Registry.
+     *
+     * @param ecoreFileUrl
+     *            Path to the ecore-file representing the meta-model
+     */
+    public static void registerEcoreFile(String ecoreFileUrl) {
+        // create URI
+        URI modelUri;
+        if (ecoreFileUrl.startsWith("platform:")) {
+            // input is no file but a platform-resource, so just use URI
+            modelUri = URI.createURI(ecoreFileUrl);
+        } else {
+            // input is a file and should be loaded from a file
+            modelUri = URI.createFileURI(ecoreFileUrl);
+        }
+
+        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap()
+                                          .put("ecore", new EcoreResourceFactoryImpl());
+        ResourceSet resourceSet = new ResourceSetImpl();
+        // enable extended metadata
+        final ExtendedMetaData extendedMetaData = new BasicExtendedMetaData(EPackage.Registry.INSTANCE);
+        resourceSet.getLoadOptions()
+                   .put(XMLResource.OPTION_EXTENDED_META_DATA, extendedMetaData);
+
+        Resource r = resourceSet.getResource(modelUri, true);
+        EObject eObject = r.getContents()
+                           .get(0);
+        if (eObject instanceof EPackage) {
+            EPackage p = (EPackage) eObject;
+            EPackage.Registry.INSTANCE.put(p.getNsURI(), p);
+        }
     }
 
     /**
@@ -112,12 +150,13 @@ public class Ecore2OWLTransformer {
 
         Resource metaModel = resourceSet.getResource(uri, true);
         try {
-            metaModel.load(null);
+            metaModel.load(new HashMap<>());
         } catch (IOException e) {
             logger.warn(e.getMessage(), e);
         }
         EcoreUtil.resolveAll(resourceSet);
         EcoreUtil.resolveAll(metaModel);
+
         return metaModel;
     }
 
@@ -232,7 +271,7 @@ public class Ecore2OWLTransformer {
         String modelUri = inputModel.getURI()
                                     .toString();
         if (!modelIsConformToMetaModel(inputModel, metaModelRoot)) {
-            logger.warn("Model is not conform with meta-model. Aborting the process for this model: " + modelUri);
+            logger.warn("Model is not conform with meta-model: " + modelUri);
             return;
         }
 
