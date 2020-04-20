@@ -60,6 +60,7 @@ public class Ecore2OwlLaunchConfigurationDelegate extends LaunchConfigurationDel
             for (String ecoreInput : ecoreIn) {
                 if (!ecoreInput.isEmpty()) {
                     Ecore2OWLTransformer.registerEcoreFile(ecoreInput);
+                    transformer.transformEcore(ecoreInput);
                 }
             }
         }

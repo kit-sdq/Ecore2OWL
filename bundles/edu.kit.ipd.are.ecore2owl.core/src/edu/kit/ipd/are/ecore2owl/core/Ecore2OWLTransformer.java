@@ -167,9 +167,13 @@ public class Ecore2OWLTransformer {
      *            file the ontology should be saved into.
      */
     public void saveOntology(String fileLocation) {
+        if (ontologyAccess == null) {
+            logger.warn("Could not save ontology. It is not existent (null).");
+            return;
+        }
         boolean saved = ontologyAccess.save(fileLocation);
         if (!saved) {
-            logger.warn("Could not save ontology");
+            logger.warn("Could not save ontology.");
         }
     }
 
@@ -272,7 +276,7 @@ public class Ecore2OWLTransformer {
                                     .toString();
         if (!modelIsConformToMetaModel(inputModel, metaModelRoot)) {
             logger.warn("Model is not conform with meta-model: " + modelUri);
-            return;
+            // return;
         }
 
         EList<EObject> contents = inputModel.getContents();
