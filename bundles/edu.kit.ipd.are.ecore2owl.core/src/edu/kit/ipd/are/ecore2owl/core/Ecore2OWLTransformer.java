@@ -597,7 +597,9 @@ public class Ecore2OWLTransformer {
                 break;
             }
         }
-        if (name == null) {
+
+        // if name does not exist yet
+        if (name == null || name.isBlank()) {
             name = getId(object);
             eObjectNames.put(object, name);
         }
@@ -608,7 +610,11 @@ public class Ecore2OWLTransformer {
     }
 
     private String getId(EObject object) {
-        return EcoreUtil.getID(object);
+        String id = EcoreUtil.getID(object);
+        if (id == null) {
+            id = EcoreUtil.generateUUID();
+        }
+        return id;
     }
 
     private void processEObject(EObject object) {
