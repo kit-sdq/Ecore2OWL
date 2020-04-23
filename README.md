@@ -19,7 +19,7 @@ You can select multiple models that are all processed and transformed into a sin
 ## Development
 Building this project can simply be done with the following command utilizing maven tycho to build the eclipse plugins:
 ```
-mvn clean verify
+mvn clean package
 ```
 
 For development, check out this repo and import all projects into your eclipse workspace via `Import`->`Existing Projects into Workspace` and then selecting the folder where you checked out this repository. Make sure to tick the option to `Search for nested projects`.
