@@ -39,6 +39,8 @@ import org.apache.jena.reasoner.Reasoner;
 import org.apache.jena.reasoner.ReasonerRegistry;
 import org.apache.jena.reasoner.ValidityReport;
 import org.apache.jena.reasoner.ValidityReport.Report;
+import org.apache.jena.riot.Lang;
+import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.util.iterator.ExtendedIterator;
 import org.apache.jena.vocabulary.OWL;
 import org.apache.jena.vocabulary.RDF;
@@ -50,6 +52,7 @@ import org.eclipse.collections.impl.factory.Lists;
 import org.eclipse.collections.impl.set.mutable.UnifiedSet;
 
 public class OntologyAccess {
+    private static final String RDF_XML = "RDF/XML";
     private static final Logger logger = Logger.getLogger(OntologyAccess.class);
     private static OntModelSpec modelSpec = OntModelSpec.OWL_DL_MEM;
     // alternatives: OWL_MEM, OWL_DL_MEM, OWL_DL_MEM_RULE_INF, OWL_DL_MEM_TRANS_INF, OWL_DL_MEM_RDFS_INF
@@ -111,19 +114,24 @@ public class OntologyAccess {
     }
 
     public boolean save(String file) {
+        return save(file, Lang.N3); // Lang.N3 or Lang.RDFXML
+    }
+
+    public boolean save(String file, Lang language) {
         if (file == null || file.isEmpty()) {
             return false;
         }
 
+        OutputStream out = null;
         try {
-            OutputStream out = new FileOutputStream(file);
-            ontModel.write(out, "RDF/XML");
-            return true;
+            out = new FileOutputStream(file);
         } catch (FileNotFoundException e) {
             logger.error(e.getMessage(), e);
+            return false;
         }
 
-        return false;
+        RDFDataMgr.write(out, ontModel, language);
+        return true;
     }
 
     public void setDefaultPrefix(String prefix) {
