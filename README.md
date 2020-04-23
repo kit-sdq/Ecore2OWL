@@ -1,5 +1,5 @@
 # Ecore2OWL
-[![Build Status](https://travis-ci.org/kit-sdq/Ecore2OWL.svg?branch=master)](https://travis-ci.org/kit-sdq/Ecore2OWL)
+[![Build Status](https://travis-ci.org/kit-sdq/Ecore2OWL.svg?branch=master)](https://travis-ci.org/kit-sdq/Ecore2OWL) ![Java CI with Maven](https://github.com/kit-sdq/Ecore2OWL/workflows/Java%20CI%20with%20Maven/badge.svg?branch=master)
 
 Tool to transform Ecore (Meta-)Models into OWL Ontologies.
 The ontologies will be saved in a RDF/XML format.
