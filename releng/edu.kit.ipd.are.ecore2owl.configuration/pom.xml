@@ -19,6 +19,13 @@
 	    <eclipse.collections.version>9.2.0</eclipse.collections.version>
   	</properties>
 
+	<licenses>
+		<license>
+			<name>EPL-1.0</name>
+			<url>https://www.eclipse.org/legal/epl-v10.html</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
 
   	<repositories>
 		<repository>
