@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <site>
-   <feature id="edu.kit.ipd.are.ecore2owl.feature">
+   <feature url="features/edu.kit.ipd.are.ecore2owl.feature_1.0.0.qualifier.jar" id="edu.kit.ipd.are.ecore2owl.feature" version="1.0.0.qualifier">
       <category name="ecore2owl"/>
    </feature>
    <category-def name="ecore2owl" label="Ecore2OWL">
