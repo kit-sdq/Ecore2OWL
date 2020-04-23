@@ -3,6 +3,8 @@ package edu.kit.ipd.are.ecore2owl.ontologyaccess;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
@@ -137,7 +139,13 @@ public class OntologyAccess {
     }
 
     private String createUri(String prefix, String suffix) {
-        return ontModel.expandPrefix(prefix + ":" + suffix);
+        String encodedSuffix = suffix;
+        try {
+            encodedSuffix = URLEncoder.encode(suffix, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            logger.error(e.getMessage(), e);
+        }
+        return ontModel.expandPrefix(prefix + ":" + encodedSuffix);
     }
 
     public MutableList<Individual> searchIndividual(Predicate<Individual> searchPredicate) {
