@@ -1,8 +1,8 @@
 name: Nightly Build
 
-on: [push]
-#  schedule:
-#    - cron: '04 4 * * *' #(every day at At 04:04.)
+on:
+  schedule:
+    - cron: '04 4 * * *' #(every day at At 04:04.)
 
 jobs:
   build:
