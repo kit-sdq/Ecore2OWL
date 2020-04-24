@@ -71,6 +71,8 @@ public class Ecore2OWLTransformer {
     private static final String INTERFACE = "interface";
     private static final String ABSTRACT_CLASS = "abstract";
 
+    private static final boolean usePerformantXMIResourceFactory = true;
+
     private OntologyAccess ontologyAccess = null;
     private Map<String, OntClass> createdEnums = Maps.mutable.empty();
     private Map<EObject, String> eObjectNames = Maps.mutable.empty();
@@ -105,8 +107,14 @@ public class Ecore2OWLTransformer {
             modelUri = URI.createFileURI(ecoreFileUrl);
         }
 
-        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap()
-                                          .put("ecore", new EcoreResourceFactoryImpl());
+        if (usePerformantXMIResourceFactory) {
+            Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap()
+                                              .put("*", new PerformantXMIResourceFactoryImpl());
+        } else {
+            Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap()
+                                              .put("ecore", new EcoreResourceFactoryImpl());
+        }
+
         ResourceSet resourceSet = new ResourceSetImpl();
         // enable extended metadata
         final ExtendedMetaData extendedMetaData = new BasicExtendedMetaData(EPackage.Registry.INSTANCE);
@@ -136,7 +144,9 @@ public class Ecore2OWLTransformer {
         Map<String, Object> extensionToFactoryMap = resourceSet.getResourceFactoryRegistry()
                                                                .getExtensionToFactoryMap();
 
-        extensionToFactoryMap.put("ecore", new EcoreResourceFactoryImpl());
+        if (usePerformantXMIResourceFactory) {
+            extensionToFactoryMap.put("*", new PerformantXMIResourceFactoryImpl());
+        }
         extensionToFactoryMap.putAll(Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap());
 
         URI uri;
