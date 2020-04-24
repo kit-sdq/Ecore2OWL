@@ -15,7 +15,8 @@ import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMLParserPoolImpl;
 
 public class PerformantXMIResourceFactoryImpl extends ResourceFactoryImpl {
-    private List<Object> lookupTable = Lists.mutable.empty();
+    private List<Object> lookupTableSaving = Lists.mutable.empty();
+    private List<Object> lookupTableLoading = Lists.mutable.empty();
 
     private XMLParserPool parserPool = new XMLParserPoolImpl();
 
@@ -32,7 +33,8 @@ public class PerformantXMIResourceFactoryImpl extends ResourceFactoryImpl {
         // configure resource
         Map<Object, Object> saveOptions = resource.getDefaultSaveOptions();
         saveOptions.put(XMLResource.OPTION_CONFIGURATION_CACHE, Boolean.TRUE);
-        saveOptions.put(XMLResource.OPTION_USE_CACHED_LOOKUP_TABLE, lookupTable);
+        saveOptions.put(XMLResource.OPTION_USE_CACHED_LOOKUP_TABLE, lookupTableSaving);
+        saveOptions.put(XMLResource.OPTION_USE_XML_NAME_TO_FEATURE_MAP, lookupTableLoading);
         saveOptions.put(XMLResource.OPTION_ENCODING, "UTF-8");
         saveOptions.put(XMLResource.OPTION_USE_ENCODED_ATTRIBUTE_STYLE, Boolean.TRUE);
         saveOptions.put(XMLResource.OPTION_LINE_WIDTH, 80);
