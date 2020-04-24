@@ -10,6 +10,7 @@ import org.eclipse.emf.ecore.resource.impl.ResourceFactoryImpl;
 import org.eclipse.emf.ecore.xmi.XMIResource;
 import org.eclipse.emf.ecore.xmi.XMLParserPool;
 import org.eclipse.emf.ecore.xmi.XMLResource;
+import org.eclipse.emf.ecore.xmi.impl.URIHandlerImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMIResourceImpl;
 import org.eclipse.emf.ecore.xmi.impl.XMLParserPoolImpl;
 
@@ -17,20 +18,6 @@ public class PerformantXMIResourceFactoryImpl extends ResourceFactoryImpl {
     private List<Object> lookupTable = Lists.mutable.empty();
 
     private XMLParserPool parserPool = new XMLParserPoolImpl();
-
-    protected void configureResource(XMIResource resource) {
-        Map<Object, Object> saveOptions = resource.getDefaultSaveOptions();
-        saveOptions.put(XMLResource.OPTION_CONFIGURATION_CACHE, Boolean.TRUE);
-        saveOptions.put(XMLResource.OPTION_USE_CACHED_LOOKUP_TABLE, lookupTable);
-        saveOptions.put(XMLResource.OPTION_ENCODING, "UTF-8");
-        // saveOptions.put(XMLResource.OPTION_USE_FILE_BUFFER, Boolean.TRUE);
-
-        Map<Object, Object> loadOptions = resource.getDefaultLoadOptions();
-        loadOptions.put(XMLResource.OPTION_DEFER_ATTACHMENT, Boolean.TRUE);
-        loadOptions.put(XMLResource.OPTION_DEFER_IDREF_RESOLUTION, Boolean.TRUE);
-        loadOptions.put(XMLResource.OPTION_USE_DEPRECATED_METHODS, Boolean.FALSE);
-        loadOptions.put(XMLResource.OPTION_USE_PARSER_POOL, parserPool);
-    }
 
     @Override
     public Resource createResource(URI uri) {
@@ -42,7 +29,26 @@ public class PerformantXMIResourceFactoryImpl extends ResourceFactoryImpl {
             }
         };
 
-        configureResource(resource);
+        // configure resource
+        Map<Object, Object> saveOptions = resource.getDefaultSaveOptions();
+        saveOptions.put(XMLResource.OPTION_CONFIGURATION_CACHE, Boolean.TRUE);
+        saveOptions.put(XMLResource.OPTION_USE_CACHED_LOOKUP_TABLE, lookupTable);
+        saveOptions.put(XMLResource.OPTION_ENCODING, "UTF-8");
+        saveOptions.put(XMLResource.OPTION_USE_ENCODED_ATTRIBUTE_STYLE, Boolean.TRUE);
+        saveOptions.put(XMLResource.OPTION_LINE_WIDTH, 80);
+        saveOptions.put(XMLResource.OPTION_URI_HANDLER, new URIHandlerImpl.PlatformSchemeAware());
+        // saveOptions.put(XMLResource.OPTION_USE_FILE_BUFFER, Boolean.TRUE);
+
+        Map<Object, Object> loadOptions = resource.getDefaultLoadOptions();
+        loadOptions.put(XMLResource.OPTION_DEFER_ATTACHMENT, Boolean.TRUE);
+        loadOptions.put(XMLResource.OPTION_DEFER_IDREF_RESOLUTION, Boolean.TRUE);
+        loadOptions.put(XMLResource.OPTION_USE_DEPRECATED_METHODS, Boolean.FALSE);
+        loadOptions.put(XMLResource.OPTION_USE_PARSER_POOL, parserPool);
+
+        if ("genmodel".equals(uri.fileExtension())) {
+            loadOptions.put(XMLResource.OPTION_RECORD_UNKNOWN_FEATURE, Boolean.TRUE);
+        }
+
         return resource;
     }
 
