@@ -23,7 +23,7 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     - name: create tmp-directory
-      run: mkdir tmp/updatesite
+      run: mkdir /tmp/updatesite
     - name: extract-7z-action
       uses: DuckSoft/extract-7z-action@v1.0
       with:
