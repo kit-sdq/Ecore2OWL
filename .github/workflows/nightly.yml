@@ -1,8 +1,8 @@
 name: Nightly Build
 
-on:
-  schedule:
-    - cron: '04 4 * * *' #(every day at At 04:04.)
+on: [push]
+#  schedule:
+#    - cron: '04 4 * * *' #(every day at At 04:04.)
 
 jobs:
   build:
@@ -15,11 +15,16 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 11
-    - name: Cache Maven packages
-      uses: actions/cache@v1
+    - name: maven-settings-xml-action
+      uses: whelk-io/maven-settings-xml-action@v4
       with:
-        path: ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-        restore-keys: ${{ runner.os }}-m2
+        repositories: '[{ "id": "github", "url": "https://maven.pkg.github.com/${GITHUB_REPOSITORY}"}]'
+        servers: '[{ "id": "github", "username": "x-access-token", "password": "${{ secrets.GITHUB_TOKEN }}" }]'
     - name: Build with Maven
-      run: mvn -B verify --file pom.xml
+      run: mvn -B package --file pom.xml
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: updatesite
+        path: releng\edu.kit.ipd.are.ecore2owl.updatesite\target\ecore2owl.updatesite-1.0.0-SNAPSHOT.zip
+
