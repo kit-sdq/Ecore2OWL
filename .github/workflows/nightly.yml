@@ -22,11 +22,9 @@ jobs:
         servers: '[{ "id": "github", "username": "x-access-token", "password": "${{ secrets.GITHUB_TOKEN }}" }]'
     - name: Build with Maven
       run: mvn -B package --file pom.xml
-    - run: export UPDATESITE=$(find $GITHUB_WORKSPACE/releng/edu.kit.ipd.are.ecore2owl.updatesite/target/ -type f -iname 'ecore2owl.updatesite-*.zip') && echo $UPDATESITE
-    - run: echo $UPDATESITE
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
       with:
         name: updatesite
-        path: $UPDATESITE
+        path: $(find $GITHUB_WORKSPACE/releng/edu.kit.ipd.are.ecore2owl.updatesite/target/ -type f -iname 'ecore2owl.updatesite-*.zip')
 
