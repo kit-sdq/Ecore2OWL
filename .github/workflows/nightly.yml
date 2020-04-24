@@ -26,5 +26,5 @@ jobs:
       uses: actions/upload-artifact@v1.0.0
       with:
         name: updatesite
-        path: releng\edu.kit.ipd.are.ecore2owl.updatesite\target\ecore2owl.updatesite-1.0.0-SNAPSHOT.zip
+        path: releng/edu.kit.ipd.are.ecore2owl.updatesite/target/ecore2owl.updatesite-*.zip
 
