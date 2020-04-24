@@ -1,8 +1,8 @@
 name: Nightly Build
 
-on:
-  schedule:
-    - cron: '04 4 * * *' #(every day at At 04:04.)
+on: [push]
+#  schedule:
+#    - cron: '04 4 * * *' #(every day at At 04:04.)
 
 jobs:
   build:
@@ -15,11 +15,47 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 11
-    - name: Cache Maven packages
-      uses: actions/cache@v1
+    - name: maven-settings-xml-action
+      uses: whelk-io/maven-settings-xml-action@v4
       with:
-        path: ~/.m2
-        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-        restore-keys: ${{ runner.os }}-m2
+        repositories: '[{ "id": "github", "url": "https://maven.pkg.github.com/${GITHUB_REPOSITORY}"}]'
+        servers: '[{ "id": "github", "username": "x-access-token", "password": "${{ secrets.GITHUB_TOKEN }}" }]'
     - name: Build with Maven
-      run: mvn -B verify --file pom.xml
+      run: mvn -B package --file pom.xml
+    - name: create tmp-directory
+      run: mkdir /tmp/updatesite
+    - name: extract-7z-action
+      uses: DuckSoft/extract-7z-action@v1.0
+      with:
+        pathSource: releng/edu.kit.ipd.are.ecore2owl.updatesite/target/ecore2owl.updatesite-1.0.0-SNAPSHOT.zip # Do not forget to change this at version jumps!
+        pathTarget: /tmp/updatesite
+    - name: Upload artifact
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: updatesite
+        path: /tmp/updatesite
+    - name: Checkout gh-pages
+      uses: actions/checkout@v2.0.0
+      with:
+        ref: gh-pages
+    - run: rm -rf updatesite
+    - name: Download artifact
+      uses: actions/download-artifact@v1.0.0
+      with:
+        name: updatesite
+        path: updatesite
+    - run: wget -O README.md https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/master/README.md
+    - name: Commit
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add -f updatesite/*
+        git commit -m "Automated commit"
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        branch: gh-pages
+        tags: false
+        #force: true
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+
