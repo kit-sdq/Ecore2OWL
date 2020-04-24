@@ -22,9 +22,16 @@ jobs:
         servers: '[{ "id": "github", "username": "x-access-token", "password": "${{ secrets.GITHUB_TOKEN }}" }]'
     - name: Build with Maven
       run: mvn -B package --file pom.xml
+    - name: create tmp-directory
+      run: mkdir tmp/updatesite
+    - name: extract-7z-action
+      uses: DuckSoft/extract-7z-action@v1.0
+      with:
+        pathSource: releng/edu.kit.ipd.are.ecore2owl.updatesite/target/ecore2owl.updatesite-1.0.0-SNAPSHOT.zip # Do not forget to change this at version jumps!
+        pathTarget: tmp/updatesite
     - name: Upload artifact
       uses: actions/upload-artifact@v1.0.0
       with:
         name: updatesite
-        path: $(find $GITHUB_WORKSPACE/releng/edu.kit.ipd.are.ecore2owl.updatesite/target/ -type f -iname 'ecore2owl.updatesite-*.zip')
+        path: tmp/updatesite
 
