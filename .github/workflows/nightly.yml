@@ -46,7 +46,10 @@ jobs:
         path: updatesite
     - run: wget -O README.md https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/master/README.md
     - name: Commit
-      uses: zwaldowski/git-commit-action@v1
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git commit -m "update updatesite" -f updatesite/*
     - name: Push changes
       uses: ad-m/github-push-action@master
       with:
