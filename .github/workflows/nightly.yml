@@ -34,4 +34,24 @@ jobs:
       with:
         name: updatesite
         path: /tmp/updatesite
+    - name: Checkout gh-pages
+      uses: actions/checkout@v2.0.0
+      with:
+        ref: gh-pages
+    - run: rm -rf updatesite
+    - name: Download artifact
+      uses: actions/download-artifact@v1.0.0
+      with:
+        name: updatesite
+        path: updatesite
+    - run: wget -O README.md https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/master/README.md
+    - name: Commit
+      uses: zwaldowski/git-commit-action@v1
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        branch: gh-pages
+        tags: false
+        #force: true
+        github_token: ${{ secrets.GITHUB_TOKEN }}
 
