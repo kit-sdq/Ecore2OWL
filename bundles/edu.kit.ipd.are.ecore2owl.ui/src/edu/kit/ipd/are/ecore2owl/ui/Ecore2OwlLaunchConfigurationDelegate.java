@@ -2,6 +2,8 @@ package edu.kit.ipd.are.ecore2owl.ui;
 
 import java.io.IOException;
 import java.net.URL;
+import java.time.Duration;
+import java.time.Instant;
 
 import org.apache.log4j.Logger;
 import org.eclipse.core.runtime.CoreException;
@@ -41,8 +43,11 @@ public class Ecore2OwlLaunchConfigurationDelegate extends LaunchConfigurationDel
             throws CoreException {
         String owlFile = getOwlOut(configuration);
 
+        Instant start = Instant.now();
         transformModelToOntology(configuration, owlFile);
+        Instant end = Instant.now();
         logger.info("Finished.");
+        logger.debug("Execution time: " + Duration.between(start, end));
     }
 
     private void transformModelToOntology(ILaunchConfiguration configuration, String owlFile) throws CoreException {

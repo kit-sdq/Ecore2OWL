@@ -5,8 +5,6 @@ package edu.kit.ipd.are.ecore2owl.core;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -26,6 +24,8 @@ import org.apache.jena.vocabulary.XSD;
 import org.apache.log4j.Logger;
 import org.eclipse.collections.api.list.MutableList;
 import org.eclipse.collections.impl.factory.Lists;
+import org.eclipse.collections.impl.factory.Maps;
+import org.eclipse.collections.impl.factory.Sets;
 import org.eclipse.emf.common.util.EList;
 import org.eclipse.emf.common.util.URI;
 import org.eclipse.emf.ecore.EAttribute;
@@ -72,10 +72,10 @@ public class Ecore2OWLTransformer {
     private static final String ABSTRACT_CLASS = "abstract";
 
     private OntologyAccess ontologyAccess = null;
-    private Map<String, OntClass> createdEnums = new HashMap<>();
-    private Map<EObject, String> eObjectNames = new HashMap<>();
-    private Set<EPackage> processedPackages = new HashSet<>();
-    private Set<EObject> processedEObjects = new HashSet<>();
+    private Map<String, OntClass> createdEnums = Maps.mutable.empty();
+    private Map<EObject, String> eObjectNames = Maps.mutable.empty();
+    private Set<EPackage> processedPackages = Sets.mutable.empty();
+    private Set<EObject> processedEObjects = Sets.mutable.empty();
     private OntClass eClassOntClass;
     private OntClass ePackageOntClass;
     private EPackage metaModelRoot;
@@ -150,7 +150,7 @@ public class Ecore2OWLTransformer {
 
         Resource metaModel = resourceSet.getResource(uri, true);
         try {
-            metaModel.load(new HashMap<>());
+            metaModel.load(Maps.mutable.empty());
         } catch (IOException e) {
             logger.warn(e.getMessage(), e);
         }
