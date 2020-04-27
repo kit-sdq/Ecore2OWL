@@ -2,7 +2,7 @@ name: Nightly Build
 
 on:
   schedule:
-    - cron: '04 4 * * *' #(every day at At 04:04.)
+    - cron: '4 4 * * 0' #(once a week, Sundays at 04:04 UTC.)
 
 jobs:
   build:
