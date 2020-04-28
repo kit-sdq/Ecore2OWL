@@ -1,6 +1,7 @@
 package edu.kit.ipd.are.ecore2owl.ui.listener.fileopening;
 
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import edu.kit.ipd.are.ecore2owl.ui.listener.FileButtonListener;
@@ -18,8 +19,7 @@ public abstract class OpenButtonListener extends FileButtonListener {
      * @param shell
      *            the shell
      */
-    public OpenButtonListener(Text field, String[] fileExtension, String dialogTitle,
-            org.eclipse.swt.widgets.Shell shell) {
+    public OpenButtonListener(Text field, String[] fileExtension, String dialogTitle, Shell shell) {
         super(field, fileExtension, dialogTitle, shell);
 
     }
@@ -40,8 +40,8 @@ public abstract class OpenButtonListener extends FileButtonListener {
      * @param useMultipleSelection
      *            if true, multiple files can be selected.
      */
-    public OpenButtonListener(Text field, String[] fileExtension, String dialogTitle,
-            org.eclipse.swt.widgets.Shell shell, boolean useMultipleSelection) {
+    public OpenButtonListener(Text field, String[] fileExtension, String dialogTitle, Shell shell,
+            boolean useMultipleSelection) {
         super(field, fileExtension, dialogTitle, shell, false, useMultipleSelection);
     }
 

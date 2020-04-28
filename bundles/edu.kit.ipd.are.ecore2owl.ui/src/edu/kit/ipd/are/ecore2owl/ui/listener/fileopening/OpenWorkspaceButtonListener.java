@@ -8,6 +8,7 @@ import java.util.stream.Collectors;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.emf.common.ui.dialogs.WorkspaceResourceDialog;
 import org.eclipse.jface.viewers.ViewerFilter;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 import edu.kit.ipd.are.ecore2owl.ui.listener.FilePatternFilter;
@@ -31,8 +32,7 @@ public class OpenWorkspaceButtonListener extends OpenButtonListener {
      * @param shell
      *            the shell
      */
-    public OpenWorkspaceButtonListener(Text field, String[] fileExtension, String dialogTitle,
-            org.eclipse.swt.widgets.Shell shell) {
+    public OpenWorkspaceButtonListener(Text field, String[] fileExtension, String dialogTitle, Shell shell) {
         super(field, fileExtension, dialogTitle, shell, false);
     }
 
@@ -52,8 +52,8 @@ public class OpenWorkspaceButtonListener extends OpenButtonListener {
      * @param useMultipleSelection
      *            if true, multiple files can be selected.
      */
-    public OpenWorkspaceButtonListener(Text field, String[] fileExtension, String dialogTitle,
-            org.eclipse.swt.widgets.Shell shell, boolean useMultipleSelection) {
+    public OpenWorkspaceButtonListener(Text field, String[] fileExtension, String dialogTitle, Shell shell,
+            boolean useMultipleSelection) {
         super(field, fileExtension, dialogTitle, shell, useMultipleSelection);
     }
 

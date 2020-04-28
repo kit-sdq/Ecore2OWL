@@ -9,6 +9,7 @@ import org.eclipse.emf.ecore.EPackage;
 import org.eclipse.emf.ecore.plugin.EcorePlugin;
 import org.eclipse.jface.viewers.LabelProvider;
 import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 import org.eclipse.ui.ISharedImages;
 import org.eclipse.ui.PlatformUI;
@@ -16,8 +17,7 @@ import org.eclipse.ui.dialogs.ElementListSelectionDialog;
 
 public class OpenEMFPackageButtonListener extends OpenButtonListener {
 
-    public OpenEMFPackageButtonListener(Text field, String[] fileExtension, String dialogTitle,
-            org.eclipse.swt.widgets.Shell shell) {
+    public OpenEMFPackageButtonListener(Text field, String[] fileExtension, String dialogTitle, Shell shell) {
         super(field, fileExtension, dialogTitle, shell);
     }
 

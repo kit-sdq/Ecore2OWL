@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.widgets.FileDialog;
+import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
 
 /**
@@ -29,8 +30,7 @@ public class OpenLocalFileSystemButtonListener extends OpenButtonListener {
      * @param shell
      *            the shell
      */
-    public OpenLocalFileSystemButtonListener(Text field, String[] fileExtension, String dialogTitle,
-            org.eclipse.swt.widgets.Shell shell) {
+    public OpenLocalFileSystemButtonListener(Text field, String[] fileExtension, String dialogTitle, Shell shell) {
         super(field, fileExtension, dialogTitle, shell);
 
     }
@@ -51,8 +51,8 @@ public class OpenLocalFileSystemButtonListener extends OpenButtonListener {
      * @param useMultipleSelection
      *            if true, multiple files can be selected.
      */
-    public OpenLocalFileSystemButtonListener(Text field, String[] fileExtension, String dialogTitle,
-            org.eclipse.swt.widgets.Shell shell, boolean useMultipleSelection) {
+    public OpenLocalFileSystemButtonListener(Text field, String[] fileExtension, String dialogTitle, Shell shell,
+            boolean useMultipleSelection) {
         super(field, fileExtension, dialogTitle, shell, useMultipleSelection);
     }
 

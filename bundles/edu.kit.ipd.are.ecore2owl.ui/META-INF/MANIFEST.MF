@@ -5,18 +5,16 @@ Bundle-SymbolicName: ecore2owl.ui;singleton:=true
 Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: edu.kit.ipd.are.ecore2owl.ui.Activator
 Require-Bundle: org.apache.log4j;bundle-version="1.2.15",
- org.eclipse.debug.core,
- org.eclipse.equinox.registry,
- org.eclipse.emf.ecore;bundle-version="2.15.0",
  org.eclipse.emf.ecore.xmi;bundle-version="2.15.0",
- org.eclipse.jface,
  org.eclipse.debug.ui,
  org.eclipse.ui.ide,
  org.eclipse.emf.common.ui,
  org.eclipse.osgi;bundle-version="3.15.0",
  ecore2owl.OntologyAccess;bundle-version="1.0.0",
  ecore2owl.dependencies-provider,
- ecore2owl.core;bundle-version="1.0.0"
+ ecore2owl.core;bundle-version="1.0.0",
+ org.eclipse.equinox.registry,
+ org.eclipse.sirius.ext.swt
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: edu.kit.ipd.are.adl.ui
 Bundle-Vendor: are.ipd.kit.edu
@@ -25,3 +23,5 @@ Export-Package: edu.kit.ipd.are.ecore2owl.ui,
  edu.kit.ipd.are.ecore2owl.ui.listener,
  edu.kit.ipd.are.ecore2owl.ui.listener.fileopening,
  edu.kit.ipd.are.ecore2owl.ui.listener.filesaver
+Bundle-ClassPath: swt/org.eclipse.swt.win32.win32.x86-4.3.jar,
+ .
