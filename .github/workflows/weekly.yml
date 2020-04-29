@@ -1,8 +1,8 @@
-name: Nightly Build
+name: Weekly Build
 
-on: [push]
-  # schedule:
-  #   - cron: '4 4 * * 0' #(once a week, Sundays at 04:04 UTC.)
+on:
+  schedule:
+    - cron: '4 4 * * 0' #(once a week, Sundays at 04:04 UTC.)
 
 jobs:
   build:
