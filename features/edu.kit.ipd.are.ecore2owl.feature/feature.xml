@@ -324,7 +324,6 @@ any resulting litigation.
       <import plugin="org.eclipse.ui.ide"/>
       <import plugin="org.eclipse.emf.common.ui"/>
       <import plugin="org.eclipse.osgi" version="3.15.0" match="greaterOrEqual"/>
-      <import plugin="ecore2owl.OntologyAccess" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="ecore2owl.dependencies-provider"/>
       <import plugin="ecore2owl.core" version="1.0.0" match="greaterOrEqual"/>
    </requires>

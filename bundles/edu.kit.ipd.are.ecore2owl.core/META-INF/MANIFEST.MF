@@ -8,7 +8,6 @@ Require-Bundle: org.apache.log4j,
  org.eclipse.core.runtime,
  org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi,
- ecore2owl.OntologyAccess,
  ecore2owl.dependencies-provider
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: ecore2owl.plugin-core

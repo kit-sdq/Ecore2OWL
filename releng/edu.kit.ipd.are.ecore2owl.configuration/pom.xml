@@ -17,6 +17,7 @@
 	    <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
 	    <jena.version>3.7.0</jena.version>
 	    <eclipse.collections.version>9.2.0</eclipse.collections.version>
+	    <OntologyAccess.version>0.0.6</OntologyAccess.version>
   	</properties>
 
 	<licenses>
@@ -43,6 +44,11 @@
 			<layout>p2</layout>
 			<url>http://download.eclipse.org/releases/2019-09/</url>
 		</repository>
+		<repository>
+	      <id>github</id>
+	      <name>GitHub kit-sdq/OntologyAccess Apache Maven Packages</name>
+	      <url>https://maven.pkg.github.com/kit-sdq/OntologyAccess</url>
+	    </repository>
 	</repositories>
 
 	<build>

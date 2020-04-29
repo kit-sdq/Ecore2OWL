@@ -13,7 +13,7 @@ import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import edu.kit.ipd.are.ecore2owl.ontologyaccess.OntologyAccess;
+import edu.kit.ipd.ontologyaccess.OntologyAccess;
 
 /**
  * @author Jan Keim

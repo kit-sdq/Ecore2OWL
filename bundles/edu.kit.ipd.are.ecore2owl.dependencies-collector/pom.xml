@@ -11,6 +11,11 @@
  </parent>
 
   <dependencies>
+  	<dependency>
+	  <groupId>edu.kit.ipd</groupId>
+	  <artifactId>OntologyAccess</artifactId>
+	  <version>${OntologyAccess.version}</version>
+	</dependency> 
     <dependency>
 		<groupId>org.apache.jena</groupId>
 		<artifactId>apache-jena</artifactId>

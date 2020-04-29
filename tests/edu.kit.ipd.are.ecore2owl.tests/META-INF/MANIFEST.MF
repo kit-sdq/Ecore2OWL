@@ -6,7 +6,6 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: edu.kit.ipd.are.ecore2owl.tests.Activator
 Require-Bundle: org.eclipse.core.runtime,
  org.junit;bundle-version="4.12.0",
- ecore2owl.OntologyAccess;bundle-version="1.0.0",
  ecore2owl.core;bundle-version="1.0.0",
  ecore2owl.ui;bundle-version="1.0.0",
  ecore2owl.dependencies-provider
