@@ -7,8 +7,8 @@ Tool to transform Ecore (Meta-)Models into OWL Ontologies.
 The ontologies will be saved in a RDF/XML format.
 
 ## Installation
-Currently, this is still work in progress and no dedicated installation besides the development option is available.
-We plan to provide an updatesite to directly install it in eclipse. More information about that will be available as soon as a mature version can be released.
+Currently, this is still work in progress and checking out the repository and importing it to your eclipse workspace (also see [Development](#development)).
+However, there is a preliminary (nightly) updatesite available at https://kit-sdq.github.io/Ecore2OWL/updatesite/. Add this site in your eclipse to install it (via Help->Install New Software->Add). Keep in mind that the provided version of Ecore2OWL might be broken.
 
 ## How to use
 When the tool is installed, you can access it via the run configuration menu (`Run`->`Run Configuration`). In there, there is the Ecore2OWL Application.
