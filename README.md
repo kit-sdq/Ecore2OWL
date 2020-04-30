@@ -4,7 +4,6 @@
 ![Nightly Build](https://github.com/kit-sdq/Ecore2OWL/workflows/Nightly%20Build/badge.svg)
 
 Tool to transform Ecore (Meta-)Models into OWL Ontologies.
-The ontologies will be saved in a RDF/XML format.
 
 ## Installation
 Currently, this is still work in progress and checking out the repository and importing it to your eclipse workspace (also see [Development](#development)).
