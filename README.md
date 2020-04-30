@@ -29,7 +29,6 @@ With the projects in your workspace, you can test the plugins by starting a "inn
 Here is an overview of the different projects and what they do:
 * bundles/edu.kit.ipd.are.ecore2owl.dependencies-collector: used to incorporate non-osgi-dependencies into the osgi-environment. This projects simply collects the dependencies via maven and generates a .jar that is put into the dependencies provider
 * bundles/edu.kit.ipd.are.ecore2owl.dependencies-provider: used to incorporate non-osgi-dependencies into the osgi-environment. Loads the .jar (that is put there via the dep. collector during build) and provides access to all the dependencies for osgi-projects/plugins
-* bundles/edu.kit.ipd.are.OntologyAccess: Project to provide a layer between the core logic and the ontology creation (via Apache Jena). This Layer simplifies and bundles the needed calls to the ontology.
 * bundles/edu.kit.ipd.are.ecore2owl.core: Core logic for the transformation.
 * bundles/edu.kit.ipd.are.ecore2owl.ui: Code for the integration into the eclipse UI (as run configuration).
 * features/* : Feature definitions
