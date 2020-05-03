@@ -1,6 +1,6 @@
 # Ecore2OWL
 ![Java CI with Maven](https://github.com/kit-sdq/Ecore2OWL/workflows/Java%20CI%20with%20Maven/badge.svg?branch=master)
-![Nightly Build](https://github.com/kit-sdq/Ecore2OWL/workflows/Nightly%20Build/badge.svg)
+![Weekly Build](https://github.com/kit-sdq/Ecore2OWL/workflows/Weekly%20Build/badge.svg)
 
 Tool to transform Ecore (Meta-)Models into OWL Ontologies.
 
