@@ -1,10 +1,8 @@
 # Ecore2OWL
-[![Travis Build Status](https://travis-ci.org/kit-sdq/Ecore2OWL.svg?branch=master)](https://travis-ci.org/kit-sdq/Ecore2OWL) 
 ![Java CI with Maven](https://github.com/kit-sdq/Ecore2OWL/workflows/Java%20CI%20with%20Maven/badge.svg?branch=master)
 ![Nightly Build](https://github.com/kit-sdq/Ecore2OWL/workflows/Nightly%20Build/badge.svg)
 
 Tool to transform Ecore (Meta-)Models into OWL Ontologies.
-The ontologies will be saved in a RDF/XML format.
 
 ## Installation
 Currently, this is still work in progress and checking out the repository and importing it to your eclipse workspace (also see [Development](#development)).
@@ -30,7 +28,6 @@ With the projects in your workspace, you can test the plugins by starting a "inn
 Here is an overview of the different projects and what they do:
 * bundles/edu.kit.ipd.are.ecore2owl.dependencies-collector: used to incorporate non-osgi-dependencies into the osgi-environment. This projects simply collects the dependencies via maven and generates a .jar that is put into the dependencies provider
 * bundles/edu.kit.ipd.are.ecore2owl.dependencies-provider: used to incorporate non-osgi-dependencies into the osgi-environment. Loads the .jar (that is put there via the dep. collector during build) and provides access to all the dependencies for osgi-projects/plugins
-* bundles/edu.kit.ipd.are.OntologyAccess: Project to provide a layer between the core logic and the ontology creation (via Apache Jena). This Layer simplifies and bundles the needed calls to the ontology.
 * bundles/edu.kit.ipd.are.ecore2owl.core: Core logic for the transformation.
 * bundles/edu.kit.ipd.are.ecore2owl.ui: Code for the integration into the eclipse UI (as run configuration).
 * features/* : Feature definitions
