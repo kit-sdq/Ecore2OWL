@@ -4,6 +4,8 @@
 
 Tool to transform Ecore (Meta-)Models into OWL Ontologies.
 
+Please, also look at our [documentation](./doc), especially the [mapping](./doc/mapping.md).
+
 ## Installation
 Currently, this is still work in progress and checking out the repository and importing it to your eclipse workspace (also see [Development](#development)).
 However, there is a preliminary (nightly) updatesite available at https://kit-sdq.github.io/Ecore2OWL/updatesite/. Add this site in your eclipse to install it (via Help->Install New Software->Add). Keep in mind that the provided version of Ecore2OWL might be broken.
