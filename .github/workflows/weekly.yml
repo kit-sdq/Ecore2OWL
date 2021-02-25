@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      CHANGES_HAPPENED: 0
+      CHANGES_HAPPENED: 1
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 11
