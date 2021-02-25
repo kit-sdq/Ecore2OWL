@@ -21,12 +21,11 @@ jobs:
       uses: whelk-io/maven-settings-xml-action@v4
       with:
         servers: '[{ "id": "github", "username": "x-access-token", "password": "${{ secrets.GITHUB_TOKEN }}" }]'
-    - name: Print if something happened 1
-      run: |
-          echo "${{ env.CHANGES_HAPPENED }}"
+    - name: Check if changes happenes
+      run: echo "$((( ($(date +%s) - $(git log -1 --format="%at") ) / (60*60*24)) > 6))"
     - name: Check if changes happenes
       run: echo "{CHANGES_HAPPENED}={$((( ($(date +%s) - $(git log -1 --format="%at") ) / (60*60*24)) > 6))}" >> $GITHUB_ENV
-    - name: Print if something happened 2
+    - name: Print if something happened
       run: |
           echo "${{ env.CHANGES_HAPPENED }}"
     - name: Build with Maven
