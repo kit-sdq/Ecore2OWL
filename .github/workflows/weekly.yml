@@ -1,14 +1,16 @@
 name: Weekly Build
 
 on:
+  push:
   schedule:
     - cron: '4 4 * * 0' #(once a week, Sundays at 04:04 UTC.)
-
+  workflow_dispatch: # manual trigger
+  
 jobs:
   build:
-
     runs-on: ubuntu-latest
-
+    env:
+      CHANGES_HAPPENED: 1
     steps:
     - uses: actions/checkout@v2
     - name: Set up JDK 11
@@ -19,38 +21,54 @@ jobs:
       uses: whelk-io/maven-settings-xml-action@v4
       with:
         servers: '[{ "id": "github", "username": "x-access-token", "password": "${{ secrets.GITHUB_TOKEN }}" }]'
+    - name: Check if changes happenes
+      run: env.CHANGES_HAPPENED =  echo $((( ($(date +%s) - $(git log -1 --format="%at") ) / (60*60*24)) > 6))
+    - name: Print if something happened
+      run: echo "Commit happened $env.CHANGES_HAPPENED"
     - name: Build with Maven
+      if: CHANGES_HAPPENED == 1
       run: mvn -B package --file pom.xml
     - name: create tmp-directory
+      if: CHANGES_HAPPENED == 1
       run: mkdir /tmp/updatesite
     - name: extract-7z-action
+      if: CHANGES_HAPPENED == 1
       uses: DuckSoft/extract-7z-action@v1.0
       with:
         pathSource: releng/edu.kit.ipd.are.ecore2owl.updatesite/target/ecore2owl.updatesite-1.0.0-SNAPSHOT.zip # Do not forget to change this at version jumps!
         pathTarget: /tmp/updatesite
     - name: Upload artifact
+      if: CHANGES_HAPPENED == 1
       uses: actions/upload-artifact@v1.0.0
       with:
         name: updatesite
         path: /tmp/updatesite
     - name: Checkout gh-pages
+      if: CHANGES_HAPPENED == 1
       uses: actions/checkout@v2.0.0
       with:
         ref: gh-pages
-    - run: rm -rf updatesite
+    - name: Remove temporary updatesite folder
+      if: CHANGES_HAPPENED == 1
+      run: rm -rf updatesite
     - name: Download artifact
+      if: CHANGES_HAPPENED == 1
       uses: actions/download-artifact@v1.0.0
       with:
         name: updatesite
         path: updatesite
-    - run: wget -O README.md https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/master/README.md
+    - name: Get current README
+      if: CHANGES_HAPPENED == 1
+      run: wget -O README.md https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/master/README.md
     - name: Commit
+      if: CHANGES_HAPPENED == 1
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add -f updatesite/* README.md
         git commit -m "Automated commit"
     - name: Push changes
+      if: CHANGES_HAPPENED == 1
       uses: ad-m/github-push-action@master
       with:
         branch: gh-pages
