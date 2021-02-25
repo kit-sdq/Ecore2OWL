@@ -49,26 +49,26 @@ jobs:
       with:
         ref: gh-pages
     - name: Remove temporary updatesite folder
-      if: CHANGES_HAPPENED == 1
+      if: env.CHANGES_HAPPENED == 1
       run: rm -rf updatesite
     - name: Download artifact
-      if: CHANGES_HAPPENED == 1
+      if: env.CHANGES_HAPPENED == 1
       uses: actions/download-artifact@v1.0.0
       with:
         name: updatesite
         path: updatesite
     - name: Get current README
-      if: CHANGES_HAPPENED == 1
+      if: env.CHANGES_HAPPENED == 1
       run: wget -O README.md https://raw.githubusercontent.com/${GITHUB_REPOSITORY}/master/README.md
     - name: Commit
-      if: CHANGES_HAPPENED == 1
+      if: env.CHANGES_HAPPENED == 1
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
         git add -f updatesite/* README.md
         git commit -m "Automated commit"
     - name: Push changes
-      if: CHANGES_HAPPENED == 1
+      if: env.CHANGES_HAPPENED == 1
       uses: ad-m/github-push-action@master
       with:
         branch: gh-pages
