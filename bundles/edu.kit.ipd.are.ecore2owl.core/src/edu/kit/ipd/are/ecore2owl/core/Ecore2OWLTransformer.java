@@ -46,7 +46,7 @@ import org.eclipse.emf.ecore.util.EcoreUtil;
 import org.eclipse.emf.ecore.util.ExtendedMetaData;
 import org.eclipse.emf.ecore.xmi.XMLResource;
 
-import edu.kit.ipd.ontologyaccess.OntologyAccess;
+import edu.kit.ipd.are.ecore2owl.ontology.OntologyAccess;
 
 /**
  * Class for transforming Ecore models from the EMF into ontologies in OWL format.
@@ -205,7 +205,7 @@ public class Ecore2OWLTransformer {
             logger.debug("Initialising OntologyAccess");
             String nsURI = ePackage.getNsURI();
             String defaultNameSpace = nsURI + "/owl#";
-            ontologyAccess = edu.kit.ipd.ontologyaccess.OntologyAccess.empty(defaultNameSpace);
+            ontologyAccess = OntologyAccess.empty(defaultNameSpace);
             ontologyAccess.addNsPrefix("model", defaultNameSpace);
             ontologyAccess.setDefaultPrefix("model");
             eClassOntClass = ontologyAccess.addClass(E_CLASS);
