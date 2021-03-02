@@ -188,6 +188,7 @@ public class Ecore2OWLTransformer {
      *
      * @param inputEcore the model that should be transformed
      */
+    // TODO
     public void transformEcore(Resource inputEcore) {
         metaModelRoot = (EPackage) inputEcore.getContents().get(0);
 
@@ -200,11 +201,12 @@ public class Ecore2OWLTransformer {
         }
     }
 
+    // TODO: Import ontologies from web and use these. Fix the Namespace here as well!
     private void preparePackageTransformation(EPackage ePackage) {
         if (ontologyAccess == null) {
             logger.debug("Initialising OntologyAccess");
             String nsURI = ePackage.getNsURI();
-            String defaultNameSpace = nsURI + "/owl#";
+            String defaultNameSpace = nsURI + "/owl#"; // TODO!
             ontologyAccess = OntologyAccess.empty(defaultNameSpace);
             ontologyAccess.addNsPrefix("model", defaultNameSpace);
             ontologyAccess.setDefaultPrefix("model");

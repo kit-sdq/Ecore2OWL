@@ -72,8 +72,7 @@ public class OntologyAccess {
     /**
      * Create an OntologyAccess based on a file (that is an ontology and) that will be loaded.
      *
-     * @param ontoFile
-     *            The file of an ontology
+     * @param ontoFile The file of an ontology
      * @return An OntologyAccess object that uses the given file as underlying ontology
      */
     public static OntologyAccess ofFile(String ontoFile) {
@@ -86,8 +85,7 @@ public class OntologyAccess {
     /**
      * Creates an OntologyAccess based on a given {@link OntModel}.
      *
-     * @param ontModel
-     *            The OntModel the access should be based on
+     * @param ontModel The OntModel the access should be based on
      * @return An OntologyAccess object that uses the given OntModel as underlying ontology
      */
     public static OntologyAccess ofOntModel(OntModel ontModel) {
@@ -99,8 +97,7 @@ public class OntologyAccess {
     /**
      * Creates an empty OntologyAccess based on neither an existing file nor {@link OntModel}.
      *
-     * @param defaultNameSpaceUri
-     *            The defaul namespace URI
+     * @param defaultNameSpaceUri The defaul namespace URI
      * @return An OntologyAccess object based on neither an existing file nor {@link OntModel}
      */
     public static OntologyAccess empty(String defaultNameSpaceUri) {
@@ -141,8 +138,8 @@ public class OntologyAccess {
      *         conflicts
      */
     public boolean validateOntology() {
-        InfModel infModel = ModelFactory.createRDFSModel(ontModel);
-        ValidityReport validity = infModel.validate();
+        InfModel validationInfModel = ModelFactory.createRDFSModel(ontModel);
+        ValidityReport validity = validationInfModel.validate();
         if (validity.isValid()) {
             return true;
         }
@@ -156,10 +153,10 @@ public class OntologyAccess {
     /**
      * Save the ontology to a given file (path). This method uses the N3 language to save.
      *
-     * @param file
-     *            String containing the path of the file the ontology should be saved to
+     * @param file String containing the path of the file the ontology should be saved to
      * @return true if saving was successful, otherwise false is returned
      */
+    // TODO: N3 or something else? N3 was fastest (because XML can be slow)
     public boolean save(String file) {
         return save(file, Lang.N3);
     }
@@ -167,10 +164,8 @@ public class OntologyAccess {
     /**
      * Save the ontology to a given file (path). This method uses the N3 language to save.
      *
-     * @param file
-     *            String containing the path of the file the ontology should be saved to
-     * @param language
-     *            The language the file should be written in
+     * @param file     String containing the path of the file the ontology should be saved to
+     * @param language The language the file should be written in
      * @return true if saving was successful, otherwise false is returned
      */
     public boolean save(String file, Lang language) {
@@ -193,8 +188,7 @@ public class OntologyAccess {
     /**
      * Set the default Prefix
      *
-     * @param prefix
-     *            the new default prefix
+     * @param prefix the new default prefix
      */
     public void setDefaultPrefix(String prefix) {
         defaultPrefix = prefix;
@@ -203,10 +197,8 @@ public class OntologyAccess {
     /**
      * Add a namespace prefix
      *
-     * @param prefix
-     *            the new prefix that should be able to use
-     * @param uri
-     *            the URI that the prefix should be resolved to
+     * @param prefix the new prefix that should be able to use
+     * @param uri    the URI that the prefix should be resolved to
      */
     public void addNsPrefix(String prefix, String uri) {
         ontModel.setNsPrefix(prefix, uri);
@@ -229,23 +221,20 @@ public class OntologyAccess {
     /**
      * Search for individuals based on the given {@link Predicate}.
      *
-     * @param searchPredicate
-     *            The predicate that should be used to look for individuals
+     * @param searchPredicate The predicate that should be used to look for individuals
      * @return A list of individuals that correspond to the given predicate
      */
-    // TODO: can we make MutableList to List? Does this break something?
-    public MutableList<Individual> searchIndividual(Predicate<Individual> searchPredicate) {
-        return createMutableListFromIterator(ontModel.listIndividuals()
-                                                     .filterKeep(searchPredicate));
+    public List<Individual> searchIndividual(Predicate<Individual> searchPredicate) {
+        return createMutableListFromIterator(ontModel.listIndividuals().filterKeep(searchPredicate));
     }
 
     /**
      * Adds an individual to the ontology by adding it as individual of OWL:Thing
      *
-     * @param shortUri
-     *            ShortUri of the Individual
+     * @param shortUri ShortUri of the Individual
      * @return the created Individual
      */
+    // TODO: Make this use labels etc.
     public Individual addNamedIndividual(String shortUri) {
         Resource clazz = OWL.Thing;
         String uri = createUri(shortUri);
@@ -256,12 +245,11 @@ public class OntologyAccess {
      * Adds an individual and sets its class to the given {@link OntClass} and the short URI (without prefix). See also
      * {@link #addNamedIndividual(String)}.
      *
-     * @param cls
-     *            Class the individual should belong to
-     * @param shortUri
-     *            Short URI (without prefix)
+     * @param cls      Class the individual should belong to
+     * @param shortUri Short URI (without prefix)
      * @return the created individual
      */
+    // TODO: Make this use labels etc.
     public Individual addNamedIndividual(OntClass cls, String shortUri) {
         String uri = createUri(shortUri);
         Individual individual = ontModel.getIndividual(uri);
@@ -277,17 +265,17 @@ public class OntologyAccess {
      * Adds an individual and sets its class to the given class name (as String) and the short URI (without prefix). See
      * also {@link #addNamedIndividual(OntClass, String)}.
      *
-     * @param className
-     *            Class the individual should belong to
-     * @param shortUri
-     *            Short URI (without prefix)
+     * @param className Class the individual should belong to
+     * @param shortUri  Short URI (without prefix)
      * @return the created individual
      */
+    // TODO: Make this use labels etc.
     public Individual addNamedIndividual(String className, String shortUri) {
         OntClass clazz = addClass(className);
         return addNamedIndividual(clazz, shortUri);
     }
 
+    // TODO: Make this use labels etc.
     public Optional<Individual> getNamedIndividual(String individualName) {
         if (individualName == null) {
             return Optional.empty();
@@ -297,17 +285,15 @@ public class OntologyAccess {
         if (uriIndividual.isPresent()) {
             return uriIndividual;
         }
-        return ontModel.listIndividuals()
-                       .filterKeep(individual -> {
-                           Optional<String> optName = getName(individual.getURI());
-                           if (optName.isPresent()) {
-                               String name = optName.get();
-                               return name.equals(individualName);
-                           } else {
-                               return false;
-                           }
-                       })
-                       .nextOptional();
+        return ontModel.listIndividuals().filterKeep(individual -> {
+            Optional<String> optName = getName(individual.getURI());
+            if (optName.isPresent()) {
+                String name = optName.get();
+                return name.equals(individualName);
+            } else {
+                return false;
+            }
+        }).nextOptional();
     }
 
     public Optional<Individual> getNamedIndividualByShortUri(String individualShortUri) {
@@ -318,6 +304,7 @@ public class OntologyAccess {
         return Optional.ofNullable(ontModel.getIndividual(individualUri));
     }
 
+    // TODO: Make this use labels etc.
     public Optional<String> getName(String individualUri) {
         List<String> names = getDataPropertyValuesForIndividual("entityName_-_NamedElement", individualUri);
         return (names.isEmpty()) ? Optional.empty() : Optional.of(names.get(0));
@@ -329,13 +316,11 @@ public class OntologyAccess {
 
     public MutableList<Property> getNamedPropertiesWithLocalName(String localName) {
         MutableList<Property> propertyList = Lists.mutable.empty();
-        ontModel.listOntProperties()
-                .forEachRemaining(prop -> {
-                    if (prop.getLocalName()
-                            .equals(localName)) {
-                        propertyList.add(prop);
-                    }
-                });
+        ontModel.listOntProperties().forEachRemaining(prop -> {
+            if (prop.getLocalName().equals(localName)) {
+                propertyList.add(prop);
+            }
+        });
         return propertyList;
 
     }
@@ -347,8 +332,7 @@ public class OntologyAccess {
     /**
      * Adds a DatatypeProperty and sets the range. Range is xsd:string
      *
-     * @param name
-     *            Name of the property
+     * @param name Name of the property
      * @return the created DatatypeProperty
      */
     public DatatypeProperty addDataProperty(String name) {
@@ -358,10 +342,8 @@ public class OntologyAccess {
     /**
      * Adds a DatatypeProperty with the given range as type.
      *
-     * @param name
-     *            Name of the property
-     * @param domain
-     *            Domain of the DatatypeProperty
+     * @param name   Name of the property
+     * @param domain Domain of the DatatypeProperty
      * @return the created DatatypeProperty
      */
     public DatatypeProperty addDataProperty(String name, Resource domain) {
@@ -373,12 +355,9 @@ public class OntologyAccess {
     /**
      * Adds a DatatypeProperty with the given range as type.
      *
-     * @param name
-     *            Name of the property
-     * @param domain
-     *            Domain of the DatatypeProperty
-     * @param range
-     *            Range of the DatatypeProperty
+     * @param name   Name of the property
+     * @param domain Domain of the DatatypeProperty
+     * @param range  Range of the DatatypeProperty
      * @return the created DatatypeProperty
      */
     public DatatypeProperty addDataProperty(String name, Resource domain, Resource range) {
@@ -397,8 +376,7 @@ public class OntologyAccess {
         ontModel.addLiteral(individual, property, literal);
     }
 
-    public void addDataPropertyToIndividual(Individual individual, DatatypeProperty property, Object value,
-            RDFDatatype type) {
+    public void addDataPropertyToIndividual(Individual individual, DatatypeProperty property, Object value, RDFDatatype type) {
         Literal literal = ontModel.createTypedLiteral(value, type);
         ontModel.addLiteral(individual, property, literal);
     }
@@ -409,7 +387,7 @@ public class OntologyAccess {
             return Lists.mutable.empty();
         }
         return getPropertiesOfIndividual(individual.get()).select(property -> property.canAs(DatatypeProperty.class))
-                                                          .collect(property -> property.as(DatatypeProperty.class));
+                .collect(property -> property.as(DatatypeProperty.class));
     }
 
     public MutableList<DatatypeProperty> getDataPropertiesOfIndividualbyUri(String individualUri) {
@@ -418,7 +396,7 @@ public class OntologyAccess {
             return Lists.mutable.empty();
         }
         return getPropertiesOfIndividual(individual.get()).select(property -> property.canAs(DatatypeProperty.class))
-                                                          .collect(property -> property.as(DatatypeProperty.class));
+                .collect(property -> property.as(DatatypeProperty.class));
     }
 
     public MutableList<String> getDataPropertyValuesForIndividual(String datatypePropertyName, String individualUri) {
@@ -446,8 +424,7 @@ public class OntologyAccess {
         return Optional.ofNullable(ontModel.getDatatypeProperty(dataPropertyUri));
     }
 
-    private ObjectProperty addObjectProperty(String objectPropertyName, OntClass domain, OntClass range,
-            boolean functional) {
+    private ObjectProperty addObjectProperty(String objectPropertyName, OntClass domain, OntClass range, boolean functional) {
         ObjectProperty property = ontModel.createObjectProperty(createUri(objectPropertyName), functional);
         property.addDomain(domain);
         property.addRange(range);
@@ -478,12 +455,9 @@ public class OntologyAccess {
     /**
      * Adds a restriction that all values have to come from a specific class
      *
-     * @param uri
-     *            Uri of the restriction, or null if anonymous
-     * @param property
-     *            Property that should be restricted
-     * @param cls
-     *            The class to which all value are restricted to
+     * @param uri      Uri of the restriction, or null if anonymous
+     * @param property Property that should be restricted
+     * @param cls      The class to which all value are restricted to
      * @return the restriction
      */
     public AllValuesFromRestriction addAllValuesFrom(String uri, Property property, Resource cls) {
@@ -493,10 +467,8 @@ public class OntologyAccess {
     /**
      * Adds a restriction that all values have to come from a specific class
      *
-     * @param property
-     *            Property that should be restricted
-     * @param cls
-     *            The class to which all value are restricted to
+     * @param property Property that should be restricted
+     * @param cls      The class to which all value are restricted to
      * @return the restriction
      */
     public AllValuesFromRestriction addAllValuesFrom(Property property, Resource cls) {
@@ -519,25 +491,20 @@ public class OntologyAccess {
     /**
      * Adds a statement provided with a triple (subject, predicate, object)
      *
-     * @param subject
-     *            the subject
-     * @param property
-     *            the predicate
-     * @param object
-     *            the object
+     * @param subject  the subject
+     * @param property the predicate
+     * @param object   the object
      */
     public void addStatement(Resource subject, ObjectProperty property, RDFNode object) {
         ontModel.add(subject, property, object);
     }
 
-    public Optional<ObjectProperty> addObjectPropertyOfIndividual(String subjectShortUri, String propertyName,
-            String objectShortUri) {
+    public Optional<ObjectProperty> addObjectPropertyOfIndividual(String subjectShortUri, String propertyName, String objectShortUri) {
         Optional<Individual> optSubject = getNamedIndividualByShortUri(subjectShortUri);
         if (!optSubject.isPresent()) {
             optSubject = getNamedIndividual(subjectShortUri);
             if (!optSubject.isPresent()) {
-                String msg = "Could not find subject for ObjectProperty \"" + propertyName + "\" of Individual: "
-                        + subjectShortUri;
+                String msg = "Could not find subject for ObjectProperty \"" + propertyName + "\" of Individual: " + subjectShortUri;
                 logger.debug(msg);
                 return Optional.empty();
             }
@@ -564,12 +531,9 @@ public class OntologyAccess {
     /**
      * Adds an {@link ObjectProperty} to an individual.
      *
-     * @param subject
-     *            Subject of the property
-     * @param property
-     *            the property
-     * @param object
-     *            Object of the property
+     * @param subject  Subject of the property
+     * @param property the property
+     * @param object   Object of the property
      */
     public void addObjectPropertyOfIndividual(Resource subject, ObjectProperty property, RDFNode object) {
         addStatement(subject, property, object);
@@ -579,12 +543,9 @@ public class OntologyAccess {
      * Checks whether there is an existing ObjectProperty that fulfils the given parameters. A parameter that is
      * <code>null</code> matches everything.
      *
-     * @param subjectName
-     *            name of Subject (or null)
-     * @param propertyName
-     *            name of Property (or null)
-     * @param objectName
-     *            name of Object (or null)
+     * @param subjectName  name of Subject (or null)
+     * @param propertyName name of Property (or null)
+     * @param objectName   name of Object (or null)
      * @return whether there is an existing ObjectProperty with the given subject and object
      */
     public boolean containsObjectPropertyForIndividuals(String subjectName, String propertyName, String objectName) {
@@ -604,12 +565,9 @@ public class OntologyAccess {
      * Checks whether there is an existing ObjectProperty that fulfils the given parameters. A parameter that is
      * <code>null</code> matches everything.
      *
-     * @param subject
-     *            Subject (or null)
-     * @param property
-     *            Property (or null)
-     * @param object
-     *            Object (or null)
+     * @param subject  Subject (or null)
+     * @param property Property (or null)
+     * @param object   Object (or null)
      * @return whether there is an existing ObjectProperty with the given subject and object
      */
     public boolean containsObjectPropertyForIndividuals(Resource subject, ObjectProperty property, RDFNode object) {
@@ -624,8 +582,7 @@ public class OntologyAccess {
     /**
      * Returns a list of {@link ObjectProperty} for the individual that is provided with its name
      *
-     * @param individualName
-     *            name of an individual
+     * @param individualName name of an individual
      * @return List of object properties of the individual. If the individual cannot be found, returns an empty list
      */
     public MutableList<ObjectProperty> getObjectPropertiesOfIndividual(String individualName) {
@@ -641,8 +598,7 @@ public class OntologyAccess {
     /**
      * Returns a list of {@link ObjectProperty} for individual given by the URI
      *
-     * @param individualUri
-     *            URI of an individual
+     * @param individualUri URI of an individual
      * @return List of object properties of the individual. If the individual cannot be found, returns an empty list
      */
     public MutableList<ObjectProperty> getObjectPropertiesOfIndividualWithUri(String individualUri) {
@@ -652,20 +608,18 @@ public class OntologyAccess {
     /**
      * Returns a list of {@link ObjectProperty} for the given individual
      *
-     * @param individual
-     *            individual
+     * @param individual individual
      * @return List of object properties of the individual
      */
     public MutableList<ObjectProperty> getObjectPropertiesOfIndividual(Resource individual) {
         return getPropertiesOfIndividual(individual).select(property -> property.canAs(ObjectProperty.class))
-                                                    .collect(property -> property.as(ObjectProperty.class));
+                .collect(property -> property.as(ObjectProperty.class));
     }
 
     /**
      * Returns the Properties of an individual
      *
-     * @param individual
-     *            Individual
+     * @param individual Individual
      * @return List of properties of the individual
      */
     public MutableList<Property> getPropertiesOfIndividual(Resource individual) {
@@ -701,8 +655,7 @@ public class OntologyAccess {
      * Returns an Optional holding the class that corresponds to the given name. If no such class exists, returns an
      * empty optional.
      *
-     * @param className
-     *            Name of the class that should be returned
+     * @param className Name of the class that should be returned
      * @return Optional holding the class that corresponds to the given name, or an empty optional if no such exists
      */
     public Optional<OntClass> getClass(String className) {
@@ -712,10 +665,10 @@ public class OntologyAccess {
     /**
      * Adds a class with the given name to the ontology. If the class exists already, returns the existing class.
      *
-     * @param className
-     *            Name of the class that should be created
+     * @param className Name of the class that should be created
      * @return created class
      */
+    // TODO: Make this use labels etc.
     public OntClass addClass(String className) {
         return ontModel.createClass(createUri(className));
     }
@@ -757,6 +710,7 @@ public class OntologyAccess {
         superClass.removeSubClass(clazz);
     }
 
+    // TODO: Make this use labels etc.
     public boolean containsClass(String className) {
         return getClass(className).isPresent();
     }
@@ -764,10 +718,10 @@ public class OntologyAccess {
     /**
      * Returns the Individuals that have a class that corresponds to the given class name
      *
-     * @param className
-     *            Name of the class
+     * @param className Name of the class
      * @return List of Individuals for the given class (name)
      */
+    // TODO: Make this use labels etc.
     public MutableList<Individual> getInstancesOfClass(String className) {
         Optional<OntClass> optClass = getClass(className);
         if (!optClass.isPresent()) {
@@ -777,8 +731,7 @@ public class OntologyAccess {
         return getInstancesOfClass(clazz);
     }
 
-    // TODO
-    public MutableList<Individual> getInferredInstancesOfClass(String className) {
+    public List<Individual> getInferredInstancesOfClass(String className) {
         Optional<OntClass> optClass = getClass(className);
         if (!optClass.isPresent()) {
             return Lists.mutable.empty();
@@ -796,12 +749,11 @@ public class OntologyAccess {
     /**
      * Adds an Individual to the given class
      *
-     * @param name
-     *            name of the individual that should be added
-     * @param clazz
-     *            Class the individual should be added to
+     * @param name  name of the individual that should be added
+     * @param clazz Class the individual should be added to
      * @return the created individual
      */
+    // TODO: Make this use labels etc.
     public Individual addInstanceToClass(String name, OntClass clazz) {
         return ontModel.createIndividual(createUri(name), clazz);
     }
@@ -809,27 +761,21 @@ public class OntologyAccess {
     /**
      * Returns the values of the given {@link ObjectProperty} for the provided {@link Individual}
      *
-     * @param individual
-     *            Individual that should be checked
-     * @param property
-     *            Property that should be evaluated
+     * @param individual Individual that should be checked
+     * @param property   Property that should be evaluated
      * @return List of values for the given Individual and ObjectProperty
      */
     public MutableList<Resource> getObjectPropertyValues(Individual individual, Property property) {
         MutableList<Statement> properties = createMutableListFromIterator(individual.listProperties(property));
-        return properties.collect(Statement::getObject)
-                         .collect(RDFNode::asResource);
+        return properties.collect(Statement::getObject).collect(RDFNode::asResource);
     }
 
     /**
      * Adds a comment to a resource with the provided language set
      *
-     * @param resource
-     *            Resource that should be annotated with the comment
-     * @param comment
-     *            comment that should be annotated
-     * @param lang
-     *            Language that should be set
+     * @param resource Resource that should be annotated with the comment
+     * @param comment  comment that should be annotated
+     * @param lang     Language that should be set
      */
     public void addComment(OntResource resource, String comment, String lang) {
         resource.addComment(comment, lang);
@@ -847,12 +793,9 @@ public class OntologyAccess {
      * Find all the statements matching a pattern. Lists all statements within the ontology with the given pattern of
      * subject-predicate-object
      *
-     * @param subject
-     *            Subject
-     * @param predicate
-     *            Predicate
-     * @param object
-     *            Object
+     * @param subject   Subject
+     * @param predicate Predicate
+     * @param object    Object
      * @return all the statements matching the pattern
      */
     public StmtIterator listStatements(Resource subject, Property predicate, RDFNode object) {
@@ -862,19 +805,15 @@ public class OntologyAccess {
     /**
      * Returns whether a node is an instance of the given class
      *
-     * @param node
-     *            Node that should be checked
-     * @param clazz
-     *            Class that should be checked for
+     * @param node  Node that should be checked
+     * @param clazz Class that should be checked for
      * @return whether a node is an instance of the given class
      */
     public boolean nodeHasClass(RDFNode node, OntClass clazz) {
         if (node.isURIResource()) {
-            String uri = node.asResource()
-                             .getURI();
+            String uri = node.asResource().getURI();
             Optional<Individual> optIndi = getNamedIndividualByUri(uri);
-            if (optIndi.isPresent() && optIndi.get()
-                                              .hasOntClass(clazz)) {
+            if (optIndi.isPresent() && optIndi.get().hasOntClass(clazz)) {
                 return true;
             }
         }
@@ -889,16 +828,12 @@ public class OntologyAccess {
      * Returns the shortest path between two individuals while treating every edge as undirected. The path can only
      * travel to directions the provided filter allows.
      *
-     * @param start
-     *            Starting individual
-     * @param target
-     *            Target individual
-     * @param filter
-     *            Filter for valid Statements (for the path)
+     * @param start  Starting individual
+     * @param target Target individual
+     * @param filter Filter for valid Statements (for the path)
      * @return Optional holding the shortest Path from start to target, if one exists
      */
-    public Optional<Path> getUndirectedShortestPathBetween(Individual start, Individual target,
-            Predicate<Statement> filter) {
+    public Optional<Path> getUndirectedShortestPathBetween(Individual start, Individual target, Predicate<Statement> filter) {
         MutableList<Path> paths = Lists.mutable.empty();
         MutableSet<Statement> seen = UnifiedSet.newSet();
         Predicate<Statement> selector = stmt -> !seen.contains(stmt);
@@ -945,8 +880,7 @@ public class OntologyAccess {
     }
 
     private boolean pathHasTerminus(Path path, Resource target) {
-        return path.hasTerminus(target) || (!path.isEmpty()) && target.equals(path.get(path.size() - 1)
-                                                                                  .getSubject());
+        return path.hasTerminus(target) || (!path.isEmpty()) && target.equals(path.get(path.size() - 1).getSubject());
     }
 
     private MutableList<Resource> getTerminalResourcesFromPath(Path path) {
