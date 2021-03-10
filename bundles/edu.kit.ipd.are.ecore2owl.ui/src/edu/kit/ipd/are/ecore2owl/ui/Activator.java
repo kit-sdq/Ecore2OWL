@@ -9,7 +9,7 @@ import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
 import edu.kit.ipd.are.ecore2owl.core.Ecore2OWLTransformer;
-import edu.kit.ipd.ontologyaccess.OntologyAccess;
+import edu.kit.ipd.are.ecore2owl.ontology.OntologyAccess;
 
 public class Activator implements BundleActivator {
     protected static final Level LOGGING_LEVEL = Level.DEBUG;
@@ -28,7 +28,7 @@ public class Activator implements BundleActivator {
      */
     @Override
     public void start(BundleContext bundleContext) throws Exception {
-        Activator.context = bundleContext;
+        context = bundleContext;
         configureLogger();
     }
 
@@ -43,16 +43,11 @@ public class Activator implements BundleActivator {
     }
 
     private void configureLogger() {
-        Logger.getRootLogger()
-              .getLoggerRepository()
-              .resetConfiguration();
+        Logger.getRootLogger().getLoggerRepository().resetConfiguration();
 
-        Logger.getLogger(Ecore2OwlLaunchConfigurationDelegate.class)
-              .addAppender(getConsoleAppender());
-        Logger.getLogger(Ecore2OWLTransformer.class)
-              .addAppender(getConsoleAppender());
-        Logger.getLogger(OntologyAccess.class)
-              .addAppender(getConsoleAppender());
+        Logger.getLogger(Ecore2OwlLaunchConfigurationDelegate.class).addAppender(getConsoleAppender());
+        Logger.getLogger(Ecore2OWLTransformer.class).addAppender(getConsoleAppender());
+        Logger.getLogger(OntologyAccess.class).addAppender(getConsoleAppender());
     }
 
     protected static Appender getConsoleAppenderWithLevel(Level level) {

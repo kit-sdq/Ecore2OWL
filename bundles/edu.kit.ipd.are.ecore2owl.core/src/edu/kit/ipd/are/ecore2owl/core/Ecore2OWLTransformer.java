@@ -55,7 +55,6 @@ import edu.kit.ipd.are.ecore2owl.ontology.OntologyAccess;
  *
  */
 public class Ecore2OWLTransformer {
-
     private static final Logger logger = Logger.getLogger(Ecore2OWLTransformer.class);
 
     public static final String E_ENUM = "EEnum";
@@ -69,6 +68,12 @@ public class Ecore2OWLTransformer {
     private static final String CLASS_TYPE = "classType";
     private static final String INTERFACE = "interface";
     private static final String ABSTRACT_CLASS = "abstract";
+
+    private static final String DEFAULT_NAMESPACE = "https://informalin.github.io/knowledgebases/examples/ontology.owl#";
+    private static final String ECORE_ONTOLOGY_IRI = "https://informalin.github.io/knowledgebases/informalin_base_ecore.owl#";
+    private static final String ECLASS_IRI = "ecore:OWLClass_EClass";
+    private static final String EPACKAGE_IRI = "ecore:OWLClass_EPackage";
+    private static final String DEFAULT_PREFIX = "model";
 
     private OntologyAccess ontologyAccess = null;
     private Map<String, OntClass> createdEnums = Maps.mutable.empty();
@@ -192,7 +197,11 @@ public class Ecore2OWLTransformer {
     public void transformEcore(Resource inputEcore) {
         metaModelRoot = (EPackage) inputEcore.getContents().get(0);
 
-        preparePackageTransformation(metaModelRoot);
+        preparePackageTransformation();
+        if (ontologyAccess == null) {
+            logger.warn("Initialisation unsuccessful. Stopping now");
+            return;
+        }
 
         if (eClassOntClass != null) {
             processEPackage(metaModelRoot);
@@ -202,16 +211,40 @@ public class Ecore2OWLTransformer {
     }
 
     // TODO: Import ontologies from web and use these. Fix the Namespace here as well!
-    private void preparePackageTransformation(EPackage ePackage) {
+    private OntologyAccess createOntologyAccess() {
+        OntologyAccess oa = OntologyAccess.empty(DEFAULT_NAMESPACE);
+        oa.addNsPrefix(DEFAULT_PREFIX, DEFAULT_NAMESPACE);
+        oa.setDefaultPrefix(DEFAULT_PREFIX);
+
+        oa.addOntologyImport(ECORE_ONTOLOGY_IRI);
+        oa.addNsPrefix("ecore", ECORE_ONTOLOGY_IRI);
+
+        // TODO FIXME
+        // Optional<OntClass> optEPackage = oa.getClassByIri(EPACKAGE_IRI);
+        // if (optEPackage.isEmpty()) {
+        // logger.warn("Could not find EPackage in ontology. Creating of ontology failed.");
+        // return null;
+        // } else {
+        // ePackageOntClass = optEPackage.get();
+        // }
+        //
+        // Optional<OntClass> optEClass = oa.getClassByIri(ECLASS_IRI);
+        // if (optEClass.isEmpty()) {
+        // logger.warn("Could not find EClass in ontology. Creating of ontology failed.");
+        // return null;
+        // } else {
+        // eClassOntClass = optEClass.get();
+        // }
+        eClassOntClass = oa.addClass(E_CLASS);
+        ePackageOntClass = oa.addClass(E_PACKAGE);
+
+        return oa;
+    }
+
+    private void preparePackageTransformation() {
         if (ontologyAccess == null) {
             logger.debug("Initialising OntologyAccess");
-            String nsURI = ePackage.getNsURI();
-            String defaultNameSpace = nsURI + "/owl#"; // TODO!
-            ontologyAccess = OntologyAccess.empty(defaultNameSpace);
-            ontologyAccess.addNsPrefix("model", defaultNameSpace);
-            ontologyAccess.setDefaultPrefix("model");
-            eClassOntClass = ontologyAccess.addClass(E_CLASS);
-            ePackageOntClass = ontologyAccess.addClass(E_PACKAGE);
+            ontologyAccess = createOntologyAccess();
         }
     }
 
@@ -245,21 +278,32 @@ public class Ecore2OWLTransformer {
      * @param resolveMetaModel whether the meta-model should be resolved first
      */
     public void transformModel(Resource inputModel, boolean resolveMetaModel) {
-        if (resolveMetaModel) {
-            EPackage ePackage = inputModel.getContents().get(0).eClass().getEPackage();
-            metaModelRoot = getHighestSuperEPackage(ePackage);
+        getMetaModelRoot(inputModel);
+        if (ontologyAccess == null) {
+            preparePackageTransformation();
+        }
 
-            preparePackageTransformation(metaModelRoot);
+        if (ontologyAccess == null) {
+            logger.warn("Initialisation unsuccessful. Stopping now");
+            return;
+        }
+
+        if (resolveMetaModel) {
             processEPackage(metaModelRoot);
         }
-        transformModel(inputModel);
+
+        transformModel(inputModel); // TODO
+    }
+
+    private void getMetaModelRoot(Resource inputModel) {
+        EPackage ePackage = inputModel.getContents().get(0).eClass().getEPackage();
+        metaModelRoot = getHighestSuperEPackage(ePackage);
     }
 
     private void transformModel(Resource inputModel) {
         String modelUri = inputModel.getURI().toString();
         if (!modelIsConformToMetaModel(inputModel, metaModelRoot)) {
             logger.warn("Model is not conform with meta-model: " + modelUri);
-            // return;
         }
 
         EList<EObject> contents = inputModel.getContents();

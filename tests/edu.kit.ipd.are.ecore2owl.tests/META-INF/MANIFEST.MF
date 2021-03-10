@@ -8,7 +8,9 @@ Require-Bundle: org.eclipse.core.runtime,
  org.junit;bundle-version="4.12.0",
  ecore2owl.core;bundle-version="1.0.0",
  ecore2owl.ui;bundle-version="1.0.0",
- ecore2owl.dependencies-provider
+ ecore2owl.dependencies-provider,
+ org.junit,
+ org.junit.jupiter.api
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: edu.kit.ipd.are.ecore2owl.tests
 Bundle-ActivationPolicy: lazy

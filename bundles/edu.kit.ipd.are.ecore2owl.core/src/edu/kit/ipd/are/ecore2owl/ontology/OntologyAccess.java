@@ -27,6 +27,7 @@ import org.apache.jena.ontology.OntProperty;
 import org.apache.jena.ontology.OntResource;
 import org.apache.jena.ontology.OntTools;
 import org.apache.jena.ontology.OntTools.Path;
+import org.apache.jena.ontology.Ontology;
 import org.apache.jena.rdf.model.InfModel;
 import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.ModelFactory;
@@ -62,6 +63,7 @@ public class OntologyAccess {
     // other see https://jena.apache.org/documentation/javadoc/jena/org/apache/jena/ontology/OntModelSpec.html
 
     private OntModel ontModel;
+    private Ontology ontology;
     private InfModel infModel = null;
     private String defaultPrefix = "";
 
@@ -79,6 +81,7 @@ public class OntologyAccess {
         OntologyAccess ontAcc = new OntologyAccess();
         ontAcc.ontModel = ModelFactory.createOntologyModel(modelSpec);
         ontAcc.ontModel.read(ontoFile);
+        ontAcc.ontModel.setDynamicImports(true);
         return ontAcc;
     }
 
@@ -91,6 +94,7 @@ public class OntologyAccess {
     public static OntologyAccess ofOntModel(OntModel ontModel) {
         OntologyAccess ontAcc = new OntologyAccess();
         ontAcc.ontModel = ontModel;
+        ontAcc.ontModel.setDynamicImports(true);
         return ontAcc;
     }
 
@@ -103,9 +107,10 @@ public class OntologyAccess {
     public static OntologyAccess empty(String defaultNameSpaceUri) {
         OntologyAccess ontAcc = new OntologyAccess();
         ontAcc.ontModel = ModelFactory.createOntologyModel(modelSpec);
-        ontAcc.ontModel.createOntology(defaultNameSpaceUri);
+        ontAcc.ontology = ontAcc.ontModel.createOntology(defaultNameSpaceUri);
         ontAcc.ontModel.setNsPrefix("", defaultNameSpaceUri);
         ontAcc.ontModel.setNsPrefix("xsd", XSD.NS);
+        ontAcc.ontModel.setDynamicImports(true);
         return ontAcc;
     }
 
@@ -127,7 +132,7 @@ public class OntologyAccess {
      *
      * @return the {@link OntModel} of the ontology
      */
-    public OntModel getOntology() {
+    public OntModel getOntologyModel() {
         return ontModel;
     }
 
@@ -183,6 +188,18 @@ public class OntologyAccess {
 
         RDFDataMgr.write(out, ontModel, language);
         return true;
+    }
+
+    /**
+     * Add an Ontology based on its IRI
+     *
+     * @param importIRI the IRI of the ontology that should be imported
+     */
+    public void addOntologyImport(String importIRI) {
+        Resource importResource = ontModel.createResource(importIRI);
+        ontology.addImport(importResource);
+        ontModel.addLoadedImport(importIRI);
+        ontModel.loadImports();
     }
 
     /**
@@ -658,8 +675,18 @@ public class OntologyAccess {
      * @param className Name of the class that should be returned
      * @return Optional holding the class that corresponds to the given name, or an empty optional if no such exists
      */
+    // TODO: Make this use labels etc.
     public Optional<OntClass> getClass(String className) {
+        // TODO: get all classes that have a certain label
+
         return Optional.ofNullable(ontModel.getOntClass(createUri(className)));
+    }
+
+    // TODO: Check, why we don't find the imported classes like "OWLClass_EPackage"
+    public Optional<OntClass> getClassByIri(String iri) {
+        OntClass clazz = ontModel.getOntClass(iri);
+
+        return Optional.ofNullable(clazz);
     }
 
     /**
@@ -670,7 +697,19 @@ public class OntologyAccess {
      */
     // TODO: Make this use labels etc.
     public OntClass addClass(String className) {
+        Optional<OntClass> clazz = getClass(className);
+        if (clazz.isPresent()) {
+            return clazz.get();
+        }
         return ontModel.createClass(createUri(className));
+    }
+
+    public OntClass addClassByIri(String iri) {
+        Optional<OntClass> clazz = getClassByIri(iri);
+        if (clazz.isPresent()) {
+            return clazz.get();
+        }
+        return ontModel.createClass(iri);
     }
 
     public void addSubClassing(OntClass subClass, Resource superClass) {
