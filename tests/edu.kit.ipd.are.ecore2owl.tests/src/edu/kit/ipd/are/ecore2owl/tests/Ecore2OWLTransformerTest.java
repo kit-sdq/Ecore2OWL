@@ -12,7 +12,7 @@ class Ecore2OWLTransformerTest {
         // just an example
         System.out.println("Hello");
         logger.warn("Hello from logger!");
-        Assertions.assertTrue(true);
+        Assertions.assertTrue(false);
     }
 
 }

@@ -22,8 +22,7 @@ public class Ecore2OwlLaunchConfigurationDelegate extends LaunchConfigurationDel
         String resolvedURL = "";
         if (urlIsPlatformURL(url)) {
             try {
-                resolvedURL = FileLocator.resolve(new URL(url))
-                                         .getFile();
+                resolvedURL = FileLocator.resolve(new URL(url)).getFile();
             } catch (IOException e) {
                 logger.warn(e.getMessage(), e.getCause());
             }
@@ -39,15 +38,21 @@ public class Ecore2OwlLaunchConfigurationDelegate extends LaunchConfigurationDel
     }
 
     @Override
-    public void launch(ILaunchConfiguration configuration, String mode, ILaunch launch, IProgressMonitor monitor)
-            throws CoreException {
+    public void launch(ILaunchConfiguration configuration, String mode, ILaunch launch, IProgressMonitor monitor) throws CoreException {
         String owlFile = getOwlOut(configuration);
 
         Instant start = Instant.now();
         transformModelToOntology(configuration, owlFile);
         Instant end = Instant.now();
         logger.info("Finished.");
-        logger.debug("Execution time: " + Duration.between(start, end));
+        try {
+            long duration = Duration.between(start, end).toMillis();
+            logger.debug("Execution time (in ms): " + duration);
+        } catch (ArithmeticException e) {
+            long duration = Duration.between(start, end).toSeconds();
+            logger.debug("Execution time (in seconds): " + duration);
+        }
+
     }
 
     private void transformModelToOntology(ILaunchConfiguration configuration, String owlFile) throws CoreException {
