@@ -315,17 +315,15 @@ any resulting litigation.
 
    <requires>
       <import plugin="org.apache.log4j" version="1.2.15" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.debug.core"/>
-      <import plugin="org.eclipse.equinox.registry"/>
-      <import plugin="org.eclipse.emf.ecore" version="2.15.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.emf.ecore.xmi" version="2.15.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.jface"/>
       <import plugin="org.eclipse.debug.ui"/>
       <import plugin="org.eclipse.ui.ide"/>
       <import plugin="org.eclipse.emf.common.ui"/>
       <import plugin="org.eclipse.osgi" version="3.15.0" match="greaterOrEqual"/>
       <import plugin="ecore2owl.dependencies-provider"/>
       <import plugin="ecore2owl.core" version="1.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.equinox.registry"/>
+      <import plugin="org.eclipse.sirius.ext.swt"/>
    </requires>
 
    <plugin

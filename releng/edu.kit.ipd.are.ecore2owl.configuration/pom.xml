@@ -10,11 +10,11 @@
 
 
 	<properties>
-		<tycho.version>1.5.1</tycho.version>
+		<tycho.version>2.1.0</tycho.version>
 	    <java.version>11</java.version>
 	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	    <project.build.optimize>true</project.build.optimize>
-	    <maven-compiler-plugin.version>3.8.0</maven-compiler-plugin.version>
+	    <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
 	    <jena.version>3.7.0</jena.version>
 	    <eclipse.collections.version>9.2.0</eclipse.collections.version>
 	    <OntologyAccess.version>0.0.6</OntologyAccess.version>
@@ -42,7 +42,7 @@
 		<repository>
 			<id>Eclipse</id>
 			<layout>p2</layout>
-			<url>http://download.eclipse.org/releases/2019-09/</url>
+			<url>http://download.eclipse.org/releases/2020-12/</url>
 		</repository>
 		<repository>
 	      <id>github</id>

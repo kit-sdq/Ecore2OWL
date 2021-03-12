@@ -10,7 +10,8 @@ Require-Bundle: org.eclipse.core.runtime,
  ecore2owl.ui;bundle-version="1.0.0",
  ecore2owl.dependencies-provider,
  org.junit,
- org.junit.jupiter.api
+ org.junit.jupiter.api,
+ org.eclipse.swtbot.swt.finder;bundle-version="3.0.0"
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: edu.kit.ipd.are.ecore2owl.tests
 Bundle-ActivationPolicy: lazy
