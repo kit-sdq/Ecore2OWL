@@ -57,7 +57,6 @@ import edu.kit.ipd.are.ecore2owl.ontology.OntologyAccess;
 public class Ecore2OWLTransformer {
     private static final Logger logger = Logger.getLogger(Ecore2OWLTransformer.class);
 
-    public static final String E_ENUM = "EEnum";
     public static final String NS_URI_COMMENT_LANGUAGE = "nsURI";
     public static final String ENUM_VALUE_PROPERTY_SUFFIX = "EValue";
     public static final String ENUM_LITERAL_PROPERTY_SUFFIX = "ELiteral";
@@ -71,8 +70,10 @@ public class Ecore2OWLTransformer {
 
     private static final String DEFAULT_NAMESPACE = "https://informalin.github.io/knowledgebases/examples/ontology.owl#";
     private static final String ECORE_ONTOLOGY_IRI = "https://informalin.github.io/knowledgebases/informalin_base_ecore.owl#";
+    private static final String PCM_ONTOLOGY_IRI = "https://informalin.github.io/knowledgebases/informalin_base_pcm.owl#"; // TODO
     private static final String ECLASS_IRI = "ecore:OWLClass_EClass";
     private static final String EPACKAGE_IRI = "ecore:OWLClass_EPackage";
+    public static final String EENUM_IRI = "ecore:OWLClass_EEnum";
     private static final String DEFAULT_PREFIX = "model";
 
     private OntologyAccess ontologyAccess = null;
@@ -82,6 +83,7 @@ public class Ecore2OWLTransformer {
     private Set<EObject> processedEObjects = Sets.mutable.empty();
     private OntClass eClassOntClass;
     private OntClass ePackageOntClass;
+    private OntClass eEnumOntClass;
     private EPackage metaModelRoot;
 
     /**
@@ -210,7 +212,6 @@ public class Ecore2OWLTransformer {
         }
     }
 
-    // TODO: Import ontologies from web and use these. Fix the Namespace here as well!
     private OntologyAccess createOntologyAccess() {
         OntologyAccess oa = OntologyAccess.empty(DEFAULT_NAMESPACE);
         oa.addNsPrefix(DEFAULT_PREFIX, DEFAULT_NAMESPACE);
@@ -219,24 +220,9 @@ public class Ecore2OWLTransformer {
         oa.addOntologyImport(ECORE_ONTOLOGY_IRI);
         oa.addNsPrefix("ecore", ECORE_ONTOLOGY_IRI);
 
-        // TODO FIXME
-        // Optional<OntClass> optEPackage = oa.getClassByIri(EPACKAGE_IRI);
-        // if (optEPackage.isEmpty()) {
-        // logger.warn("Could not find EPackage in ontology. Creating of ontology failed.");
-        // return null;
-        // } else {
-        // ePackageOntClass = optEPackage.get();
-        // }
-        //
-        // Optional<OntClass> optEClass = oa.getClassByIri(ECLASS_IRI);
-        // if (optEClass.isEmpty()) {
-        // logger.warn("Could not find EClass in ontology. Creating of ontology failed.");
-        // return null;
-        // } else {
-        // eClassOntClass = optEClass.get();
-        // }
-        eClassOntClass = oa.addClass(E_CLASS);
-        ePackageOntClass = oa.addClass(E_PACKAGE);
+        eClassOntClass = oa.addClassByIri(ECLASS_IRI);
+        ePackageOntClass = oa.addClassByIri(EPACKAGE_IRI);
+        eEnumOntClass = oa.addClassByIri(EENUM_IRI);
 
         return oa;
     }
@@ -568,19 +554,34 @@ public class Ecore2OWLTransformer {
 
     private void processEEnum(EEnum eEnum) {
         String enumName = eEnum.getName();
-        OntClass enumSuperClass = ontologyAccess.addClass(E_ENUM);
         EnumeratedClass currEnumClass = ontologyAccess.addEnumeratedClass(enumName);
-        ontologyAccess.addSubClassing(currEnumClass, enumSuperClass);
+        ontologyAccess.addSubClassing(currEnumClass, eEnumOntClass);
         createdEnums.put(eEnum.getName(), currEnumClass);
 
         createPackageUriAnnotation(eEnum, currEnumClass);
 
         // create the literal property for the enum
-        String literalPropertyName = createPropertyName(ENUM_LITERAL_PROPERTY_SUFFIX, E_ENUM);
-        DatatypeProperty literalDataProperty = ontologyAccess.addDataProperty(literalPropertyName, enumSuperClass, XSD.xstring);
+        String literalPropertyName = createPropertyName(ENUM_LITERAL_PROPERTY_SUFFIX, eEnumOntClass.getLocalName()); // TODO
+                                                                                                                     // CHECK
+                                                                                                                     // if
+                                                                                                                     // the
+                                                                                                                     // enum
+                                                                                                                     // stuff
+                                                                                                                     // is
+                                                                                                                     // not
+                                                                                                                     // broken
+        DatatypeProperty literalDataProperty = ontologyAccess.addDataProperty(literalPropertyName, eEnumOntClass, XSD.xstring);
         // create the data property, that enums have a value (type int)
-        String valuePropertyName = createPropertyName(ENUM_VALUE_PROPERTY_SUFFIX, E_ENUM);
-        DatatypeProperty valueDataProperty = ontologyAccess.addDataProperty(valuePropertyName, enumSuperClass, XSD.integer);
+        String valuePropertyName = createPropertyName(ENUM_VALUE_PROPERTY_SUFFIX, eEnumOntClass.getLocalName()); // TODO
+                                                                                                                 // CHECK
+                                                                                                                 // if
+                                                                                                                 // the
+                                                                                                                 // enum
+                                                                                                                 // stuff
+                                                                                                                 // is
+                                                                                                                 // not
+                                                                                                                 // broken
+        DatatypeProperty valueDataProperty = ontologyAccess.addDataProperty(valuePropertyName, eEnumOntClass, XSD.integer);
 
         for (EEnumLiteral literal : eEnum.getELiterals()) {
             String literalString = literal.getLiteral();

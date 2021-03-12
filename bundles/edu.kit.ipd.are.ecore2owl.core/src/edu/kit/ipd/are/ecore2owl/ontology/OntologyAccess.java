@@ -198,7 +198,7 @@ public class OntologyAccess {
     public void addOntologyImport(String importIRI) {
         Resource importResource = ontModel.createResource(importIRI);
         ontology.addImport(importResource);
-        ontModel.addLoadedImport(importIRI);
+        // ontModel.addLoadedImport(importIRI);
         ontModel.loadImports();
     }
 
@@ -684,7 +684,12 @@ public class OntologyAccess {
 
     // TODO: Check, why we don't find the imported classes like "OWLClass_EPackage"
     public Optional<OntClass> getClassByIri(String iri) {
-        OntClass clazz = ontModel.getOntClass(iri);
+        String uri = ontModel.expandPrefix(iri);
+        System.out.println(uri);
+        Resource res = ontModel.createOntResource(uri);
+        System.out.println(res);
+        OntClass clazz = ontModel.getOntClass(uri);
+        System.out.println(clazz);
 
         return Optional.ofNullable(clazz);
     }
@@ -705,11 +710,13 @@ public class OntologyAccess {
     }
 
     public OntClass addClassByIri(String iri) {
-        Optional<OntClass> clazz = getClassByIri(iri);
+        String uri = ontModel.expandPrefix(iri);
+        Optional<OntClass> clazz = getClassByIri(uri);
         if (clazz.isPresent()) {
+            System.out.println("present");
             return clazz.get();
         }
-        return ontModel.createClass(iri);
+        return ontModel.createClass(uri);
     }
 
     public void addSubClassing(OntClass subClass, Resource superClass) {
