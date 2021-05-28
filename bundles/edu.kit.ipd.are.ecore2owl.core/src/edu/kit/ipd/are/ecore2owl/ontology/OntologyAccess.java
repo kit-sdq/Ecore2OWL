@@ -13,6 +13,7 @@ import java.util.function.Predicate;
 import org.apache.jena.datatypes.RDFDatatype;
 import org.apache.jena.ontology.AllValuesFromRestriction;
 import org.apache.jena.ontology.CardinalityRestriction;
+import org.apache.jena.ontology.ConversionException;
 import org.apache.jena.ontology.DatatypeProperty;
 import org.apache.jena.ontology.EnumeratedClass;
 import org.apache.jena.ontology.FunctionalProperty;
@@ -36,7 +37,6 @@ import org.apache.jena.rdf.model.RDFNode;
 import org.apache.jena.rdf.model.Resource;
 import org.apache.jena.rdf.model.Statement;
 import org.apache.jena.rdf.model.StmtIterator;
-import org.apache.jena.reasoner.Reasoner;
 import org.apache.jena.reasoner.ReasonerRegistry;
 import org.apache.jena.reasoner.ValidityReport;
 import org.apache.jena.reasoner.ValidityReport.Report;
@@ -78,7 +78,7 @@ public class OntologyAccess {
      * @return An OntologyAccess object that uses the given file as underlying ontology
      */
     public static OntologyAccess ofFile(String ontoFile) {
-        OntologyAccess ontAcc = new OntologyAccess();
+        var ontAcc = new OntologyAccess();
         ontAcc.ontModel = ModelFactory.createOntologyModel(modelSpec);
         ontAcc.ontModel.read(ontoFile);
         ontAcc.ontModel.setDynamicImports(true);
@@ -92,7 +92,7 @@ public class OntologyAccess {
      * @return An OntologyAccess object that uses the given OntModel as underlying ontology
      */
     public static OntologyAccess ofOntModel(OntModel ontModel) {
-        OntologyAccess ontAcc = new OntologyAccess();
+        var ontAcc = new OntologyAccess();
         ontAcc.ontModel = ontModel;
         ontAcc.ontModel.setDynamicImports(true);
         return ontAcc;
@@ -105,7 +105,7 @@ public class OntologyAccess {
      * @return An OntologyAccess object based on neither an existing file nor {@link OntModel}
      */
     public static OntologyAccess empty(String defaultNameSpaceUri) {
-        OntologyAccess ontAcc = new OntologyAccess();
+        var ontAcc = new OntologyAccess();
         ontAcc.ontModel = ModelFactory.createOntologyModel(modelSpec);
         ontAcc.ontology = ontAcc.ontModel.createOntology(defaultNameSpaceUri);
         ontAcc.ontModel.setNsPrefix("", defaultNameSpaceUri);
@@ -121,7 +121,7 @@ public class OntologyAccess {
      */
     private synchronized InfModel getInfModel() {
         if (infModel == null) {
-            Reasoner reasoner = ReasonerRegistry.getOWLReasoner();
+            var reasoner = ReasonerRegistry.getOWLReasoner();
             infModel = ModelFactory.createInfModel(reasoner, ontModel);
         }
         return infModel;
@@ -143,7 +143,7 @@ public class OntologyAccess {
      *         conflicts
      */
     public boolean validateOntology() {
-        InfModel validationInfModel = ModelFactory.createRDFSModel(ontModel);
+        var validationInfModel = ModelFactory.createRDFSModel(ontModel);
         ValidityReport validity = validationInfModel.validate();
         if (validity.isValid()) {
             return true;
@@ -196,9 +196,8 @@ public class OntologyAccess {
      * @param importIRI the IRI of the ontology that should be imported
      */
     public void addOntologyImport(String importIRI) {
-        Resource importResource = ontModel.createResource(importIRI);
+        var importResource = ontModel.createResource(importIRI);
         ontology.addImport(importResource);
-        // ontModel.addLoadedImport(importIRI);
         ontModel.loadImports();
     }
 
@@ -607,7 +606,7 @@ public class OntologyAccess {
         if (!optIndividual.isPresent()) {
             return Lists.mutable.empty();
         }
-        Individual individual = optIndividual.get();
+        var individual = optIndividual.get();
         return getObjectPropertiesOfIndividualWithUri(individual.getURI());
 
     }
@@ -677,19 +676,44 @@ public class OntologyAccess {
      */
     // TODO: Make this use labels etc.
     public Optional<OntClass> getClass(String className) {
-        // TODO: get all classes that have a certain label
+        // TODO: get all classes that have a certain label instead of using the default URI.
+        // only create a class if no class with a certain label can be found
+        var prefixMap = ontModel.getNsPrefixMap();
 
-        return Optional.ofNullable(ontModel.getOntClass(createUri(className)));
+        for (var prefix : prefixMap.keySet()) {
+            var uri = createUri(prefix, className);
+            var clazzOpt = getClassByIri(uri);
+            if (clazzOpt.isPresent()) {
+                var clazz = clazzOpt.get();
+                return Optional.of(clazz);
+            }
+        }
+
+        // TODO: cuurent problem: Imported classes are not found -.-
+        // Probably because they are somehow only anonymous classes and therefore not found
+        // Ideas: import the ontology, but create for each contained resource a "new" resource with the same IRI.
+        // Problem: How to get to the IRIs
+        // System.out.println("nope"); //TODO FIXME
+        return Optional.empty();
     }
 
-    // TODO: Check, why we don't find the imported classes like "OWLClass_EPackage"
     public Optional<OntClass> getClassByIri(String iri) {
         String uri = ontModel.expandPrefix(iri);
-        System.out.println(uri);
-        Resource res = ontModel.createOntResource(uri);
-        System.out.println(res);
-        OntClass clazz = ontModel.getOntClass(uri);
-        System.out.println(clazz);
+        Resource res = ontModel.getOntResource(uri);
+
+        if (res == null) {
+            return Optional.empty();
+        }
+
+        OntClass clazz;
+        try {
+            clazz = ontModel.createOntResource(OntClass.class, null, uri);
+        } catch (ConversionException e) {
+            // for some reason, imported classes seem to not have type owl:Class, therefore are not found. Enforce it
+            var stmt = ontModel.createStatement(res, RDF.type, OWL.Class);
+            ontModel.add(stmt);
+            clazz = ontModel.createOntResource(OntClass.class, null, uri);
+        }
 
         return Optional.ofNullable(clazz);
     }
@@ -713,7 +737,6 @@ public class OntologyAccess {
         String uri = ontModel.expandPrefix(iri);
         Optional<OntClass> clazz = getClassByIri(uri);
         if (clazz.isPresent()) {
-            System.out.println("present");
             return clazz.get();
         }
         return ontModel.createClass(uri);
