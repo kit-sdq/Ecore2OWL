@@ -1,97 +1,51 @@
 package edu.kit.ipd.are.ecore2owl.tests;
 
-import static org.junit.Assert.assertTrue;
-
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
-import java.util.function.Predicate;
-
-import org.apache.jena.ontology.Individual;
-import org.eclipse.collections.api.list.MutableList;
-import org.junit.AfterClass;
-import org.junit.BeforeClass;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeAll;
 
-import edu.kit.ipd.ontologyaccess.OntologyAccess;
+import edu.kit.ipd.are.ecore2owl.ontology.OntologyAccess;
 
-/**
- * @author Jan Keim
- *
- */
 public class OntologyAccessTest {
+    private static final String DEFAULT_NAMESPACE = "https://informalin.github.io/knowledgebases/examples/ontology.owl#";
+    private static final String ECORE_ONTOLOGY_IRI = "https://informalin.github.io/knowledgebases/informalin_base_ecore.owl#";
+    private static final String ECLASS_IRI = "ecore:OWLClass_EClass";
+    private static final String EPACKAGE_IRI = "ecore:OWLClass_EPackage";
 
-    private static String testOntologyPath = "./resources/ms_base.owl";
-    private static String defaultPrefix = "model";
-    private static OntologyAccess ontologyAccess;
+    private static final String DEFAULT_PREFIX = "model";
+    private OntologyAccess ontologyAccess = null;
 
-    /**
-     * @throws java.lang.Exception
-     */
-    @BeforeClass
-    public static void setUpBeforeClass() throws Exception {
-        ontologyAccess = OntologyAccess.ofFile(testOntologyPath);
-        ontologyAccess.setDefaultPrefix(defaultPrefix);
+    @BeforeAll
+    void setup() {
+        ontologyAccess = OntologyAccess.empty(DEFAULT_NAMESPACE);
+        ontologyAccess.addNsPrefix(DEFAULT_PREFIX, DEFAULT_NAMESPACE);
+        ontologyAccess.setDefaultPrefix(DEFAULT_PREFIX);
+
+        ontologyAccess.addOntologyImport(ECORE_ONTOLOGY_IRI);
+        ontologyAccess.addNsPrefix("ecore", ECORE_ONTOLOGY_IRI);
+
+        // TODO FIXME
+        // Optional<OntClass> optEPackage = oa.getClassByIri(EPACKAGE_IRI);
+        // if (optEPackage.isEmpty()) {
+        // logger.warn("Could not find EPackage in ontology. Creating of ontology failed.");
+        // return null;
+        // } else {
+        // ePackageOntClass = optEPackage.get();
+        // }
+        //
+        // Optional<OntClass> optEClass = oa.getClassByIri(ECLASS_IRI);
+        // if (optEClass.isEmpty()) {
+        // logger.warn("Could not find EClass in ontology. Creating of ontology failed.");
+        // return null;
+        // } else {
+        // eClassOntClass = optEClass.get();
+        // }
+        // eClassOntClass = ontologyAccess.addClassByIri("ecore:OWLClass_EClass"); // TODO
+        // ePackageOntClass = ontologyAccess.addClass(E_PACKAGE);
+
     }
 
-    /**
-     * @throws java.lang.Exception
-     */
-    @AfterClass
-    public static void tearDownAfterClass() throws Exception {
-        ontologyAccess = null;
-    }
-
-    /**
-     * Test method for
-     * {@link edu.kit.ipd.are.ontologyaccess.OntologyAccess#searchIndividual(java.util.function.Predicate)}.
-     */
     @Test
-    public void testSearchIndividual() {
-        List<String> searchNames = Arrays.asList("defaultSystem", "Server2",
-                "Assembly_MediaManagement <MediaManagement>");
-
-        for (String searchName : searchNames) {
-
-            MutableList<Individual> foundIndividuals = ontologyAccess.searchIndividual(getSearchIndividual(searchName));
-
-            assertTrue("Need to find at least one individual for " + searchName, foundIndividuals.size() > 0);
-
-            boolean found = false;
-            for (Individual individual : foundIndividuals) {
-                String label = individual.getLabel(null);
-                if (searchName.equals(label)) {
-                    found = true;
-                }
-            }
-            assertTrue("Individual need to be found", found);
-        }
-    }
-
-    /**
-     * Test method for
-     * {@link edu.kit.ipd.are.ontologyaccess.OntologyAccess#searchIndividual(java.util.function.Predicate)}.
-     */
-    @Test
-    public void testSearchIndividualNonExistent() {
-
-        List<String> searchNames = Arrays.asList("-=NonExistentIndividualName=-", "-=NonExistentIndividualName=-",
-                "-=NonExistentIndividualName=-");
-
-        for (String searchName : searchNames) {
-            MutableList<Individual> foundIndividuals = ontologyAccess.searchIndividual(getSearchIndividual(searchName));
-
-            assertTrue("No individual has to be found", foundIndividuals.size() == 0);
-        }
-    }
-
-    private Predicate<Individual> getSearchIndividual(String searchName) {
-        return (Individual i) -> {
-            Optional<String> optName = ontologyAccess.getName(i.getURI());
-            if (optName.isPresent()) {
-                return OntologyAccess.compareNamesSimple(optName.get(), searchName);
-            }
-            return false;
-        };
+    public void importTest() {
+        // TODO
     }
 }

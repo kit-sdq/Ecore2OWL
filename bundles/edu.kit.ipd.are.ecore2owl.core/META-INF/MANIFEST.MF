@@ -12,4 +12,5 @@ Require-Bundle: org.apache.log4j,
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: ecore2owl.plugin-core
 Bundle-ActivationPolicy: lazy
-Export-Package: edu.kit.ipd.are.ecore2owl.core
+Export-Package: edu.kit.ipd.are.ecore2owl.core,
+ edu.kit.ipd.are.ecore2owl.ontology
