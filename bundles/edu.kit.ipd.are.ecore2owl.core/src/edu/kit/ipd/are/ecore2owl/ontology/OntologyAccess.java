@@ -30,7 +30,6 @@ import org.apache.jena.ontology.OntTools;
 import org.apache.jena.ontology.OntTools.Path;
 import org.apache.jena.ontology.Ontology;
 import org.apache.jena.rdf.model.InfModel;
-import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.ModelFactory;
 import org.apache.jena.rdf.model.Property;
 import org.apache.jena.rdf.model.RDFNode;
@@ -81,7 +80,6 @@ public class OntologyAccess {
         var ontAcc = new OntologyAccess();
         ontAcc.ontModel = ModelFactory.createOntologyModel(modelSpec);
         ontAcc.ontModel.read(ontoFile);
-        ontAcc.ontModel.setDynamicImports(true);
         return ontAcc;
     }
 
@@ -94,7 +92,6 @@ public class OntologyAccess {
     public static OntologyAccess ofOntModel(OntModel ontModel) {
         var ontAcc = new OntologyAccess();
         ontAcc.ontModel = ontModel;
-        ontAcc.ontModel.setDynamicImports(true);
         return ontAcc;
     }
 
@@ -110,7 +107,6 @@ public class OntologyAccess {
         ontAcc.ontology = ontAcc.ontModel.createOntology(defaultNameSpaceUri);
         ontAcc.ontModel.setNsPrefix("", defaultNameSpaceUri);
         ontAcc.ontModel.setNsPrefix("xsd", XSD.NS);
-        ontAcc.ontModel.setDynamicImports(true);
         return ontAcc;
     }
 
@@ -161,8 +157,8 @@ public class OntologyAccess {
      * @param file String containing the path of the file the ontology should be saved to
      * @return true if saving was successful, otherwise false is returned
      */
-    // TODO: N3 or something else? N3 was fastest (because XML can be slow)
     public boolean save(String file) {
+        // TODO: N3 or something else? N3 was fastest (because XML can be slow)
         return save(file, Lang.N3);
     }
 
@@ -220,11 +216,10 @@ public class OntologyAccess {
         ontModel.setNsPrefix(prefix, uri);
     }
 
-    private String createUri(String suffix) {
-        return createUri(defaultPrefix, suffix);
-    }
-
     private String createUri(String prefix, String suffix) {
+        if (prefix == null) {
+            prefix = "";
+        }
         String encodedSuffix = suffix;
         try {
             encodedSuffix = URLEncoder.encode(suffix, "UTF-8");
@@ -250,10 +245,9 @@ public class OntologyAccess {
      * @param shortUri ShortUri of the Individual
      * @return the created Individual
      */
-    // TODO: Make this use labels etc.
-    public Individual addNamedIndividual(String shortUri) {
+    public Individual addNamedIndividual(String shortUri, String namespace) {
         Resource clazz = OWL.Thing;
-        String uri = createUri(shortUri);
+        String uri = createUri(namespace, shortUri);
         return ontModel.createIndividual(uri, clazz);
     }
 
@@ -265,16 +259,15 @@ public class OntologyAccess {
      * @param shortUri Short URI (without prefix)
      * @return the created individual
      */
-    // TODO: Make this use labels etc.
-    public Individual addNamedIndividual(OntClass cls, String shortUri) {
-        String uri = createUri(shortUri);
-        Individual individual = ontModel.getIndividual(uri);
+    public Individual addNamedIndividual(OntClass cls, String shortUri, String prefix) {
+        String fullUri = createUri(prefix, shortUri);
+        var individual = ontModel.getIndividual(fullUri);
         if (individual != null) {
             individual.addOntClass(cls);
             individual.removeOntClass(OWL.Thing);
             return individual;
         }
-        return cls.createIndividual(uri);
+        return cls.createIndividual(fullUri);
     }
 
     /**
@@ -285,19 +278,17 @@ public class OntologyAccess {
      * @param shortUri  Short URI (without prefix)
      * @return the created individual
      */
-    // TODO: Make this use labels etc.
-    public Individual addNamedIndividual(String className, String shortUri) {
-        OntClass clazz = addClass(className);
-        return addNamedIndividual(clazz, shortUri);
+    public Individual addNamedIndividual(String className, String classNamespace, String shortUri, String prefix) {
+        OntClass clazz = addClass(className, classNamespace);
+        return addNamedIndividual(clazz, shortUri, prefix);
     }
 
-    // TODO: Make this use labels etc.
     public Optional<Individual> getNamedIndividual(String individualName) {
         if (individualName == null) {
             return Optional.empty();
         }
         // check if name is actually an uri and return the found individual, if it is
-        Optional<Individual> uriIndividual = getNamedIndividualByShortUri(individualName);
+        Optional<Individual> uriIndividual = getNamedIndividualByShortUri(individualName, defaultPrefix);
         if (uriIndividual.isPresent()) {
             return uriIndividual;
         }
@@ -312,17 +303,17 @@ public class OntologyAccess {
         }).nextOptional();
     }
 
-    public Optional<Individual> getNamedIndividualByShortUri(String individualShortUri) {
-        return Optional.ofNullable(ontModel.getIndividual(createUri(individualShortUri)));
+    public Optional<Individual> getNamedIndividualByShortUri(String individualShortUri, String prefix) {
+        String uri = createUri(prefix, individualShortUri);
+        return Optional.ofNullable(ontModel.getIndividual(uri));
     }
 
     public Optional<Individual> getNamedIndividualByUri(String individualUri) {
         return Optional.ofNullable(ontModel.getIndividual(individualUri));
     }
 
-    // TODO: Make this use labels etc.
     public Optional<String> getName(String individualUri) {
-        List<String> names = getDataPropertyValuesForIndividual("entityName_-_NamedElement", individualUri);
+        List<String> names = getDataPropertyValuesForIndividual("entityName_-_NamedElement", "pcm", individualUri);
         return (names.isEmpty()) ? Optional.empty() : Optional.of(names.get(0));
     }
 
@@ -341,8 +332,8 @@ public class OntologyAccess {
 
     }
 
-    public boolean containsDataProperty(String name) {
-        return getDataProperty(name).isPresent();
+    public boolean containsDataProperty(String name, String namespace) {
+        return getDataProperty(name, namespace).isPresent();
     }
 
     /**
@@ -351,8 +342,9 @@ public class OntologyAccess {
      * @param name Name of the property
      * @return the created DatatypeProperty
      */
-    public DatatypeProperty addDataProperty(String name) {
-        return ontModel.createDatatypeProperty(createUri(name));
+    public DatatypeProperty addDataProperty(String name, String namespace) {
+        String uri = createUri(namespace, name);
+        return ontModel.createDatatypeProperty(uri);
     }
 
     /**
@@ -362,8 +354,8 @@ public class OntologyAccess {
      * @param domain Domain of the DatatypeProperty
      * @return the created DatatypeProperty
      */
-    public DatatypeProperty addDataProperty(String name, Resource domain) {
-        DatatypeProperty property = addDataProperty(name);
+    public DatatypeProperty addDataProperty(String name, String namespace, Resource domain) {
+        DatatypeProperty property = addDataProperty(name, namespace);
         property.addDomain(domain);
         return property;
     }
@@ -376,24 +368,24 @@ public class OntologyAccess {
      * @param range  Range of the DatatypeProperty
      * @return the created DatatypeProperty
      */
-    public DatatypeProperty addDataProperty(String name, Resource domain, Resource range) {
-        DatatypeProperty property = addDataProperty(name, domain);
+    public DatatypeProperty addDataProperty(String name, String namespace, Resource domain, Resource range) {
+        DatatypeProperty property = addDataProperty(name, namespace, domain);
         property.addRange(range);
         return property;
     }
 
     public void addStringDataPropertyToIndividual(Individual individual, DatatypeProperty property, String value) {
-        Literal literal = ontModel.createTypedLiteral(value);
+        var literal = ontModel.createTypedLiteral(value);
         ontModel.addLiteral(individual, property, literal);
     }
 
     public void addDataPropertyToIndividual(Individual individual, DatatypeProperty property, Object value) {
-        Literal literal = ontModel.createTypedLiteral(value);
+        var literal = ontModel.createTypedLiteral(value);
         ontModel.addLiteral(individual, property, literal);
     }
 
     public void addDataPropertyToIndividual(Individual individual, DatatypeProperty property, Object value, RDFDatatype type) {
-        Literal literal = ontModel.createTypedLiteral(value, type);
+        var literal = ontModel.createTypedLiteral(value, type);
         ontModel.addLiteral(individual, property, literal);
     }
 
@@ -415,8 +407,8 @@ public class OntologyAccess {
                 .collect(property -> property.as(DatatypeProperty.class));
     }
 
-    public MutableList<String> getDataPropertyValuesForIndividual(String datatypePropertyName, String individualUri) {
-        Optional<DatatypeProperty> optProperty = getDataProperty(datatypePropertyName);
+    public MutableList<String> getDataPropertyValuesForIndividual(String datatypePropertyName, String namespace, String individualUri) {
+        Optional<DatatypeProperty> optProperty = getDataProperty(datatypePropertyName, namespace);
         if (!optProperty.isPresent()) {
             return Lists.mutable.empty();
         }
@@ -425,14 +417,14 @@ public class OntologyAccess {
     }
 
     public MutableList<String> getDataPropertyValuesForIndividual(Property property, String individualUri) {
-        Resource resource = ontModel.getResource(individualUri);
-        StmtIterator statementsIterator = resource.listProperties(property);
+        var resource = ontModel.getResource(individualUri);
+        var statementsIterator = resource.listProperties(property);
         MutableList<Statement> statements = createMutableListFromIterator(statementsIterator);
         return statements.collect(Statement::getString);
     }
 
-    public Optional<DatatypeProperty> getDataProperty(String dataPropertyLocalName) {
-        String uri = createUri(dataPropertyLocalName);
+    public Optional<DatatypeProperty> getDataProperty(String dataPropertyLocalName, String namespace) {
+        String uri = createUri(namespace, dataPropertyLocalName);
         return getDataPropertyByUri(uri);
     }
 
@@ -440,27 +432,27 @@ public class OntologyAccess {
         return Optional.ofNullable(ontModel.getDatatypeProperty(dataPropertyUri));
     }
 
-    private ObjectProperty addObjectProperty(String objectPropertyName, OntClass domain, OntClass range, boolean functional) {
-        ObjectProperty property = ontModel.createObjectProperty(createUri(objectPropertyName), functional);
+    private ObjectProperty addObjectProperty(String objectPropertyName, String namespace, OntClass domain, OntClass range, boolean functional) {
+        var property = ontModel.createObjectProperty(createUri(namespace, objectPropertyName), functional);
         property.addDomain(domain);
         property.addRange(range);
         return property;
     }
 
-    public ObjectProperty addObjectProperty(String objectPropertyName, OntClass domain, OntClass range) {
-        return addObjectProperty(objectPropertyName, domain, range, false);
+    public ObjectProperty addObjectProperty(String objectPropertyName, String namespace, OntClass domain, OntClass range) {
+        return addObjectProperty(objectPropertyName, namespace, domain, range, false);
     }
 
-    public ObjectProperty addFunctionalObjectProperty(String objectPropertyName, OntClass domain, OntClass range) {
-        return addObjectProperty(objectPropertyName, domain, range, true);
+    public ObjectProperty addFunctionalObjectProperty(String objectPropertyName, String namespace, OntClass domain, OntClass range) {
+        return addObjectProperty(objectPropertyName, namespace, domain, range, true);
     }
 
-    public boolean containsObjectProperty(String objectPropertyName) {
-        return getObjectProperty(objectPropertyName).isPresent();
+    public boolean containsObjectProperty(String objectPropertyName, String namespace) {
+        return getObjectProperty(objectPropertyName, namespace).isPresent();
     }
 
-    public Optional<ObjectProperty> getObjectProperty(String objectPropertyName) {
-        String uri = createUri(objectPropertyName);
+    public Optional<ObjectProperty> getObjectProperty(String objectPropertyName, String namespace) {
+        String uri = createUri(namespace, objectPropertyName);
         return getObjectPropertyByUri(uri);
     }
 
@@ -495,8 +487,8 @@ public class OntologyAccess {
         return ontModel.createEnumeratedClass(null, null);
     }
 
-    public EnumeratedClass addEnumeratedClass(String name) {
-        String uri = createUri(name);
+    public EnumeratedClass addEnumeratedClass(String name, String namespace) {
+        String uri = createUri(namespace, name);
         return ontModel.createEnumeratedClass(uri, null);
     }
 
@@ -515,8 +507,9 @@ public class OntologyAccess {
         ontModel.add(subject, property, object);
     }
 
-    public Optional<ObjectProperty> addObjectPropertyOfIndividual(String subjectShortUri, String propertyName, String objectShortUri) {
-        Optional<Individual> optSubject = getNamedIndividualByShortUri(subjectShortUri);
+    public Optional<ObjectProperty> addObjectPropertyOfIndividual(String subjectShortUri, String namespace, String propertyName, String propertyNamespace,
+            String objectShortUri, String objectNamespace) {
+        Optional<Individual> optSubject = getNamedIndividualByShortUri(subjectShortUri, namespace);
         if (!optSubject.isPresent()) {
             optSubject = getNamedIndividual(subjectShortUri);
             if (!optSubject.isPresent()) {
@@ -527,7 +520,7 @@ public class OntologyAccess {
         }
         Individual subject = optSubject.get();
 
-        Optional<ObjectProperty> optProperty = getObjectProperty(propertyName);
+        Optional<ObjectProperty> optProperty = getObjectProperty(propertyName, propertyNamespace);
         if (!optProperty.isPresent()) {
             return Optional.empty();
         }
@@ -535,7 +528,7 @@ public class OntologyAccess {
 
         Optional<Individual> optObject = getNamedIndividual(objectShortUri);
         if (!optObject.isPresent()) {
-            String uri = createUri(objectShortUri);
+            String uri = createUri(objectNamespace, objectShortUri);
             optObject = Optional.of(ontModel.createIndividual(uri, OWL.Thing));
         }
         Individual object = optObject.get();
@@ -564,11 +557,11 @@ public class OntologyAccess {
      * @param objectName   name of Object (or null)
      * @return whether there is an existing ObjectProperty with the given subject and object
      */
-    public boolean containsObjectPropertyForIndividuals(String subjectName, String propertyName, String objectName) {
+    public boolean containsObjectPropertyForIndividuals(String subjectName, String propertyName, String propertyNamespace, String objectName) {
         Optional<Individual> optSubject = getNamedIndividual(subjectName);
         Individual subject = optSubject.orElse(null);
 
-        Optional<ObjectProperty> optProperty = getObjectProperty(propertyName);
+        Optional<ObjectProperty> optProperty = getObjectProperty(propertyName, propertyNamespace);
         ObjectProperty property = optProperty.orElse(null);
 
         Optional<Individual> optObject = getNamedIndividual(objectName);
@@ -674,27 +667,9 @@ public class OntologyAccess {
      * @param className Name of the class that should be returned
      * @return Optional holding the class that corresponds to the given name, or an empty optional if no such exists
      */
-    // TODO: Make this use labels etc.
-    public Optional<OntClass> getClass(String className) {
-        // TODO: get all classes that have a certain label instead of using the default URI.
-        // only create a class if no class with a certain label can be found
-        var prefixMap = ontModel.getNsPrefixMap();
-
-        for (var prefix : prefixMap.keySet()) {
-            var uri = createUri(prefix, className);
-            var clazzOpt = getClassByIri(uri);
-            if (clazzOpt.isPresent()) {
-                var clazz = clazzOpt.get();
-                return Optional.of(clazz);
-            }
-        }
-
-        // TODO: cuurent problem: Imported classes are not found -.-
-        // Probably because they are somehow only anonymous classes and therefore not found
-        // Ideas: import the ontology, but create for each contained resource a "new" resource with the same IRI.
-        // Problem: How to get to the IRIs
-        // System.out.println("nope"); //TODO FIXME
-        return Optional.empty();
+    public Optional<OntClass> getClass(String className, String namespace) {
+        var uri = createUri(namespace, className);
+        return getClassByIri(uri);
     }
 
     public Optional<OntClass> getClassByIri(String iri) {
@@ -707,12 +682,12 @@ public class OntologyAccess {
 
         OntClass clazz;
         try {
-            clazz = ontModel.createOntResource(OntClass.class, null, uri);
+            clazz = ontModel.createOntResource(OntClass.class, OWL.Class, uri);
         } catch (ConversionException e) {
             // for some reason, imported classes seem to not have type owl:Class, therefore are not found. Enforce it
             var stmt = ontModel.createStatement(res, RDF.type, OWL.Class);
             ontModel.add(stmt);
-            clazz = ontModel.createOntResource(OntClass.class, null, uri);
+            clazz = ontModel.createOntResource(OntClass.class, OWL.Class, uri);
         }
 
         return Optional.ofNullable(clazz);
@@ -724,13 +699,13 @@ public class OntologyAccess {
      * @param className Name of the class that should be created
      * @return created class
      */
-    // TODO: Make this use labels etc.
-    public OntClass addClass(String className) {
-        Optional<OntClass> clazz = getClass(className);
+    public OntClass addClass(String className, String namespace) {
+        var uri = createUri(namespace, className);
+        Optional<OntClass> clazz = getClassByIri(uri);
         if (clazz.isPresent()) {
             return clazz.get();
         }
-        return ontModel.createClass(createUri(className));
+        return ontModel.createClass(uri);
     }
 
     public OntClass addClassByIri(String iri) {
@@ -750,18 +725,19 @@ public class OntologyAccess {
         subClass.setSuperClass(superClass);
     }
 
-    public OntClass addSubClassOf(String className, String superClassName) {
-        Optional<OntClass> superClassOpt = getClass(superClassName);
+    public OntClass addSubClassOf(String className, String namespace, String superClassName, String superClassNamespace) {
+        var uri = createUri(superClassNamespace, superClassName);
+        Optional<OntClass> superClassOpt = getClassByIri(uri);
         if (superClassOpt.isPresent()) {
             OntClass superClass = superClassOpt.get();
-            return addSubClassOf(className, superClass);
+            return addSubClassOf(className, namespace, superClass);
         } else {
-            return addClass(className);
+            return addClass(className, namespace);
         }
     }
 
-    public OntClass addSubClassOf(String className, OntClass superClass) {
-        OntClass clazz = addClass(className);
+    public OntClass addSubClassOf(String className, String namespace, OntClass superClass) {
+        OntClass clazz = addClass(className, namespace);
         superClass.addSubClass(clazz);
         return clazz;
     }
@@ -779,9 +755,8 @@ public class OntologyAccess {
         superClass.removeSubClass(clazz);
     }
 
-    // TODO: Make this use labels etc.
-    public boolean containsClass(String className) {
-        return getClass(className).isPresent();
+    public boolean containsClass(String className, String namespace) {
+        return getClass(className, namespace).isPresent();
     }
 
     /**
@@ -790,9 +765,8 @@ public class OntologyAccess {
      * @param className Name of the class
      * @return List of Individuals for the given class (name)
      */
-    // TODO: Make this use labels etc.
-    public MutableList<Individual> getInstancesOfClass(String className) {
-        Optional<OntClass> optClass = getClass(className);
+    public MutableList<Individual> getInstancesOfClass(String className, String namespace) {
+        Optional<OntClass> optClass = getClass(className, namespace);
         if (!optClass.isPresent()) {
             return Lists.mutable.empty();
         }
@@ -800,8 +774,8 @@ public class OntologyAccess {
         return getInstancesOfClass(clazz);
     }
 
-    public List<Individual> getInferredInstancesOfClass(String className) {
-        Optional<OntClass> optClass = getClass(className);
+    public List<Individual> getInferredInstancesOfClass(String className, String namespace) {
+        Optional<OntClass> optClass = getClass(className, namespace);
         if (!optClass.isPresent()) {
             return Lists.mutable.empty();
         }
@@ -822,9 +796,9 @@ public class OntologyAccess {
      * @param clazz Class the individual should be added to
      * @return the created individual
      */
-    // TODO: Make this use labels etc.
-    public Individual addInstanceToClass(String name, OntClass clazz) {
-        return ontModel.createIndividual(createUri(name), clazz);
+    public Individual addInstanceToClass(String name, String namespace, OntClass clazz) {
+        String uri = createUri(namespace, name);
+        return ontModel.createIndividual(uri, clazz);
     }
 
     /**
@@ -911,7 +885,7 @@ public class OntologyAccess {
         // initialise the paths
         ExtendedIterator<Statement> statements = getStatementsContainingResource(start);
         while (statements.hasNext()) {
-            Statement statement = statements.next();
+            var statement = statements.next();
             if (selector.test(statement)) {
                 paths.add(new Path().append(statement));
                 seen.add(statement);
@@ -920,7 +894,7 @@ public class OntologyAccess {
 
         Path solution = null;
         while (!paths.isEmpty()) {
-            Path candidate = paths.remove(0);
+            var candidate = paths.remove(0);
 
             // check if solution found
             if (pathHasTerminus(candidate, target)) {
@@ -932,7 +906,7 @@ public class OntologyAccess {
             for (Resource terminus : termini) {
                 statements = getStatementsContainingResource(terminus);
                 while (statements.hasNext()) {
-                    Statement statement = statements.next();
+                    var statement = statements.next();
                     if (selector.test(statement)) {
                         paths.add(candidate.append(statement));
                         seen.add(statement);
@@ -980,8 +954,8 @@ public class OntologyAccess {
     private MutableList<Individual> createMutableIndividualListFromStatementIterator(StmtIterator stmts) {
         MutableList<Individual> individuals = Lists.mutable.empty();
         while (stmts.hasNext()) {
-            Statement stmt = stmts.nextStatement();
-            Resource res = stmt.getSubject();
+            var stmt = stmts.nextStatement();
+            var res = stmt.getSubject();
             Optional<Individual> optIndividual = getNamedIndividualByUri(res.getURI());
             if (optIndividual.isPresent()) {
                 individuals.add(optIndividual.get());

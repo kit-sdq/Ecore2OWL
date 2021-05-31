@@ -14,6 +14,7 @@ import org.eclipse.debug.core.ILaunchConfiguration;
 import org.eclipse.debug.core.model.LaunchConfigurationDelegate;
 
 import edu.kit.ipd.are.ecore2owl.core.Ecore2OWLTransformer;
+import edu.kit.ipd.are.ecore2owl.core.Utility;
 
 public class Ecore2OwlLaunchConfigurationDelegate extends LaunchConfigurationDelegate {
     private static Logger logger = Logger.getLogger(Ecore2OwlLaunchConfigurationDelegate.class);
@@ -41,9 +42,9 @@ public class Ecore2OwlLaunchConfigurationDelegate extends LaunchConfigurationDel
     public void launch(ILaunchConfiguration configuration, String mode, ILaunch launch, IProgressMonitor monitor) throws CoreException {
         String owlFile = getOwlOut(configuration);
 
-        Instant start = Instant.now();
+        var start = Instant.now();
         transformModelToOntology(configuration, owlFile);
-        Instant end = Instant.now();
+        var end = Instant.now();
         logger.info("Finished.");
         try {
             long duration = Duration.between(start, end).toMillis();
@@ -69,7 +70,7 @@ public class Ecore2OwlLaunchConfigurationDelegate extends LaunchConfigurationDel
             String[] ecoreIn = getInput(configuration, Ecore2OwlConfigurationAttributes.ECORE_IN);
             for (String ecoreInput : ecoreIn) {
                 if (!ecoreInput.isEmpty()) {
-                    Ecore2OWLTransformer.registerEcoreFile(ecoreInput);
+                    Utility.registerEcoreFile(ecoreInput);
                     transformer.transformEcore(ecoreInput);
                 }
             }

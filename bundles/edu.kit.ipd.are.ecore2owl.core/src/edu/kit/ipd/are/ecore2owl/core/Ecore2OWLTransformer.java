@@ -40,10 +40,7 @@ import org.eclipse.emf.ecore.EStructuralFeature;
 import org.eclipse.emf.ecore.resource.Resource;
 import org.eclipse.emf.ecore.resource.ResourceSet;
 import org.eclipse.emf.ecore.resource.impl.ResourceSetImpl;
-import org.eclipse.emf.ecore.util.BasicExtendedMetaData;
 import org.eclipse.emf.ecore.util.EcoreUtil;
-import org.eclipse.emf.ecore.util.ExtendedMetaData;
-import org.eclipse.emf.ecore.xmi.XMLResource;
 
 import edu.kit.ipd.are.ecore2owl.ontology.OntologyAccess;
 
@@ -53,8 +50,9 @@ import edu.kit.ipd.are.ecore2owl.ontology.OntologyAccess;
  * @author Jan Keim
  *
  */
-// TODO make use of existing classes in imported ontology
 public class Ecore2OWLTransformer {
+    private static final String ECORE_NAMESPACE = "ecore";
+
     private static final String WARN_INITIALISATION_UNSUCCESSFUL = "Initialisation unsuccessful. Stopping now";
 
     private static final Logger logger = Logger.getLogger(Ecore2OWLTransformer.class);
@@ -92,37 +90,6 @@ public class Ecore2OWLTransformer {
     public Ecore2OWLTransformer() {
         super();
 
-    }
-
-    /**
-     * Register a meta-model presented in a ecore-file to the Package-Registry.
-     *
-     * @param ecoreFileUrl Path to the ecore-file representing the meta-model
-     */
-    public static void registerEcoreFile(String ecoreFileUrl) {
-        // create URI
-        URI modelUri;
-        if (ecoreFileUrl.startsWith("platform:")) {
-            // input is no file but a platform-resource, so just use URI
-            modelUri = URI.createURI(ecoreFileUrl);
-        } else {
-            // input is a file and should be loaded from a file
-            modelUri = URI.createFileURI(ecoreFileUrl);
-        }
-
-        Resource.Factory.Registry.INSTANCE.getExtensionToFactoryMap().put("*", new PerformantXMIResourceFactoryImpl());
-
-        ResourceSet resourceSet = new ResourceSetImpl();
-        // enable extended metadata
-        final ExtendedMetaData extendedMetaData = new BasicExtendedMetaData(EPackage.Registry.INSTANCE);
-        resourceSet.getLoadOptions().put(XMLResource.OPTION_EXTENDED_META_DATA, extendedMetaData);
-
-        var resource = resourceSet.getResource(modelUri, true);
-        var eObject = resource.getContents().get(0);
-        if (eObject instanceof EPackage) {
-            EPackage p = (EPackage) eObject;
-            EPackage.Registry.INSTANCE.put(p.getNsURI(), p);
-        }
     }
 
     /**
@@ -291,7 +258,7 @@ public class Ecore2OWLTransformer {
 
     private void getMetaModelRoot(Resource inputModel) {
         var ePackage = inputModel.getContents().get(0).eClass().getEPackage();
-        metaModelRoot = getHighestSuperEPackage(ePackage);
+        metaModelRoot = Utility.getHighestSuperEPackage(ePackage);
     }
 
     private void transformModel(Resource inputModel) {
@@ -304,17 +271,6 @@ public class Ecore2OWLTransformer {
         for (EObject object : contents) {
             processEObject(object);
         }
-    }
-
-    private EPackage getHighestSuperEPackage(EPackage ePackage) {
-        while (true) {
-            var superEPackage = ePackage.getESuperPackage();
-            if (superEPackage == null || superEPackage.equals(ePackage)) {
-                break;
-            }
-            ePackage = superEPackage;
-        }
-        return ePackage;
     }
 
     private boolean modelIsConformToMetaModel(Resource inputModel, EPackage metaModelRoot) {
@@ -361,6 +317,7 @@ public class Ecore2OWLTransformer {
         String packageName = ePackage.getName();
         String packageNsURI = ePackage.getNsURI();
         String packageNsPrefix = ePackage.getNsPrefix();
+        String packageNamespace = Utility.getNamespace(ePackage);
         if (logger.isDebugEnabled()) {
             logger.debug(String.format("Start processing EPackage with name \"%s\", NS-Prefix \"%s\" and NS-URI \"%s\"", packageName, packageNsPrefix,
                     packageNsURI));
@@ -369,10 +326,11 @@ public class Ecore2OWLTransformer {
         // create superclass for package
         OntClass packageClass;
         if (superPackage == null) {
-            packageClass = ontologyAccess.addSubClassOf(packageName, ePackageOntClass);
+            packageClass = ontologyAccess.addSubClassOf(packageName, packageNamespace, ePackageOntClass);
         } else {
-            OntClass superPackageClass = ontologyAccess.addClass(superPackage.getName());
-            packageClass = ontologyAccess.addSubClassOf(packageName, superPackageClass);
+            String superPackageNamespace = Utility.getNamespace(superPackage);
+            OntClass superPackageClass = ontologyAccess.addClass(superPackage.getName(), superPackageNamespace);
+            packageClass = ontologyAccess.addSubClassOf(packageName, packageNamespace, superPackageClass);
         }
         // annotate the nsURI
         ontologyAccess.addComment(packageClass, packageNsURI, NS_URI_COMMENT_LANGUAGE);
@@ -399,8 +357,9 @@ public class Ecore2OWLTransformer {
     }
 
     private void processEClass(EClass eClass) {
-        OntClass addedClass;
-        addedClass = ontologyAccess.addClass(eClass.getName());
+        String namespace = Utility.getNamespace(eClass);
+
+        OntClass addedClass = ontologyAccess.addClass(eClass.getName(), namespace);
         if (eClass.isAbstract()) {
             ontologyAccess.addComment(addedClass, ABSTRACT_CLASS, CLASS_TYPE);
         } else if (eClass.isInterface()) {
@@ -418,11 +377,12 @@ public class Ecore2OWLTransformer {
                 ontologyAccess.removeSubClassing(addedClass, eClassOntClass);
             }
 
+            String superclassNamespace = Utility.getNamespace(eClass);
             OntClass superClassOnto;
-            if (!ontologyAccess.containsClass(superClassName)) {
-                superClassOnto = ontologyAccess.addSubClassOf(superClassName, eClassOntClass);
+            if (!ontologyAccess.containsClass(superClassName, superclassNamespace)) {
+                superClassOnto = ontologyAccess.addSubClassOf(superClassName, superclassNamespace, eClassOntClass);
             } else {
-                superClassOnto = ontologyAccess.addClass(superClassName);
+                superClassOnto = ontologyAccess.addClass(superClassName, superclassNamespace);
             }
             ontologyAccess.addSubClassProperty(addedClass, superClassOnto);
 
@@ -450,25 +410,26 @@ public class Ecore2OWLTransformer {
 
     private void processEAttribute(EAttribute eAttribute) {
         EClass domain = eAttribute.getEContainingClass();
+        String domainNamespace = Utility.getNamespace(domain);
         EDataType range = eAttribute.getEAttributeType();
         if (range instanceof EEnum) {
             processEAttributeEnum(eAttribute);
             return;
         }
-        String propertyName = createAttributePropertyName(eAttribute, domain);
+        String propertyName = Utility.createAttributePropertyName(eAttribute, domain);
 
         int lowerBound = eAttribute.getLowerBound();
         int upperBound = eAttribute.getUpperBound();
 
-        var domainOntClass = ontologyAccess.addClass(domain.getName());
+        var domainOntClass = ontologyAccess.addClass(domain.getName(), domainNamespace);
         Optional<org.apache.jena.rdf.model.Resource> rangeDatatype = ontologyAccess.getDatatypeByName(range.getName());
         OntProperty dataProperty;
         if (rangeDatatype.isPresent()) {
-            dataProperty = ontologyAccess.addDataProperty(propertyName, domainOntClass, rangeDatatype.get());
+            dataProperty = ontologyAccess.addDataProperty(propertyName, domainNamespace, domainOntClass, rangeDatatype.get());
         } else {
             logger.debug("Had a problem with the datatype " + range.getName() + " when processing range for " + eAttribute.getName() + " in " + domain.getName()
                     + ". Maybe it is a generic type.");
-            dataProperty = ontologyAccess.addDataProperty(propertyName, domainOntClass);
+            dataProperty = ontologyAccess.addDataProperty(propertyName, domainNamespace, domainOntClass);
         }
 
         if (lowerBound == upperBound && upperBound == 1) {
@@ -490,52 +451,58 @@ public class Ecore2OWLTransformer {
             throw new IllegalArgumentException("Attribute must be an Enum");
         }
         EClass domain = eAttribute.getEContainingClass();
-        OntClass domainClass = ontologyAccess.addClass(domain.getName());
+        String domainNamespace = Utility.getNamespace(domain);
+        OntClass domainClass = ontologyAccess.addClass(domain.getName(), domainNamespace);
         var eEnum = (EEnum) eAttribute.getEAttributeType();
-        OntClass enumClass = getEnumClass(eEnum.getName());
+        String enumNamespace = Utility.getNamespace(eEnum);
+        OntClass enumClass = getEnumClass(eEnum.getName(), enumNamespace);
 
         int lowerBound = eAttribute.getLowerBound();
         int upperBound = eAttribute.getUpperBound();
-        String propertyName = createAttributePropertyName(eAttribute, domain);
+        String propertyName = Utility.createAttributePropertyName(eAttribute, domain);
         OntProperty property = createEnumObjectProperty(domainClass, enumClass, propertyName, lowerBound, upperBound);
 
         AllValuesFromRestriction allValuesFrom = ontologyAccess.addAllValuesFrom(property, enumClass);
-        OntClass clazz = ontologyAccess.addClass(eEnum.getName());
+        OntClass clazz = ontologyAccess.addClass(eEnum.getName(), enumNamespace);
         ontologyAccess.addSubClassing(clazz, allValuesFrom);
 
         createPackageUriAnnotation(eEnum, clazz);
         createPackageUriAnnotation(eEnum, property);
     }
 
-    private OntClass getEnumClass(String name) {
+    private OntClass getEnumClass(String name, String enumNamespace) {
         if (name == null || name.equals("null") || name.isEmpty()) {
             throw new IllegalArgumentException("invalid name");
         }
         OntClass enumClass = createdEnums.get(name);
         if (enumClass == null) {
-            enumClass = ontologyAccess.addClass(name);
+            enumClass = ontologyAccess.addClass(name, enumNamespace);
         }
         return enumClass;
     }
 
     private OntProperty createEnumObjectProperty(OntClass domainClass, OntClass enumClass, String name, int lowerBound, int upperBound) {
+        // TODO check which namespace to use. Or do we need to add namespace as parameter?
+        String namespace = enumClass.getNameSpace();
         OntProperty objectProperty;
         if (lowerBound == 1 && upperBound == 1) {
-            objectProperty = ontologyAccess.addFunctionalObjectProperty(name, domainClass, enumClass);
+            objectProperty = ontologyAccess.addFunctionalObjectProperty(name, namespace, domainClass, enumClass);
         } else {
-            objectProperty = ontologyAccess.addObjectProperty(name, domainClass, enumClass);
+            objectProperty = ontologyAccess.addObjectProperty(name, namespace, domainClass, enumClass);
         }
         return objectProperty;
     }
 
     private void processEReference(EReference eReference) {
         EClass domain = eReference.getEContainingClass();
+        String domainNamespace = Utility.getNamespace(domain);
         EClassifier range = eReference.getEType();
-        Optional<OntClass> domainClassOpt = ontologyAccess.getClass(domain.getName());
+        String rangeNamespace = Utility.getNamespace(range);
+        Optional<OntClass> domainClassOpt = ontologyAccess.getClass(domain.getName(), domainNamespace);
         if (!domainClassOpt.isPresent()) {
             processEPackage(domain.getEPackage());
         }
-        OntClass domainClass = ontologyAccess.addClass(domain.getName());
+        OntClass domainClass = ontologyAccess.addClass(domain.getName(), domainNamespace);
         String rangeName = range.getName();
         OntClass rangeClass;
         if (range.eIsProxy()) {
@@ -544,15 +511,15 @@ public class Ecore2OWLTransformer {
             }
             rangeName = getProxyClass(range);
         }
-        if (ontologyAccess.containsClass(rangeName)) {
-            rangeClass = ontologyAccess.addClass(rangeName);
+        if (ontologyAccess.containsClass(rangeName, rangeNamespace)) {
+            rangeClass = ontologyAccess.addClass(rangeName, rangeNamespace);
         } else {
-            rangeClass = ontologyAccess.addClass(rangeName);
-            ontologyAccess.addSubClassOf(rangeName, eClassOntClass);
+            rangeClass = ontologyAccess.addClass(rangeName, rangeNamespace);
+            ontologyAccess.addSubClassOf(rangeName, rangeNamespace, eClassOntClass);
             createPackageUriAnnotation(range, rangeClass);
         }
 
-        String propertyName = createReferencePropertyName(eReference, domain);
+        String propertyName = Utility.createReferencePropertyName(eReference, domain);
         int lowerBound = eReference.getLowerBound();
         int upperBound = eReference.getUpperBound();
         OntProperty property = createEnumObjectProperty(domainClass, rangeClass, propertyName, lowerBound, upperBound);
@@ -561,25 +528,27 @@ public class Ecore2OWLTransformer {
 
     private void processEEnum(EEnum eEnum) {
         String enumName = eEnum.getName();
-        var currEnumClass = ontologyAccess.addEnumeratedClass(enumName);
+        String enumNamespace = Utility.getNamespace(eEnum);
+        var currEnumClass = ontologyAccess.addEnumeratedClass(enumName, enumNamespace);
         ontologyAccess.addSubClassing(currEnumClass, eEnumOntClass);
         createdEnums.put(eEnum.getName(), currEnumClass);
 
         createPackageUriAnnotation(eEnum, currEnumClass);
 
         // create the literal property for the enum
+        String enumOntClassName = eEnumOntClass.getLocalName().replace("OWLClass_", "");
         // TODO CHECK if the enum stuff is not broken
-        String literalPropertyName = createPropertyName(ENUM_LITERAL_PROPERTY_SUFFIX, eEnumOntClass.getLocalName());
-        DatatypeProperty literalDataProperty = ontologyAccess.addDataProperty(literalPropertyName, eEnumOntClass, XSD.xstring);
+        String literalPropertyName = Utility.createPropertyName(ENUM_LITERAL_PROPERTY_SUFFIX, enumOntClassName);
+        DatatypeProperty literalDataProperty = ontologyAccess.addDataProperty(literalPropertyName, enumNamespace, eEnumOntClass, XSD.xstring);
         // create the data property, that enums have a value (type int)
         // TODO CHECK if the enum stuff is not broken
-        String valuePropertyName = createPropertyName(ENUM_VALUE_PROPERTY_SUFFIX, eEnumOntClass.getLocalName());
-        DatatypeProperty valueDataProperty = ontologyAccess.addDataProperty(valuePropertyName, eEnumOntClass, XSD.integer);
+        String valuePropertyName = Utility.createPropertyName(ENUM_VALUE_PROPERTY_SUFFIX, enumOntClassName);
+        DatatypeProperty valueDataProperty = ontologyAccess.addDataProperty(valuePropertyName, enumNamespace, eEnumOntClass, XSD.integer);
 
         for (EEnumLiteral literal : eEnum.getELiterals()) {
             var literalString = literal.getLiteral();
             String name = getEEnumLiteralName(eEnum, literalString);
-            var individual = ontologyAccess.addNamedIndividual(currEnumClass, name);
+            var individual = ontologyAccess.addNamedIndividual(currEnumClass, name, enumNamespace);
             ontologyAccess.addIndividualToEnumeratedClass(currEnumClass, individual);
 
             ontologyAccess.addDataPropertyToIndividual(individual, literalDataProperty, literalString);
@@ -616,7 +585,7 @@ public class Ecore2OWLTransformer {
         }
         String className = object.eClass().getName();
         name = className + name;
-        return cleanName(name);
+        return Utility.cleanName(name);
     }
 
     private String getId(EObject object) {
@@ -629,10 +598,12 @@ public class Ecore2OWLTransformer {
 
     private void processEObject(EObject object) {
         var clazz = object.eClass();
+        String classNamespace = Utility.getNamespace(clazz);
         String className = clazz.getName();
         String objectIdentifier = getEObjectIdentifier(object);
+        String objectNamespace = Utility.getNamespace(object);
         checkClassExistence(clazz);
-        ontologyAccess.addNamedIndividual(className, objectIdentifier);
+        ontologyAccess.addNamedIndividual(className, classNamespace, objectIdentifier, objectNamespace);
 
         // add eObject to the set of processed eObjects already here, because of recursive nature of the function below,
         // that might end in a loop trying to process this object over and over again
@@ -683,13 +654,15 @@ public class Ecore2OWLTransformer {
     }
 
     private void processEEnumFeature(Object featureObject, EAttribute attribute, EObject containerEObject) {
+        String namespace = Utility.getNamespace(containerEObject);
         String objectIdentifier = getEObjectIdentifier(containerEObject);
-        String attributePropertyName = createAttributePropertyName(attribute, attribute.getEContainingClass());
+        String attributePropertyName = Utility.createAttributePropertyName(attribute, attribute.getEContainingClass());
 
         String eEnumName = attribute.getEAttributeType().getName();
         String featureObjectIdentifier = getEEnumLiteralName(eEnumName, featureObject.toString());
 
-        Optional<ObjectProperty> property = ontologyAccess.addObjectPropertyOfIndividual(objectIdentifier, attributePropertyName, featureObjectIdentifier);
+        Optional<ObjectProperty> property = ontologyAccess.addObjectPropertyOfIndividual(objectIdentifier, namespace, attributePropertyName, namespace,
+                featureObjectIdentifier, namespace);
         if (property.isPresent()) {
             createPackageUriAnnotation(attribute.getEContainingClass(), property.get());
         }
@@ -697,10 +670,12 @@ public class Ecore2OWLTransformer {
 
     private void processEAttributeFeature(Object featureObject, EAttribute attribute, EObject containerEObject) {
         EClass domain = attribute.getEContainingClass();
-        String attributePropertyName = createAttributePropertyName(attribute, domain);
+        String attributePropertyName = Utility.createAttributePropertyName(attribute, domain);
+        String domainNamespace = Utility.getNamespace(domain);
         String featureObjectSimpleClassName = featureObject.getClass().getSimpleName();
         String objectIdentifier = getEObjectIdentifier(containerEObject);
-        Optional<Individual> optIndividual = ontologyAccess.getNamedIndividualByShortUri(objectIdentifier);
+        String namespace = Utility.getNamespace(containerEObject);
+        Optional<Individual> optIndividual = ontologyAccess.getNamedIndividualByShortUri(objectIdentifier, namespace);
         if (!optIndividual.isPresent()) {
             String msg = "Could not find individual \"" + objectIdentifier + "\" while processing attribute features.";
             logger.warn(msg);
@@ -709,12 +684,12 @@ public class Ecore2OWLTransformer {
 
         Optional<org.apache.jena.rdf.model.Resource> datatype = ontologyAccess.getDatatypeByName(featureObjectSimpleClassName);
         if (datatype.isPresent()) {
-            Optional<DatatypeProperty> optDataProperty = ontologyAccess.getDataProperty(attributePropertyName);
+            Optional<DatatypeProperty> optDataProperty = ontologyAccess.getDataProperty(attributePropertyName, domainNamespace);
             if (!optDataProperty.isPresent()) {
                 // if data property didn't exist before, then process the containing class (again)
                 // (happens with proxy classes)
                 processEClass(attribute.getEContainingClass());
-                optDataProperty = ontologyAccess.getDataProperty(attributePropertyName);
+                optDataProperty = ontologyAccess.getDataProperty(attributePropertyName, domainNamespace);
             }
             ontologyAccess.addDataPropertyToIndividual(optIndividual.get(), optDataProperty.orElseThrow(), featureObject);
 
@@ -733,21 +708,25 @@ public class Ecore2OWLTransformer {
     }
 
     private void processEObjectFeature(Object featureObject, EReference reference, EObject containerEObject) {
-        String referencePropertyName = createReferencePropertyName(reference, reference.getEContainingClass());
+        String referencePropertyName = Utility.createReferencePropertyName(reference, reference.getEContainingClass());
+        String namespace = Utility.getNamespace(reference);
         String containerName = getEObjectIdentifier(containerEObject);
+        String containerNamespace = Utility.getNamespace(containerEObject);
         var featureEObject = (EObject) featureObject;
         String featureIdentifier = getEObjectIdentifier(featureEObject);
+        String featureNamespace = Utility.getNamespace(featureEObject);
 
         checkClassExistence(containerEObject.eClass());
-        if (!ontologyAccess.containsObjectProperty(referencePropertyName)) {
+        if (!ontologyAccess.containsObjectProperty(referencePropertyName, namespace)) {
             processEClass(reference.getEContainingClass());
         }
 
-        if (ontologyAccess.containsObjectPropertyForIndividuals(containerName, referencePropertyName, featureIdentifier)) {
+        if (ontologyAccess.containsObjectPropertyForIndividuals(containerName, referencePropertyName, namespace, featureIdentifier)) {
             return;
         }
 
-        Optional<ObjectProperty> property = ontologyAccess.addObjectPropertyOfIndividual(containerName, referencePropertyName, featureIdentifier);
+        Optional<ObjectProperty> property = ontologyAccess.addObjectPropertyOfIndividual(containerName, containerNamespace, referencePropertyName, namespace,
+                featureIdentifier, featureNamespace);
         if (property.isPresent()) {
             createPackageUriAnnotation(reference.getEContainingClass(), property.get());
         }
@@ -760,7 +739,8 @@ public class Ecore2OWLTransformer {
     }
 
     private void checkClassExistence(EClass clazz) {
-        if (!ontologyAccess.containsClass(clazz.getName())) {
+        String namespace = Utility.getNamespace(clazz.getEPackage());
+        if (!ontologyAccess.containsClass(clazz.getName(), namespace)) {
             // when the referenced object is a proxy (external), then the class and further info might not exist.
             // process the ePackage of the class to get needed information into the ontology
             processEPackage(clazz.getEPackage());
@@ -780,8 +760,8 @@ public class Ecore2OWLTransformer {
             var proxyDebug = String.format("Having Proxy-Class \"%s\" with URI \"%s\"", proxy, proxyUriString);
             logger.debug(proxyDebug);
         }
-        ontologyAccess.addSubClassOf(PROXY_SUPER_CLASS, E_CLASS);
-        OntClass proxyClass = ontologyAccess.addSubClassOf(proxy, PROXY_SUPER_CLASS);
+        ontologyAccess.addSubClassOf(PROXY_SUPER_CLASS, ECORE_NAMESPACE, E_CLASS, ECORE_NAMESPACE);
+        OntClass proxyClass = ontologyAccess.addSubClassOf(proxy, "", PROXY_SUPER_CLASS, ECORE_NAMESPACE);
         ontologyAccess.addComment(proxyClass, proxyUriString, NS_URI_COMMENT_LANGUAGE);
 
         return proxy;
@@ -790,28 +770,5 @@ public class Ecore2OWLTransformer {
     private String getProxyClass(EObject proxyClazz) {
         var proxyUri = EcoreUtil.getURI(proxyClazz);
         return getProxyClass(proxyUri);
-    }
-
-    private static String cleanName(String name) {
-        if (name == null) {
-            throw new IllegalArgumentException("Argument is null");
-        }
-        String cleanedName = name.replace("\"", "");
-        cleanedName = cleanedName.replace("\'", "");
-        cleanedName = cleanedName.replace("<", "\\<");
-        cleanedName = cleanedName.replace(">", "\\>");
-        return cleanedName;
-    }
-
-    private static String createPropertyName(String property, String domainName) {
-        return cleanName(property + PROPERTY_TO_CLASS_SEPARATOR + domainName);
-    }
-
-    private static String createAttributePropertyName(EAttribute eAttribute, EClass domain) {
-        return createPropertyName(eAttribute.getName(), domain.getName());
-    }
-
-    private static String createReferencePropertyName(EReference eReference, EClass domain) {
-        return createPropertyName(eReference.getName(), domain.getName());
     }
 }
