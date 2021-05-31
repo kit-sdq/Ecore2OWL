@@ -2,7 +2,8 @@ package edu.kit.ipd.are.ecore2owl.core;
 
 enum MetaModel {
 
-    PCM("https://informalin.github.io/knowledgebases/informalin_base_pcm.owl#", "pcm"),
+    // PCM("https://informalin.github.io/knowledgebases/informalin_base_pcm.owl#", "pcm"),
+    PCM("https://informalin.github.io/knowledgebases/informalin_base_ecore.owl#", "ecore"),
     ECORE("https://informalin.github.io/knowledgebases/informalin_base_ecore.owl#", "ecore");
 
     private final String iri;
