@@ -196,6 +196,7 @@ public class Ecore2OWLTransformer {
     }
 
     private OntologyAccess createOntologyAccess(String metaModelName) {
+        // TODO Currently loads PCM, but imports cannot be handled properly
         var metaModel = MetaModel.getMetaModelByName(metaModelName);
         return createOntologyAccess(metaModel.getIri(), metaModel.getNsPrefix());
     }
