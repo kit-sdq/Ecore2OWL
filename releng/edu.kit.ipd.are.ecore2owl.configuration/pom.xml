@@ -15,9 +15,8 @@
 	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	    <project.build.optimize>true</project.build.optimize>
 	    <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-	    <jena.version>3.7.0</jena.version>
+	    <jena.version>4.0.0</jena.version>
 	    <eclipse.collections.version>9.2.0</eclipse.collections.version>
-	    <OntologyAccess.version>0.0.6</OntologyAccess.version>
   	</properties>
 
 	<licenses>
