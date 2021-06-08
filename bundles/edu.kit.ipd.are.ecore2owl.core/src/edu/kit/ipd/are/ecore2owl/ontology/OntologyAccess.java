@@ -13,7 +13,6 @@ import java.util.function.Predicate;
 import org.apache.jena.datatypes.RDFDatatype;
 import org.apache.jena.ontology.AllValuesFromRestriction;
 import org.apache.jena.ontology.CardinalityRestriction;
-import org.apache.jena.ontology.ConversionException;
 import org.apache.jena.ontology.DatatypeProperty;
 import org.apache.jena.ontology.EnumeratedClass;
 import org.apache.jena.ontology.FunctionalProperty;
@@ -424,29 +423,19 @@ public class OntologyAccess {
     }
 
     public Optional<DatatypeProperty> getDataProperty(String dataPropertyLocalName) {
-        String uri = createUri(defaultPrefix, dataPropertyLocalName);
-        // TODO
-        // TODO
-        return getDataPropertyByUri(uri);
+        var prefixes = ontModel.getNsPrefixMap().keySet();
+        for (var prefix : prefixes) {
+            var uri = createUri(prefix, dataPropertyLocalName);
+            var optDP = getDataPropertyByUri(uri);
+            if (optDP.isPresent()) {
+                return optDP;
+            }
+        }
+        return Optional.empty();
     }
 
     public Optional<DatatypeProperty> getDataPropertyByUri(String dataPropertyUri) {
         var datatypeProperty = ontModel.getDatatypeProperty(dataPropertyUri);
-
-        if (datatypeProperty != null) {
-            return Optional.of(datatypeProperty);
-        }
-
-        var res = ontModel.getResource(dataPropertyUri);
-        try {
-            datatypeProperty = ontModel.createOntResource(DatatypeProperty.class, OWL.DatatypeProperty, dataPropertyUri);
-        } catch (ConversionException e) {
-            // for some reason, imported classes seem to not have type owl:Class, therefore are not found. Enforce it
-            var stmt = ontModel.createStatement(res, RDF.type, OWL.DatatypeProperty);
-            ontModel.add(stmt);
-            datatypeProperty = ontModel.createOntResource(DatatypeProperty.class, OWL.DatatypeProperty, dataPropertyUri);
-        }
-
         return Optional.ofNullable(datatypeProperty);
     }
 
@@ -470,28 +459,19 @@ public class OntologyAccess {
     }
 
     public Optional<ObjectProperty> getObjectProperty(String objectPropertyName) {
-        String uri = createUri(defaultPrefix, objectPropertyName);
-        // TODO
-        // TODO
-        return getObjectPropertyByUri(uri);
+        var prefixes = ontModel.getNsPrefixMap().keySet();
+        for (var prefix : prefixes) {
+            var uri = createUri(prefix, objectPropertyName);
+            var optOP = getObjectPropertyByUri(uri);
+            if (optOP.isPresent()) {
+                return optOP;
+            }
+        }
+        return Optional.empty();
     }
 
     public Optional<ObjectProperty> getObjectPropertyByUri(String objectPropertyUri) {
         var objectProperty = ontModel.getObjectProperty(objectPropertyUri);
-        if (objectProperty != null) {
-            return Optional.of(objectProperty);
-        }
-
-        var res = ontModel.getResource(objectPropertyUri);
-        try {
-            objectProperty = ontModel.createOntResource(ObjectProperty.class, OWL.ObjectProperty, objectPropertyUri);
-        } catch (ConversionException e) {
-            // for some reason, imported classes seem to not have type owl:Class, therefore are not found. Enforce it
-            var stmt = ontModel.createStatement(res, RDF.type, OWL.ObjectProperty);
-            ontModel.add(stmt);
-            objectProperty = ontModel.createOntResource(ObjectProperty.class, OWL.ObjectProperty, objectPropertyUri);
-        }
-
         return Optional.ofNullable(objectProperty);
     }
 
@@ -715,22 +695,7 @@ public class OntologyAccess {
 
     public Optional<OntClass> getClassByIri(String iri) {
         String uri = ontModel.expandPrefix(iri);
-        var ontRes = ontModel.getOntResource(uri);
-
-        if (ontRes != null) {
-            return Optional.ofNullable(ontRes.asClass());
-        }
-
-        var res = ontModel.getResource(uri); // TODO
-        OntClass clazz;
-        try {
-            clazz = ontModel.createOntResource(OntClass.class, OWL.Class, uri);
-        } catch (ConversionException e) {
-            // for some reason, imported classes seem to not have type owl:Class, therefore are not found. Enforce it
-            var stmt = ontModel.createStatement(res, RDF.type, OWL.Class);
-            ontModel.add(stmt);
-            clazz = ontModel.createOntResource(OntClass.class, OWL.Class, uri);
-        }
+        var clazz = ontModel.getOntClass(uri);
 
         return Optional.ofNullable(clazz);
     }

@@ -20,7 +20,7 @@ public class Ecore2OwlLaunchConfigurationDelegate extends LaunchConfigurationDel
     private static Logger logger = Logger.getLogger(Ecore2OwlLaunchConfigurationDelegate.class);
 
     private String resolveFileURL(String url) {
-        String resolvedURL = "";
+        var resolvedURL = "";
         if (urlIsPlatformURL(url)) {
             try {
                 resolvedURL = FileLocator.resolve(new URL(url)).getFile();
@@ -64,7 +64,7 @@ public class Ecore2OwlLaunchConfigurationDelegate extends LaunchConfigurationDel
         boolean autoLoadMetaModel = configuration.getAttribute(Ecore2OwlConfigurationAttributes.AUTOLOAD, false);
         String[] modelIn = getInput(configuration, Ecore2OwlConfigurationAttributes.MODEL_IN);
 
-        Ecore2OWLTransformer transformer = new Ecore2OWLTransformer();
+        var transformer = new Ecore2OWLTransformer();
         if (!autoLoadMetaModel) {
             logger.info("Start loading meta models.");
             String[] ecoreIn = getInput(configuration, Ecore2OwlConfigurationAttributes.ECORE_IN);

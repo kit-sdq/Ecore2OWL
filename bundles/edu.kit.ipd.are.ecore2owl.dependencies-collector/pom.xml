@@ -11,12 +11,6 @@
  </parent>
 
   <dependencies>
-    <dependency>
-		<groupId>org.apache.jena</groupId>
-		<artifactId>apache-jena</artifactId>
-		<type>pom</type>
-		<version>${jena.version}</version>
-	</dependency>
 	<dependency>
 		<groupId>org.apache.jena</groupId>
 		<artifactId>apache-jena-libs</artifactId>

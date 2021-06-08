@@ -209,6 +209,7 @@ public class Ecore2OWLTransformer {
         if (ontologyAccess == null) {
             logger.debug("Initialising OntologyAccess");
             ontologyAccess = createOntologyAccess(metaModelName);
+            logger.debug("Initialising of OntologyAccess finished");
         }
     }
 
@@ -253,7 +254,9 @@ public class Ecore2OWLTransformer {
         }
 
         if (resolveMetaModel) {
+            logger.debug("Processing meta model first.");
             processEPackage(metaModelRoot);
+            logger.debug("Finished processing of meta model.");
         }
 
         transformModel(inputModel);
@@ -271,6 +274,7 @@ public class Ecore2OWLTransformer {
         }
 
         EList<EObject> contents = inputModel.getContents();
+        logger.debug(String.format("Start processing contents of %s", modelUri));
         for (EObject object : contents) {
             processEObject(object);
         }
