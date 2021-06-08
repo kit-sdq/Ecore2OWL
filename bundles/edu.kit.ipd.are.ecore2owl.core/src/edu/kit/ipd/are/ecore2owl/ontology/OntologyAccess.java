@@ -39,7 +39,6 @@ import org.apache.jena.reasoner.ReasonerRegistry;
 import org.apache.jena.reasoner.ValidityReport;
 import org.apache.jena.reasoner.ValidityReport.Report;
 import org.apache.jena.riot.Lang;
-import org.apache.jena.riot.RDFDataMgr;
 import org.apache.jena.util.iterator.ExtendedIterator;
 import org.apache.jena.vocabulary.OWL;
 import org.apache.jena.vocabulary.RDF;
@@ -157,8 +156,7 @@ public class OntologyAccess {
      * @return true if saving was successful, otherwise false is returned
      */
     public boolean save(String file) {
-        // TODO: N3 or something else? N3 was fastest (because XML can be slow)
-        return save(file, Lang.N3);
+        return save(file, Lang.RDFXML);
     }
 
     /**
@@ -181,7 +179,7 @@ public class OntologyAccess {
             return false;
         }
 
-        RDFDataMgr.write(out, ontModel, language);
+        ontModel.write(out, language.getName());
         return true;
     }
 

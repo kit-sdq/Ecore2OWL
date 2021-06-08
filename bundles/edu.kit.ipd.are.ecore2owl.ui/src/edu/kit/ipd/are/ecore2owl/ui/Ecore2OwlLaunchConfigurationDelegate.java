@@ -84,7 +84,7 @@ public class Ecore2OwlLaunchConfigurationDelegate extends LaunchConfigurationDel
             }
         }
         logger.info("Finished transformation of input models.");
-        logger.info("Start saving the OWL file.");
+        logger.info("Start saving the OWL file to " + owlFile);
         transformer.saveOntology(owlFile);
     }
 
