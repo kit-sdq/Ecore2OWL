@@ -425,11 +425,29 @@ public class OntologyAccess {
 
     public Optional<DatatypeProperty> getDataProperty(String dataPropertyLocalName) {
         String uri = createUri(defaultPrefix, dataPropertyLocalName);
+        // TODO
+        // TODO
         return getDataPropertyByUri(uri);
     }
 
     public Optional<DatatypeProperty> getDataPropertyByUri(String dataPropertyUri) {
-        return Optional.ofNullable(ontModel.getDatatypeProperty(dataPropertyUri));
+        var datatypeProperty = ontModel.getDatatypeProperty(dataPropertyUri);
+
+        if (datatypeProperty != null) {
+            return Optional.of(datatypeProperty);
+        }
+
+        var res = ontModel.getResource(dataPropertyUri);
+        try {
+            datatypeProperty = ontModel.createOntResource(DatatypeProperty.class, OWL.DatatypeProperty, dataPropertyUri);
+        } catch (ConversionException e) {
+            // for some reason, imported classes seem to not have type owl:Class, therefore are not found. Enforce it
+            var stmt = ontModel.createStatement(res, RDF.type, OWL.DatatypeProperty);
+            ontModel.add(stmt);
+            datatypeProperty = ontModel.createOntResource(DatatypeProperty.class, OWL.DatatypeProperty, dataPropertyUri);
+        }
+
+        return Optional.ofNullable(datatypeProperty);
     }
 
     private ObjectProperty addObjectProperty(String objectPropertyName, OntClass domain, OntClass range, boolean functional) {
@@ -453,11 +471,28 @@ public class OntologyAccess {
 
     public Optional<ObjectProperty> getObjectProperty(String objectPropertyName) {
         String uri = createUri(defaultPrefix, objectPropertyName);
+        // TODO
+        // TODO
         return getObjectPropertyByUri(uri);
     }
 
     public Optional<ObjectProperty> getObjectPropertyByUri(String objectPropertyUri) {
-        return Optional.ofNullable(ontModel.getObjectProperty(objectPropertyUri));
+        var objectProperty = ontModel.getObjectProperty(objectPropertyUri);
+        if (objectProperty != null) {
+            return Optional.of(objectProperty);
+        }
+
+        var res = ontModel.getResource(objectPropertyUri);
+        try {
+            objectProperty = ontModel.createOntResource(ObjectProperty.class, OWL.ObjectProperty, objectPropertyUri);
+        } catch (ConversionException e) {
+            // for some reason, imported classes seem to not have type owl:Class, therefore are not found. Enforce it
+            var stmt = ontModel.createStatement(res, RDF.type, OWL.ObjectProperty);
+            ontModel.add(stmt);
+            objectProperty = ontModel.createOntResource(ObjectProperty.class, OWL.ObjectProperty, objectPropertyUri);
+        }
+
+        return Optional.ofNullable(objectProperty);
     }
 
     /**
@@ -667,18 +702,26 @@ public class OntologyAccess {
      * @return Optional holding the class that corresponds to the given name, or an empty optional if no such exists
      */
     public Optional<OntClass> getClass(String className) {
-        var uri = createUri(defaultPrefix, className);
-        return getClassByIri(uri);
+        var prefixes = ontModel.getNsPrefixMap().keySet();
+        for (var prefix : prefixes) {
+            var uri = createUri(prefix, className);
+            var optClass = getClassByIri(uri);
+            if (optClass.isPresent()) {
+                return optClass;
+            }
+        }
+        return Optional.empty();
     }
 
     public Optional<OntClass> getClassByIri(String iri) {
         String uri = ontModel.expandPrefix(iri);
-        Resource res = ontModel.getOntResource(uri);
+        var ontRes = ontModel.getOntResource(uri);
 
-        if (res == null) {
-            return Optional.empty();
+        if (ontRes != null) {
+            return Optional.ofNullable(ontRes.asClass());
         }
 
+        var res = ontModel.getResource(uri); // TODO
         OntClass clazz;
         try {
             clazz = ontModel.createOntResource(OntClass.class, OWL.Class, uri);
@@ -699,20 +742,20 @@ public class OntologyAccess {
      * @return created class
      */
     public OntClass addClass(String className) {
-        var uri = createUri(defaultPrefix, className);
-        Optional<OntClass> clazz = getClassByIri(uri);
+        Optional<OntClass> clazz = getClass(className);
         if (clazz.isPresent()) {
             return clazz.get();
         }
+        var uri = createUri(defaultPrefix, className);
         return ontModel.createClass(uri);
     }
 
     public OntClass addClassByIri(String iri) {
-        String uri = ontModel.expandPrefix(iri);
-        Optional<OntClass> clazz = getClassByIri(uri);
+        Optional<OntClass> clazz = getClassByIri(iri);
         if (clazz.isPresent()) {
             return clazz.get();
         }
+        String uri = ontModel.expandPrefix(iri);
         return ontModel.createClass(uri);
     }
 
@@ -725,8 +768,7 @@ public class OntologyAccess {
     }
 
     public OntClass addSubClassOf(String className, String superClassName) {
-        var uri = createUri(defaultPrefix, superClassName);
-        Optional<OntClass> superClassOpt = getClassByIri(uri);
+        Optional<OntClass> superClassOpt = getClass(superClassName);
         if (superClassOpt.isPresent()) {
             OntClass superClass = superClassOpt.get();
             return addSubClassOf(className, superClass);

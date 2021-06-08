@@ -320,13 +320,21 @@ public class Ecore2OWLTransformer {
         String packageName = ePackage.getName();
         String packageNsURI = ePackage.getNsURI();
         String packageNsPrefix = ePackage.getNsPrefix();
+
+        var packageClassOpt = ontologyAccess.getClass(packageName);
+        if (packageClassOpt.isPresent()) {
+            // if the package is already present, just skip it
+            processedPackages.add(ePackage);
+            return;
+        }
+
         if (logger.isDebugEnabled()) {
             logger.debug(String.format("Start processing EPackage with name \"%s\", NS-Prefix \"%s\" and NS-URI \"%s\"", packageName, packageNsPrefix,
                     packageNsURI));
         }
 
-        // create superclass for package
         OntClass packageClass;
+        // create superclass for package
         if (superPackage == null) {
             packageClass = ontologyAccess.addSubClassOf(packageName, ePackageOntClass);
         } else {
@@ -353,8 +361,8 @@ public class Ecore2OWLTransformer {
                 processEClass((EClass) eObject);
             }
         }
-
         processedPackages.add(ePackage);
+
     }
 
     private void processEClass(EClass eClass) {
