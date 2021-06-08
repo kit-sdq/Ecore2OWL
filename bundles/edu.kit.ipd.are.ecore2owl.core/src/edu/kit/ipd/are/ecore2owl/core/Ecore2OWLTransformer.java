@@ -177,8 +177,12 @@ public class Ecore2OWLTransformer {
     }
 
     private OntologyAccess createOntologyAccess(String ontologyIRI, String ontologyNsPrefix) {
-        var ontoAccess = OntologyAccess.empty(DEFAULT_NAMESPACE);
-        ontoAccess.addNsPrefix(DEFAULT_PREFIX, DEFAULT_NAMESPACE);
+        return createOntologyAccess(ontologyIRI, ontologyNsPrefix, DEFAULT_NAMESPACE);
+    }
+
+    private OntologyAccess createOntologyAccess(String ontologyIRI, String ontologyNsPrefix, String defaultNamespace) {
+        var ontoAccess = OntologyAccess.empty(defaultNamespace);
+        ontoAccess.addNsPrefix(DEFAULT_PREFIX, defaultNamespace);
         ontoAccess.setDefaultPrefix(DEFAULT_PREFIX);
 
         ontoAccess.addOntologyImport(ontologyIRI);
