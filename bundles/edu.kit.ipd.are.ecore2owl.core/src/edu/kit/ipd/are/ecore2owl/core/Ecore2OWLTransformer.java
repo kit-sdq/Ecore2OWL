@@ -316,6 +316,15 @@ public class Ecore2OWLTransformer {
         return subPackages;
     }
 
+    private boolean classIsPresent(String className, String namespace) {
+        if (!ontologyAccess.containsClass(className, namespace)) {
+            // check again if the namespace resolution was wrong. This can happen sometimes
+            // Therefore, get the class without the prefix
+            return ontologyAccess.containsClass(className);
+        }
+        return true;
+    }
+
     private void processEPackage(EPackage ePackage) {
         if (processedPackages.contains(ePackage)) {
             return;
@@ -324,9 +333,9 @@ public class Ecore2OWLTransformer {
         String packageName = ePackage.getName();
         String packageNsURI = ePackage.getNsURI();
         String packageNsPrefix = ePackage.getNsPrefix();
+        String namespace = Utility.getNamespace(ePackage);
 
-        var packageClassOpt = ontologyAccess.getClass(packageName);
-        if (packageClassOpt.isPresent()) {
+        if (classIsPresent(packageName, namespace)) {
             // if the package is already present, just skip it
             processedPackages.add(ePackage);
             return;
@@ -389,7 +398,7 @@ public class Ecore2OWLTransformer {
             }
 
             OntClass superClassOnto;
-            if (!ontologyAccess.containsClass(superClassName)) {
+            if (!ontologyAccess.containsClass(superClassName, Utility.getNamespace(superClass))) {
                 superClassOnto = ontologyAccess.addSubClassOf(superClassName, eClassOntClass);
             } else {
                 superClassOnto = ontologyAccess.addClass(superClassName);
@@ -501,26 +510,28 @@ public class Ecore2OWLTransformer {
     private void processEReference(EReference eReference) {
         EClass domain = eReference.getEContainingClass();
         EClassifier range = eReference.getEType();
-        Optional<OntClass> domainClassOpt = ontologyAccess.getClass(domain.getName());
+        Optional<OntClass> domainClassOpt = ontologyAccess.getClass(domain.getName(), Utility.getNamespace(domain));
         if (!domainClassOpt.isPresent()) {
             processEPackage(domain.getEPackage());
         }
         OntClass domainClass = ontologyAccess.addClass(domain.getName());
-        String rangeName = range.getName();
+        String rangeName;
         OntClass rangeClass;
         if (range.eIsProxy()) {
             if (logger.isDebugEnabled()) {
                 logger.debug("Found a proxy class, meaning a needed package (meta-model) could not be resolved." + " The result will probably incomplete!");
             }
             rangeName = getProxyClass(range);
-        }
-        if (ontologyAccess.containsClass(rangeName)) {
-            rangeClass = ontologyAccess.addClass(rangeName);
         } else {
-            rangeClass = ontologyAccess.addClass(rangeName);
-            ontologyAccess.addSubClassOf(rangeName, eClassOntClass);
-            createPackageUriAnnotation(range, rangeClass);
+            rangeName = range.getName();
         }
+        String rangeNamespace = Utility.getNamespace(range);
+        rangeClass = ontologyAccess.getClass(rangeName, rangeNamespace).orElseGet(() -> {
+            var rc = ontologyAccess.addClass(rangeName);
+            ontologyAccess.addSubClassOf(rangeName, eClassOntClass);
+            createPackageUriAnnotation(range, rc);
+            return rc;
+        });
 
         String propertyName = Utility.createReferencePropertyName(eReference, domain);
         int lowerBound = eReference.getLowerBound();
@@ -656,11 +667,15 @@ public class Ecore2OWLTransformer {
     private void processEEnumFeature(Object featureObject, EAttribute attribute, EObject containerEObject) {
         String objectIdentifier = getEObjectIdentifier(containerEObject);
         String attributePropertyName = Utility.createAttributePropertyName(attribute, attribute.getEContainingClass());
+        String attributeNamespace = Utility.getNamespace(attribute);
+
+        String namespace = Utility.getNamespace(containerEObject);
 
         String eEnumName = attribute.getEAttributeType().getName();
         String featureObjectIdentifier = getEEnumLiteralName(eEnumName, featureObject.toString());
 
-        Optional<ObjectProperty> property = ontologyAccess.addObjectPropertyOfIndividual(objectIdentifier, attributePropertyName, featureObjectIdentifier);
+        Optional<ObjectProperty> property = ontologyAccess.addObjectPropertyOfIndividual(objectIdentifier, namespace, attributePropertyName, attributeNamespace,
+                featureObjectIdentifier, namespace);
         if (property.isPresent()) {
             createPackageUriAnnotation(attribute.getEContainingClass(), property.get());
         }
@@ -705,20 +720,25 @@ public class Ecore2OWLTransformer {
 
     private void processEObjectFeature(Object featureObject, EReference reference, EObject containerEObject) {
         String referencePropertyName = Utility.createReferencePropertyName(reference, reference.getEContainingClass());
+        String referenceMM = Utility.getNamespace(reference);
         String containerName = getEObjectIdentifier(containerEObject);
+        String containerNamespace = Utility.getNamespace(containerEObject);
         var featureEObject = (EObject) featureObject;
         String featureIdentifier = getEObjectIdentifier(featureEObject);
+        String featureNamespace = Utility.getNamespace(featureEObject);
 
         checkClassExistence(containerEObject.eClass());
-        if (!ontologyAccess.containsObjectProperty(referencePropertyName)) {
+        if (!ontologyAccess.containsObjectProperty(referencePropertyName, referenceMM) && !ontologyAccess.containsObjectProperty(referencePropertyName)) {
             processEClass(reference.getEContainingClass());
         }
 
-        if (ontologyAccess.containsObjectPropertyForIndividuals(containerName, referencePropertyName, featureIdentifier)) {
+        if (ontologyAccess.containsObjectPropertyForIndividuals(containerName, containerNamespace, referencePropertyName, referenceMM, featureIdentifier,
+                featureNamespace)) {
             return;
         }
 
-        Optional<ObjectProperty> property = ontologyAccess.addObjectPropertyOfIndividual(containerName, referencePropertyName, featureIdentifier);
+        Optional<ObjectProperty> property = ontologyAccess.addObjectPropertyOfIndividual(containerName, containerNamespace, referencePropertyName, referenceMM,
+                featureIdentifier, featureNamespace);
         if (property.isPresent()) {
             createPackageUriAnnotation(reference.getEContainingClass(), property.get());
         }
@@ -731,7 +751,7 @@ public class Ecore2OWLTransformer {
     }
 
     private void checkClassExistence(EClass clazz) {
-        if (!ontologyAccess.containsClass(clazz.getName())) {
+        if (!ontologyAccess.containsClass(clazz.getName(), Utility.getNamespace(clazz))) {
             // when the referenced object is a proxy (external), then the class and further info might not exist.
             // process the ePackage of the class to get needed information into the ontology
             processEPackage(clazz.getEPackage());

@@ -150,7 +150,7 @@ public class OntologyAccess {
     }
 
     /**
-     * Save the ontology to a given file (path). This method uses the N3 language to save.
+     * Save the ontology to a given file (path). This method uses the RDF/XML language.
      *
      * @param file String containing the path of the file the ontology should be saved to
      * @return true if saving was successful, otherwise false is returned
@@ -300,6 +300,17 @@ public class OntologyAccess {
         }).nextOptional();
     }
 
+    public Optional<Individual> getNamedIndividual(String individualName, String prefix) {
+        if (individualName == null) {
+            return Optional.empty();
+        }
+        if (prefix == null || prefix.isEmpty()) {
+            prefix = defaultPrefix;
+        }
+        String uri = createUri(prefix, individualName);
+        return Optional.ofNullable(ontModel.getIndividual(uri));
+    }
+
     public Optional<Individual> getNamedIndividualByShortUri(String individualShortUri) {
         String uri = createUri(defaultPrefix, individualShortUri);
         return Optional.ofNullable(ontModel.getIndividual(uri));
@@ -310,7 +321,7 @@ public class OntologyAccess {
     }
 
     public Optional<String> getName(String individualUri) {
-        List<String> names = getDataPropertyValuesForIndividual("entityName_-_NamedElement", individualUri);
+        List<String> names = getDataPropertyValuesForIndividual("entityName_-_NamedElement", "pcm", individualUri);
         return (names.isEmpty()) ? Optional.empty() : Optional.of(names.get(0));
     }
 
@@ -331,6 +342,10 @@ public class OntologyAccess {
 
     public boolean containsDataProperty(String name) {
         return getDataProperty(name).isPresent();
+    }
+
+    public boolean containsDataProperty(String name, String prefix) {
+        return getDataProperty(name, prefix).isPresent();
     }
 
     /**
@@ -413,6 +428,15 @@ public class OntologyAccess {
         return getDataPropertyValuesForIndividual(property, individualUri);
     }
 
+    public MutableList<String> getDataPropertyValuesForIndividual(String datatypePropertyName, String dataPropertyPrefix, String individualUri) {
+        Optional<DatatypeProperty> optProperty = getDataProperty(datatypePropertyName, dataPropertyPrefix);
+        if (!optProperty.isPresent()) {
+            return Lists.mutable.empty();
+        }
+        DatatypeProperty property = optProperty.get();
+        return getDataPropertyValuesForIndividual(property, individualUri);
+    }
+
     public MutableList<String> getDataPropertyValuesForIndividual(Property property, String individualUri) {
         var resource = ontModel.getResource(individualUri);
         var statementsIterator = resource.listProperties(property);
@@ -423,13 +447,20 @@ public class OntologyAccess {
     public Optional<DatatypeProperty> getDataProperty(String dataPropertyLocalName) {
         var prefixes = ontModel.getNsPrefixMap().keySet();
         for (var prefix : prefixes) {
-            var uri = createUri(prefix, dataPropertyLocalName);
-            var optDP = getDataPropertyByUri(uri);
+            var optDP = getDataProperty(dataPropertyLocalName, prefix);
             if (optDP.isPresent()) {
                 return optDP;
             }
         }
         return Optional.empty();
+    }
+
+    public Optional<DatatypeProperty> getDataProperty(String dataPropertyLocalName, String prefix) {
+        if (prefix == null || prefix.isEmpty()) {
+            prefix = defaultPrefix;
+        }
+        var uri = createUri(prefix, dataPropertyLocalName);
+        return getDataPropertyByUri(uri);
     }
 
     public Optional<DatatypeProperty> getDataPropertyByUri(String dataPropertyUri) {
@@ -456,16 +487,27 @@ public class OntologyAccess {
         return getObjectProperty(objectPropertyName).isPresent();
     }
 
+    public boolean containsObjectProperty(String objectPropertyName, String prefix) {
+        return getObjectProperty(objectPropertyName, prefix).isPresent();
+    }
+
     public Optional<ObjectProperty> getObjectProperty(String objectPropertyName) {
         var prefixes = ontModel.getNsPrefixMap().keySet();
         for (var prefix : prefixes) {
-            var uri = createUri(prefix, objectPropertyName);
-            var optOP = getObjectPropertyByUri(uri);
+            var optOP = getObjectProperty(objectPropertyName, prefix);
             if (optOP.isPresent()) {
                 return optOP;
             }
         }
         return Optional.empty();
+    }
+
+    public Optional<ObjectProperty> getObjectProperty(String objectPropertyName, String prefix) {
+        if (prefix == null || prefix.isEmpty()) {
+            prefix = defaultPrefix;
+        }
+        var uri = createUri(prefix, objectPropertyName);
+        return getObjectPropertyByUri(uri);
     }
 
     public Optional<ObjectProperty> getObjectPropertyByUri(String objectPropertyUri) {
@@ -520,27 +562,28 @@ public class OntologyAccess {
         ontModel.add(subject, property, object);
     }
 
-    public Optional<ObjectProperty> addObjectPropertyOfIndividual(String subjectShortUri, String propertyName, String objectShortUri) {
-        Optional<Individual> optSubject = getNamedIndividualByShortUri(subjectShortUri);
+    public Optional<ObjectProperty> addObjectPropertyOfIndividual(String subjectName, String subjectPrefix, String propertyName, String propertyPrefix,
+            String objectName, String objectPrefix) {
+        Optional<Individual> optSubject = getNamedIndividual(subjectName, null);
         if (!optSubject.isPresent()) {
-            optSubject = getNamedIndividual(subjectShortUri);
+            optSubject = getNamedIndividual(subjectName, subjectPrefix);
             if (!optSubject.isPresent()) {
-                String msg = "Could not find subject for ObjectProperty \"" + propertyName + "\" of Individual: " + subjectShortUri;
+                String msg = "Could not find subject for ObjectProperty \"" + propertyName + "\" of Individual: " + subjectName;
                 logger.debug(msg);
                 return Optional.empty();
             }
         }
         Individual subject = optSubject.get();
 
-        Optional<ObjectProperty> optProperty = getObjectProperty(propertyName);
+        Optional<ObjectProperty> optProperty = getObjectProperty(propertyName, propertyPrefix);
         if (!optProperty.isPresent()) {
             return Optional.empty();
         }
         ObjectProperty property = optProperty.get();
 
-        Optional<Individual> optObject = getNamedIndividual(objectShortUri);
+        Optional<Individual> optObject = getNamedIndividual(objectName, objectPrefix);
         if (!optObject.isPresent()) {
-            String uri = createUri(defaultPrefix, objectShortUri);
+            String uri = createUri(defaultPrefix, objectName);
             optObject = Optional.of(ontModel.createIndividual(uri, OWL.Thing));
         }
         Individual object = optObject.get();
@@ -569,14 +612,25 @@ public class OntologyAccess {
      * @param objectName   name of Object (or null)
      * @return whether there is an existing ObjectProperty with the given subject and object
      */
-    public boolean containsObjectPropertyForIndividuals(String subjectName, String propertyName, String objectName) {
-        Optional<Individual> optSubject = getNamedIndividual(subjectName);
+    public boolean containsObjectPropertyForIndividuals(String subjectName, String subjectPrefix, String propertyName, String propertyPrefix, String objectName,
+            String objectPrefix) {
+        if (subjectPrefix == null || subjectPrefix.isEmpty()) {
+            subjectPrefix = defaultPrefix;
+        }
+        if (propertyPrefix == null || propertyPrefix.isEmpty()) {
+            propertyPrefix = defaultPrefix;
+        }
+        if (objectPrefix == null || objectPrefix.isEmpty()) {
+            objectPrefix = defaultPrefix;
+        }
+
+        Optional<Individual> optSubject = getNamedIndividual(subjectName, subjectPrefix);
         Individual subject = optSubject.orElse(null);
 
-        Optional<ObjectProperty> optProperty = getObjectProperty(propertyName);
+        Optional<ObjectProperty> optProperty = getObjectProperty(propertyName, propertyPrefix);
         ObjectProperty property = optProperty.orElse(null);
 
-        Optional<Individual> optObject = getNamedIndividual(objectName);
+        Optional<Individual> optObject = getNamedIndividual(objectName, objectPrefix);
         Individual object = optObject.orElse(null);
 
         return containsObjectPropertyForIndividuals(subject, property, object);
@@ -682,8 +736,7 @@ public class OntologyAccess {
     public Optional<OntClass> getClass(String className) {
         var prefixes = ontModel.getNsPrefixMap().keySet();
         for (var prefix : prefixes) {
-            var uri = createUri(prefix, className);
-            var optClass = getClassByIri(uri);
+            var optClass = getClass(className, prefix);
             if (optClass.isPresent()) {
                 return optClass;
             }
@@ -691,6 +744,29 @@ public class OntologyAccess {
         return Optional.empty();
     }
 
+    /**
+     * Returns an Optional holding the class that corresponds to the given name. If no such class exists, returns an
+     * empty optional.
+     *
+     * @param className Name of the class that should be returned
+     * @param prefix    prefix of the class. If null or empty, uses the default prefix
+     * @return Optional holding the class that corresponds to the given name, or an empty optional if no such exists
+     */
+    public Optional<OntClass> getClass(String className, String prefix) {
+        if (prefix == null || prefix.isEmpty()) {
+            prefix = defaultPrefix;
+        }
+        var uri = createUri(prefix, className);
+        return getClassByIri(uri);
+    }
+
+    /**
+     * Returns an Optional holding the class that corresponds to the given name. If no such class exists, returns an
+     * empty optional.
+     *
+     * @param iri Iri of the class that should be returned
+     * @return Optional holding the class that corresponds to the given name, or an empty optional if no such exists
+     */
     public Optional<OntClass> getClassByIri(String iri) {
         String uri = ontModel.expandPrefix(iri);
         var clazz = ontModel.getOntClass(uri);
@@ -761,6 +837,10 @@ public class OntologyAccess {
 
     public boolean containsClass(String className) {
         return getClass(className).isPresent();
+    }
+
+    public boolean containsClass(String className, String prefix) {
+        return getClass(className, prefix).isPresent();
     }
 
     /**
