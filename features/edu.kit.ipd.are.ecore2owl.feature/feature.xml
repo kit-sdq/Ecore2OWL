@@ -320,10 +320,24 @@ any resulting litigation.
       <import plugin="org.eclipse.ui.ide"/>
       <import plugin="org.eclipse.emf.common.ui"/>
       <import plugin="org.eclipse.osgi" version="3.15.0" match="greaterOrEqual"/>
-      <import plugin="ecore2owl.dependencies-provider"/>
       <import plugin="ecore2owl.core" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.equinox.registry"/>
       <import plugin="org.eclipse.sirius.ext.swt"/>
+      <import feature="org.eclipse.collections.feature"/>
+      <import plugin="org.apache.jena.arq"/>
+      <import plugin="org.apache.jena.base"/>
+      <import plugin="org.apache.jena.core"/>
+      <import plugin="org.apache.jena.dboe-base"/>
+      <import plugin="org.apache.jena.dboe-index"/>
+      <import plugin="org.apache.jena.dboe-storage"/>
+      <import plugin="org.apache.jena.dboe-trans-data"/>
+      <import plugin="org.apache.jena.dboe-transaction"/>
+      <import plugin="org.apache.jena.iri"/>
+      <import plugin="org.apache.jena.rdfconnection"/>
+      <import plugin="org.apache.jena.shacl"/>
+      <import plugin="org.apache.jena.shaded-guava"/>
+      <import plugin="org.apache.jena.tdb"/>
+      <import plugin="org.apache.jena.tdb2"/>
    </requires>
 
    <plugin
