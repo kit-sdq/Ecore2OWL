@@ -13,8 +13,6 @@
 	 </parent>
 
 	<modules>
-		<module>edu.kit.ipd.are.ecore2owl.dependencies-collector</module>
-		<module>edu.kit.ipd.are.ecore2owl.dependencies-provider</module>
 		<module>edu.kit.ipd.are.ecore2owl.core</module>
 		<module>edu.kit.ipd.are.ecore2owl.ui</module>
 	</modules>
