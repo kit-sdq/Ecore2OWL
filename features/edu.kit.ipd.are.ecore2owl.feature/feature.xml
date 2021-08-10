@@ -323,7 +323,6 @@ any resulting litigation.
       <import plugin="ecore2owl.core" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.equinox.registry"/>
       <import plugin="org.eclipse.sirius.ext.swt"/>
-      <import feature="org.eclipse.collections.feature"/>
       <import plugin="org.apache.jena.arq"/>
       <import plugin="org.apache.jena.base"/>
       <import plugin="org.apache.jena.core"/>
@@ -338,6 +337,7 @@ any resulting litigation.
       <import plugin="org.apache.jena.shaded-guava"/>
       <import plugin="org.apache.jena.tdb"/>
       <import plugin="org.apache.jena.tdb2"/>
+      <import plugin="org.eclipse.collections"/>
    </requires>
 
    <plugin
