@@ -10,6 +10,7 @@ Require-Bundle: org.apache.log4j;bundle-version="1.2.15",
  org.eclipse.ui.ide,
  org.eclipse.emf.common.ui,
  org.eclipse.osgi;bundle-version="3.15.0",
+ ecore2owl.dependencies-provider,
  ecore2owl.core;bundle-version="1.0.0",
  org.eclipse.equinox.registry,
  org.eclipse.sirius.ext.swt
