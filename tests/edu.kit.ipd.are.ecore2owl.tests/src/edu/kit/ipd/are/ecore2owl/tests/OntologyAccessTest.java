@@ -1,16 +1,15 @@
 package edu.kit.ipd.are.ecore2owl.tests;
 
 import org.junit.Test;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 
 import edu.kit.ipd.are.ecore2owl.ontology.OntologyAccess;
 
-class OntologyAccessTest {
+public class OntologyAccessTest {
     private static final String DEFAULT_NAMESPACE = "https://informalin.github.io/knowledgebases/examples/ontology.owl#";
     private static final String ECORE_ONTOLOGY_IRI = "https://informalin.github.io/knowledgebases/informalin_base_ecore.owl#";
-    // private static final String ECLASS_IRI = "ecore:OWLClass_EClass";
-    // private static final String EPACKAGE_IRI = "ecore:OWLClass_EPackage";
+    private static final String ECLASS_IRI = "ecore:OWLClass_EClass";
+    private static final String EPACKAGE_IRI = "ecore:OWLClass_EPackage";
 
     private static final String DEFAULT_PREFIX = "model";
     private OntologyAccess ontologyAccess = null;
@@ -47,6 +46,6 @@ class OntologyAccessTest {
 
     @Test
     public void importTest() {
-        Assertions.assertNotNull("Test");
+        // TODO
     }
 }
