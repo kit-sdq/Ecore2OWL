@@ -314,30 +314,34 @@ any resulting litigation.
    </url>
 
    <requires>
-      <import plugin="org.apache.log4j" version="1.2.15" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.emf.ecore.xmi" version="2.15.0" match="greaterOrEqual"/>
-      <import plugin="org.eclipse.debug.ui"/>
+      <import plugin="ecore2owl.core" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui.ide"/>
       <import plugin="org.eclipse.emf.common.ui"/>
       <import plugin="org.eclipse.osgi" version="3.15.0" match="greaterOrEqual"/>
-      <import plugin="ecore2owl.core" version="1.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.equinox.registry"/>
-      <import plugin="org.eclipse.sirius.ext.swt"/>
-      <import plugin="org.apache.jena.arq"/>
-      <import plugin="org.apache.jena.base"/>
-      <import plugin="org.apache.jena.core"/>
-      <import plugin="org.apache.jena.dboe-base"/>
-      <import plugin="org.apache.jena.dboe-index"/>
-      <import plugin="org.apache.jena.dboe-storage"/>
-      <import plugin="org.apache.jena.dboe-trans-data"/>
-      <import plugin="org.apache.jena.dboe-transaction"/>
-      <import plugin="org.apache.jena.iri"/>
-      <import plugin="org.apache.jena.rdfconnection"/>
-      <import plugin="org.apache.jena.shacl"/>
-      <import plugin="org.apache.jena.shaded-guava"/>
-      <import plugin="org.apache.jena.tdb"/>
-      <import plugin="org.apache.jena.tdb2"/>
-      <import plugin="org.eclipse.collections"/>
+      <import plugin="org.apache.log4j" version="1.2.15" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.ecore"/>
+      <import plugin="org.eclipse.debug.core"/>
+      <import plugin="org.eclipse.debug.ui"/>
+      <import plugin="org.eclipse.emf.ecore.xmi" version="2.15.0" match="greaterOrEqual"/>
+      <import plugin="org.apache.jena.arq" version="4.0.0" match="greaterOrEqual"/>
+      <import plugin="org.apache.jena.base" version="4.0.0" match="greaterOrEqual"/>
+      <import plugin="org.apache.jena.core" version="4.0.0" match="greaterOrEqual"/>
+      <import plugin="org.apache.jena.dboe-base" version="4.0.0" match="greaterOrEqual"/>
+      <import plugin="org.apache.jena.dboe-index" version="4.0.0" match="greaterOrEqual"/>
+      <import plugin="org.apache.jena.dboe-storage" version="4.0.0" match="greaterOrEqual"/>
+      <import plugin="org.apache.jena.dboe-trans-data" version="4.0.0" match="greaterOrEqual"/>
+      <import plugin="org.apache.jena.dboe-transaction" version="4.0.0" match="greaterOrEqual"/>
+      <import plugin="org.apache.jena.iri" version="4.0.0" match="greaterOrEqual"/>
+      <import plugin="org.apache.jena.rdfconnection" version="4.0.0" match="greaterOrEqual"/>
+      <import plugin="org.apache.jena.shacl" version="4.0.0" match="greaterOrEqual"/>
+      <import plugin="org.apache.jena.shaded-guava" version="4.0.0" match="greaterOrEqual"/>
+      <import plugin="org.apache.jena.tdb" version="4.0.0" match="greaterOrEqual"/>
+      <import plugin="org.apache.jena.tdb2" version="4.0.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.collections" version="10.4.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.core.runtime"/>
+      <import plugin="org.slf4j.api"/>
+      <import plugin="org.apache.commons.lang3"/>
    </requires>
 
    <plugin
@@ -345,5 +349,12 @@ any resulting litigation.
          download-size="0"
          install-size="0"
          version="0.0.0"/>
+
+   <plugin
+         id="ecore2owl.core"
+         download-size="0"
+         install-size="0"
+         version="0.0.0"
+         unpack="false"/>
 
 </feature>
