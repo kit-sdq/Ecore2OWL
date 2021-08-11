@@ -6,9 +6,6 @@ Bundle-Version: 1.0.0.qualifier
 Bundle-Activator: edu.kit.ipd.are.ecore2owl.core.Activator
 Require-Bundle: org.eclipse.emf.ecore,
  org.eclipse.emf.ecore.xmi,
-<<<<<<< HEAD
- ecore2owl.dependencies-provider
-=======
  org.apache.jena.arq;bundle-version="4.0.0",
  org.apache.jena.base;bundle-version="4.0.0",
  org.apache.jena.core;bundle-version="4.0.0",
@@ -26,14 +23,10 @@ Require-Bundle: org.eclipse.emf.ecore,
  org.eclipse.collections;bundle-version="10.4.0",
  org.eclipse.core.runtime,
  org.apache.commons.lang3
->>>>>>> main
 Bundle-RequiredExecutionEnvironment: JavaSE-11
 Automatic-Module-Name: ecore2owl.plugin-core
 Bundle-ActivationPolicy: lazy
 Export-Package: edu.kit.ipd.are.ecore2owl.core,
  edu.kit.ipd.are.ecore2owl.ontology
-<<<<<<< HEAD
-=======
 Import-Package: org.apache.log4j,
  org.slf4j
->>>>>>> main

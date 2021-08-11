@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-		xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>edu.kit.ipd.are</groupId>
 	<artifactId>ecore2owl.configuration</artifactId>
@@ -11,13 +12,12 @@
 
 	<properties>
 		<tycho.version>2.1.0</tycho.version>
-	    <java.version>11</java.version>
-	    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-	    <project.build.optimize>true</project.build.optimize>
-	    <maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
-	    <jena.version>4.0.0</jena.version>
-	    <eclipse.collections.version>9.2.0</eclipse.collections.version>
-  	</properties>
+		<java.version>11</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.build.optimize>true</project.build.optimize>
+		<maven-compiler-plugin.version>3.8.1</maven-compiler-plugin.version>
+		<eclipse.collections.version>9.2.0</eclipse.collections.version>
+	</properties>
 
 	<licenses>
 		<license>
@@ -27,148 +27,143 @@
 		</license>
 	</licenses>
 
-  	<repositories>
-		<repository>
-			<id>ipdNexus-releases</id>
-			<name>IPD-Repository Releases</name>
-			<url>http://bob.ipd.kit.edu/nexus/repository/maven-public-releases</url>
-		</repository>
-		<repository>
-			<id>ipdNexus-snapshots</id>
-			<name>IPD-Repository Snapshots</name>
-			<url>http://bob.ipd.kit.edu/nexus/repository/maven-public-snapshots</url>
-		</repository>
+	<repositories>
 		<repository>
 			<id>Eclipse</id>
 			<layout>p2</layout>
 			<url>http://download.eclipse.org/releases/2020-12/</url>
 		</repository>
 		<repository>
-	      <id>github</id>
-	      <name>GitHub kit-sdq/OntologyAccess Apache Maven Packages</name>
-	      <url>https://maven.pkg.github.com/kit-sdq/OntologyAccess</url>
-	    </repository>
+			<id>Maven P2 Dependencies</id>
+			<layout>p2</layout>
+			<url>https://kit-sdq.github.io/Ecore2OWL.P2/</url>
+		</repository>
+		<repository>
+		<id>Eclipse Collections</id>
+		<layout>p2</layout>
+		<url>http://download.eclipse.org/collections/${eclipse.collections.version}/repository</url>
+		</repository>
 	</repositories>
 
 	<build>
-	<plugins>
-		<plugin>
-			<groupId>org.apache.maven.plugins</groupId>
-			<artifactId>maven-compiler-plugin</artifactId>
-			<version>${maven-compiler-plugin.version}</version>
-			<configuration>
-				<release>${java.version}</release>
-				<source>${java.version}</source>
-				<target>${java.version}</target>
-			</configuration>
-		</plugin>
-		<plugin>
-			<groupId>org.eclipse.tycho</groupId>
-			<artifactId>tycho-maven-plugin</artifactId>
-			<version>${tycho.version}</version>
-			<extensions>true</extensions>
-		</plugin>
-		<plugin>
-			<groupId>org.eclipse.tycho</groupId>
-			<artifactId>tycho-packaging-plugin</artifactId>
-			<version>${tycho.version}</version>
-			<executions>
-			<execution>
-				<phase>package</phase>
-				<id>package-feature</id>
-					<configuration>
-						<finalName>${project.artifactId}_${unqualifiedVersion}.${buildQualifier}</finalName>
-					</configuration>
-        	</execution>
-			</executions>
-    	</plugin>
-    	<plugin>
-	         <groupId>org.eclipse.tycho</groupId>
-	         <artifactId>tycho-p2-repository-plugin</artifactId>
-	         <version>${tycho.version}</version>
-	         <configuration>
-	            <includeAllDependencies>true</includeAllDependencies>
-	         </configuration>
-	      </plugin>
-		<plugin>
-			<groupId>org.eclipse.tycho</groupId>
-			<artifactId>target-platform-configuration</artifactId>
-			<version>${tycho.version}</version>
-			<configuration>
-				<pomDependencies>consider</pomDependencies>
-				<environments>
-					<environment>
-						<os>linux</os>
-						<ws>gtk</ws>
-						<arch>x86</arch>
-					</environment>
-					<environment>
-						<os>linux</os>
-						<ws>gtk</ws>
-						<arch>x86_64</arch>
-					</environment>
-					<environment>
-						<os>win32</os>
-						<ws>win32</ws>
-						<arch>x86</arch>
-					</environment>
-					<environment>
-						<os>win32</os>
-						<ws>win32</ws>
-						<arch>x86_64</arch>
-					</environment>
-					<environment>
-						<os>macosx</os>
-						<ws>cocoa</ws>
-						<arch>x86_64</arch>
-					</environment>
-				</environments>
-			</configuration>
-		</plugin>
-		<!-- Creates source versions of bundles -->
-		<plugin>
-			<groupId>org.eclipse.tycho</groupId>
-			<artifactId>tycho-source-plugin</artifactId>
-			<version>${tycho.version}</version>
-			<executions>
-				<execution>
-					<id>plugin-source</id>
-					<goals>
-						<goal>plugin-source</goal>
-					</goals>
-				</execution>
-			</executions>
-		</plugin>
-		<!-- Creates source versions of features -->
-		<plugin>
-			<groupId>org.eclipse.tycho.extras</groupId>
-			<artifactId>tycho-source-feature-plugin</artifactId>
-			<version>${tycho.version}</version>
-			<executions>
-				<execution>
-					<id>source-feature</id>
-					<phase>package</phase>
-					<goals>
-						<goal>source-feature</goal>
-					</goals>
-				</execution>
-			</executions>
-		</plugin>
-		<!-- Correctly handles source features on p2 update site -->
-		<plugin>
-			<groupId>org.eclipse.tycho</groupId>
-			<artifactId>tycho-p2-plugin</artifactId>
-			<version>${tycho.version}</version>
-			<executions>
-				<execution>
-					<id>attached-p2-metadata</id>
-					<phase>package</phase>
-					<goals>
-						<goal>p2-metadata</goal>
-					</goals>
-				</execution>
-			</executions>
-		</plugin>
-	</plugins>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>${maven-compiler-plugin.version}</version>
+				<configuration>
+					<release>${java.version}</release>
+					<source>${java.version}</source>
+					<target>${java.version}</target>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-maven-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<extensions>true</extensions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-packaging-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<id>package-feature</id>
+						<configuration>
+							<finalName>${project.artifactId}_${unqualifiedVersion}.${buildQualifier}</finalName>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-p2-repository-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<configuration>
+					<includeAllDependencies>true</includeAllDependencies>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>target-platform-configuration</artifactId>
+				<version>${tycho.version}</version>
+				<configuration>
+					<pomDependencies>consider</pomDependencies>
+					<environments>
+						<environment>
+							<os>linux</os>
+							<ws>gtk</ws>
+							<arch>x86</arch>
+						</environment>
+						<environment>
+							<os>linux</os>
+							<ws>gtk</ws>
+							<arch>x86_64</arch>
+						</environment>
+						<environment>
+							<os>win32</os>
+							<ws>win32</ws>
+							<arch>x86</arch>
+						</environment>
+						<environment>
+							<os>win32</os>
+							<ws>win32</ws>
+							<arch>x86_64</arch>
+						</environment>
+						<environment>
+							<os>macosx</os>
+							<ws>cocoa</ws>
+							<arch>x86_64</arch>
+						</environment>
+					</environments>
+				</configuration>
+			</plugin>
+			<!-- Creates source versions of bundles -->
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-source-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<executions>
+					<execution>
+						<id>plugin-source</id>
+						<goals>
+							<goal>plugin-source</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Creates source versions of features -->
+			<plugin>
+				<groupId>org.eclipse.tycho.extras</groupId>
+				<artifactId>tycho-source-feature-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<executions>
+					<execution>
+						<id>source-feature</id>
+						<phase>package</phase>
+						<goals>
+							<goal>source-feature</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<!-- Correctly handles source features on p2 update site -->
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-p2-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<executions>
+					<execution>
+						<id>attached-p2-metadata</id>
+						<phase>package</phase>
+						<goals>
+							<goal>p2-metadata</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
 	</build>
 </project>

@@ -7,13 +7,7 @@ Bundle-Activator: edu.kit.ipd.are.ecore2owl.ui.Activator
 Require-Bundle: ecore2owl.core;bundle-version="1.0.0",
  org.eclipse.ui.ide,
  org.eclipse.emf.common.ui,
-<<<<<<< HEAD
- org.eclipse.osgi;bundle-version="3.15.0",
- ecore2owl.dependencies-provider,
- ecore2owl.core;bundle-version="1.0.0",
-=======
  org.eclipse.osgi,
->>>>>>> main
  org.eclipse.equinox.registry,
  org.apache.log4j,
  org.eclipse.emf.ecore,
