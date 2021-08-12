@@ -2,9 +2,9 @@ name: Update Site (External)
 
 on:
   push:
-    branches: [ main ]
+    branches: [ master ]
     paths:
-      - 'external/**'
+      - 'external.p2/**'
   workflow_dispatch:
 
 jobs:
@@ -28,14 +28,39 @@ jobs:
         restore-keys: ${{ runner.os }}-maven-
 
     - name: Build with Maven
-      workdir: external
+      working-directory: external.p2
       run: mvn -U -B p2:site --file pom.xml
-
-    - name: Deploy GH Pages
-      uses: JamesIves/github-pages-deploy-action@4.1.4
-      with:
-        branch: gh-pages 
-        folder: external/target/repository
-        target-folder: external
-        clean: true 
    
+    - name: Upload External.p2
+      uses: actions/upload-artifact@v1.0.0
+      with:
+        name: external-updatesite
+        path: external.p2/target/repository
+    
+    - name: Checkout gh-pages
+      uses: actions/checkout@v2.3.4
+      with:
+        ref: gh-pages
+        
+    - name: Remove External.p2 folder
+      run: rm -rf external
+    
+    - name: Download External.p2
+      uses: actions/download-artifact@v1.0.0
+      with:
+        name: external-updatesite
+        path: external
+    
+    - name: Commit
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add -f external
+        git commit -m "Automated commit"
+    
+    - name: Push changes
+      uses: ad-m/github-push-action@master
+      with:
+        branch: gh-pages
+        tags: false
+        github_token: ${{ secrets.GITHUB_TOKEN }}    
