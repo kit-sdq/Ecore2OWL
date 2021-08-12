@@ -19,6 +19,8 @@ This step is needed to figure out the corresponding meta-models for your models.
 You can select multiple models that are all processed and transformed into a single OWL-file.
 
 ## Development
+First, install the needed development plugins from the [update site](https://kit-sdq.github.io/Ecore2OWL/updatesite/) or the [external deps updatesite](https://kit-sdq.github.io/Ecore2OWL/external/).
+
 Building this project can simply be done with the following command utilizing maven tycho to build the eclipse plugins:
 ```
 mvn clean package
@@ -28,10 +30,14 @@ For development, check out this repo and import all projects into your eclipse w
 With the projects in your workspace, you can test the plugins by starting a "inner eclipse" that also loads the plugins in development within your workspace. For this, add a run configuration (`Run`->`Run Configuration`) as Eclipse Application. Make sure that the execution environment is properly set und that the it runs a product (not an application). Also, it is usually best to run with all plug-ins, but you can also only select the plug-ins that you actually want and need.
 
 Here is an overview of the different projects and what they do:
-* bundles/edu.kit.ipd.are.ecore2owl.dependencies-collector: used to incorporate non-osgi-dependencies into the osgi-environment. This projects simply collects the dependencies via maven and generates a .jar that is put into the dependencies provider
-* bundles/edu.kit.ipd.are.ecore2owl.dependencies-provider: used to incorporate non-osgi-dependencies into the osgi-environment. Loads the .jar (that is put there via the dep. collector during build) and provides access to all the dependencies for osgi-projects/plugins
 * bundles/edu.kit.ipd.are.ecore2owl.core: Core logic for the transformation.
 * bundles/edu.kit.ipd.are.ecore2owl.ui: Code for the integration into the eclipse UI (as run configuration).
 * features/* : Feature definitions
 * releng/* : Release Engineering including configuration for the updatesite as well as a (basic) configuration, i.e., parent-pom
 * tests/* : Contains the tests
+
+### Adding new (non eclipse) dependencies
+To add new dependencies (or new versions of dependencies), simply modify the [external.p2 pom.xml](external.p2/pom.xml).
+The CI will deploy the actual development dependencies to [external deps updatesite](https://kit-sdq.github.io/Ecore2OWL/external/).
+
+
