@@ -315,15 +315,16 @@ any resulting litigation.
 
    <requires>
       <import plugin="ecore2owl.core" version="1.0.0" match="greaterOrEqual"/>
+      <import feature="org.apache.jena.feature" version="4.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.ui.ide"/>
       <import plugin="org.eclipse.emf.common.ui"/>
-      <import plugin="org.eclipse.osgi" version="3.15.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.osgi"/>
       <import plugin="org.eclipse.equinox.registry"/>
-      <import plugin="org.apache.log4j" version="1.2.15" match="greaterOrEqual"/>
+      <import plugin="org.apache.log4j"/>
       <import plugin="org.eclipse.emf.ecore"/>
       <import plugin="org.eclipse.debug.core"/>
       <import plugin="org.eclipse.debug.ui"/>
-      <import plugin="org.eclipse.emf.ecore.xmi" version="2.15.0" match="greaterOrEqual"/>
+      <import plugin="org.eclipse.emf.ecore.xmi"/>
       <import plugin="org.apache.jena.arq" version="4.0.0" match="greaterOrEqual"/>
       <import plugin="org.apache.jena.base" version="4.0.0" match="greaterOrEqual"/>
       <import plugin="org.apache.jena.core" version="4.0.0" match="greaterOrEqual"/>
@@ -340,8 +341,8 @@ any resulting litigation.
       <import plugin="org.apache.jena.tdb2" version="4.0.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.collections" version="10.4.0" match="greaterOrEqual"/>
       <import plugin="org.eclipse.core.runtime"/>
-      <import plugin="org.slf4j.api"/>
       <import plugin="org.apache.commons.lang3"/>
+      <import plugin="org.slf4j.api"/>
    </requires>
 
    <plugin
