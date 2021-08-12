@@ -3,9 +3,120 @@
    <feature url="features/edu.kit.ipd.are.ecore2owl.feature_1.0.0.qualifier.jar" id="edu.kit.ipd.are.ecore2owl.feature" version="1.0.0.qualifier">
       <category name="ecore2owl"/>
    </feature>
+   <feature id="org.eclipse.collections.feature">
+      <category name="Development"/>
+   </feature>
+   <feature id="org.eclipse.emf">
+      <category name="Development"/>
+   </feature>
+   <feature id="org.eclipse.pde">
+      <category name="Development"/>
+   </feature>
+   <feature id="org.eclipse.swtbot">
+      <category name="Development"/>
+   </feature>
+   <bundle id="org.apache.jena.arq">
+      <category name="Development"/>
+   </bundle>
+   <bundle id="org.apache.jena.base">
+      <category name="Development"/>
+   </bundle>
+   <bundle id="org.apache.jena.core">
+      <category name="Development"/>
+   </bundle>
+   <bundle id="org.apache.jena.dboe-base">
+      <category name="Development"/>
+   </bundle>
+   <bundle id="org.apache.jena.dboe-index">
+      <category name="Development"/>
+   </bundle>
+   <bundle id="org.apache.jena.dboe-storage">
+      <category name="Development"/>
+   </bundle>
+   <bundle id="org.apache.jena.dboe-trans-data">
+      <category name="Development"/>
+   </bundle>
+   <bundle id="org.apache.jena.dboe-transaction">
+      <category name="Development"/>
+   </bundle>
+   <bundle id="org.apache.jena.iri">
+      <category name="Development"/>
+   </bundle>
+   <bundle id="org.apache.jena.rdfconnection">
+      <category name="Development"/>
+   </bundle>
+   <bundle id="org.apache.jena.shacl">
+      <category name="Development"/>
+   </bundle>
+   <bundle id="org.apache.jena.shaded-guava">
+      <category name="Development"/>
+   </bundle>
+   <bundle id="org.apache.jena.tdb">
+      <category name="Development"/>
+   </bundle>
+   <bundle id="org.apache.jena.tdb2">
+      <category name="Development"/>
+   </bundle>
+   <bundle id="com.fasterxml.jackson.core.jackson-annotations">
+      <category name="Development"/>
+   </bundle>
+   <bundle id="com.fasterxml.jackson.core.jackson-core">
+      <category name="Development"/>
+   </bundle>
+   <bundle id="com.fasterxml.jackson.core.jackson-databind">
+      <category name="Development"/>
+   </bundle>
+   <bundle id="com.github.andrewoma.dexx.collection">
+      <category name="Development"/>
+   </bundle>
+   <bundle id="com.github.jsonld-java">
+      <category name="Development"/>
+   </bundle>
+   <bundle id="javax.annotation-api">
+      <category name="Development"/>
+   </bundle>
+   <bundle id="jcl.over.slf4j">
+      <category name="Development"/>
+   </bundle>
+   <bundle id="org.apache.commons.cli">
+      <category name="Development"/>
+   </bundle>
+   <bundle id="org.apache.commons.commons-codec">
+      <category name="Development"/>
+   </bundle>
+   <bundle id="org.apache.commons.commons-compress">
+      <category name="Development"/>
+   </bundle>
+   <bundle id="org.apache.commons.commons-csv">
+      <category name="Development"/>
+   </bundle>
+   <bundle id="org.apache.commons.commons-io">
+      <category name="Development"/>
+   </bundle>
+   <bundle id="org.apache.commons.lang3">
+      <category name="Development"/>
+   </bundle>
+   <bundle id="org.apache.httpcomponents.httpclient">
+      <category name="Development"/>
+   </bundle>
+   <bundle id="org.apache.httpcomponents.httpclient-cache">
+      <category name="Development"/>
+   </bundle>
+   <bundle id="org.apache.httpcomponents.httpcore">
+      <category name="Development"/>
+   </bundle>
+   <bundle id="slf4j.api">
+      <category name="Development"/>
+   </bundle>
+   <bundle id="org.apache.thrift">
+      <category name="Development"/>
+   </bundle>
    <category-def name="ecore2owl" label="Ecore2OWL">
       <description>
          Ecore2OWL tool transforming ecore models into ontologies (OWL)
       </description>
    </category-def>
+   <category-def name="Development" label="Development"/>
+   <repository-reference location="http://download.eclipse.org/collections/9.2.0/repository" enabled="true" />
+   <repository-reference location="https://kit-sdq.github.io/Ecore2OWL.P2/" enabled="true" />
 </site>
