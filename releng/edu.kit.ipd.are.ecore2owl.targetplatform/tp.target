@@ -8,43 +8,14 @@
             <unit id="org.eclipse.platform.sdk" version="0.0.0"/>
         </location>
 	    <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-		    <repository location="https://kit-sdq.github.io/Ecore2OWL.P2/"/>
-		    <unit id="com.fasterxml.jackson.core.jackson-annotations" version="2.12.1"/>
-		    <unit id="com.fasterxml.jackson.core.jackson-core" version="2.12.1"/>
-		    <unit id="com.fasterxml.jackson.core.jackson-databind" version="2.12.1"/>
-		    <unit id="com.github.andrewoma.dexx.collection" version="0.7.0"/>
-		    <unit id="com.github.jsonld-java" version="0.13.2"/>
-		    <unit id="javax.annotation-api" version="1.3.2"/>
-		    <unit id="jcl.over.slf4j" version="1.7.30"/>
-		    <unit id="org.apache.commons.cli" version="1.4.0"/>
-		    <unit id="org.apache.commons.commons-codec" version="1.15.0"/>
-		    <unit id="org.apache.commons.commons-compress" version="1.20.0"/>
-		    <unit id="org.apache.commons.commons-csv" version="1.8.0"/>
-		    <unit id="org.apache.commons.commons-io" version="2.8.0"/>
-		    <unit id="org.apache.commons.lang3" version="3.11.0"/>
-		    <unit id="org.apache.httpcomponents.httpclient" version="4.5.13"/>
-		    <unit id="org.apache.httpcomponents.httpclient-cache" version="4.5.13"/>
-		    <unit id="org.apache.httpcomponents.httpcore" version="4.4.13"/>
-		    <unit id="org.apache.jena.arq" version="4.0.0"/>
-		    <unit id="org.apache.jena.base" version="4.0.0"/>
-		    <unit id="org.apache.jena.core" version="4.0.0"/>
-		    <unit id="org.apache.jena.dboe-base" version="4.0.0"/>
-		    <unit id="org.apache.jena.dboe-index" version="4.0.0"/>
-		    <unit id="org.apache.jena.dboe-storage" version="4.0.0"/>
-		    <unit id="org.apache.jena.dboe-trans-data" version="4.0.0"/>
-		    <unit id="org.apache.jena.dboe-transaction" version="4.0.0"/>
-		    <unit id="org.apache.jena.iri" version="4.0.0"/>
-		    <unit id="org.apache.jena.rdfconnection" version="4.0.0"/>
-		    <unit id="org.apache.jena.shacl" version="4.0.0"/>
-		    <unit id="org.apache.jena.shaded-guava" version="4.0.0"/>
-		    <unit id="org.apache.jena.tdb" version="4.0.0"/>
-		    <unit id="org.apache.jena.tdb2" version="4.0.0"/>
-		    <unit id="org.apache.thrift" version="0.14.1"/>
-		    <unit id="slf4j.api" version="1.7.28"/>
+		    <repository location="https://kit-sdq.github.io/Ecore2OWL/external"/>
+		    <unit id="org.apache.jena.feature.feature.group" version="4.0.0"/>
+		    <unit id="org.apache.jena.feature.source.feature.group" version="4.0.0"/>
 	    </location>
 	    <location includeAllPlatforms="false" includeConfigurePhase="true" includeMode="planner" includeSource="true" type="InstallableUnit">
-		    <repository location="http://download.eclipse.org/collections/9.2.0/repository"/>
-		    <unit id="org.eclipse.collections.feature.source.feature.group" version="9.2.0.v20180518-1448"/>
+		    <repository location="http://download.eclipse.org/collections/10.4.0/repository"/>
+		    <unit id="org.eclipse.collections.feature.source.feature.group" version="10.4.0.v20200820-2049"/>
+		    <unit id="org.eclipse.collections.feature.feature.group" version="10.4.0.v20200820-2049"/>
 	    </location>
     </locations>
 </target>

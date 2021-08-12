@@ -12,7 +12,10 @@
    <feature id="org.eclipse.pde">
       <category name="ecore2owl.dev"/>
    </feature>
-      <feature id="org.eclipse.swtbot">
+   <feature id="org.eclipse.swtbot">
+      <category name="ecore2owl.dev"/>
+   </feature>
+   <feature id="org.eclipse.m2e.feature">
       <category name="ecore2owl.dev"/>
    </feature>
    <category-def name="ecore2owl" label="Ecore2OWL">
@@ -21,6 +24,6 @@
       </description>
    </category-def>
    <category-def name="ecore2owl.dev" label="Ecore2OWL Development"/>
-   <repository-reference location="https://kit-sdq.github.io/Ecore2OWL.P2/" enabled="true" />
+   <repository-reference location="https://kit-sdq.github.io/Ecore2OWL/external" enabled="true" />
    <repository-reference location="http://download.eclipse.org/collections/10.4.0/repository" enabled="true" />
 </site>
