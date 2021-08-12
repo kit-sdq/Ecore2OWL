@@ -1,0 +1,80 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>edu.kit.kastel.mcse</groupId>
+	<artifactId>ecore2owl.p2</artifactId>
+	<version>0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<description>Ecore2OWL P2 Repository for generic Maven Depencencies</description>
+
+	<properties>
+		<tycho.version>2.1.0</tycho.version>
+		<jena.version>4.0.0</jena.version>
+	</properties>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.reficio</groupId>
+				<artifactId>p2-maven-plugin</artifactId>
+				<version>1.7.0</version>
+				<executions>
+					<execution>
+						<id>default-cli</id>
+						<phase>package</phase>
+						<goals>
+							<goal>site</goal>
+						</goals>
+						<configuration>
+							<featureDefinitions>
+								<feature>
+									<id>org.apache.jena.feature</id>
+									<version>${jena.version}</version>
+									<label>Apache Jena Feature</label>
+									<providerName>jena.apache.org</providerName>
+									<description>A free and open source Java framework for building Semantic Web and Linked Data applications.</description>
+									<copyright>The Apache Software Foundation</copyright>
+									<license>Apache License, Version 2.0</license>
+									<generateSourceFeature>true</generateSourceFeature>
+									<artifacts>
+										<artifact>
+											<id>org.apache.jena:jena-rdfconnection:jar:${jena.version}</id>
+											<source>true</source>
+										</artifact>
+										<artifact>
+											<id>org.apache.jena:jena-shacl:jar:${jena.version}</id>
+											<source>true</source>
+										</artifact>
+										<artifact>
+											<id>org.apache.jena:jena-tdb:jar:${jena.version}</id>
+											<source>true</source>
+										</artifact>
+										<artifact>
+											<id>org.apache.jena:jena-tdb2:jar:${jena.version}</id>
+											<source>true</source>
+										</artifact>
+									</artifacts>
+								</feature>
+							</featureDefinitions>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.eclipse.tycho</groupId>
+				<artifactId>tycho-p2-repository-plugin</artifactId>
+				<version>${tycho.version}</version>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>archive-repository</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

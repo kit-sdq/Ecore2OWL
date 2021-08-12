@@ -1,0 +1,41 @@
+name: Update Site (External)
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'external/**'
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2.3.4
+
+    - name: Set up JDK
+      uses: actions/setup-java@v2
+      with:
+        distribution: 'zulu'
+        java-version: 11
+
+    - name: Cache Maven packages
+      uses: actions/cache@v2.1.6
+      with:
+        path: ~/.m2/repository
+        key: ${{ runner.os }}-maven-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-maven-
+
+    - name: Build with Maven
+      workdir: external
+      run: mvn -U -B p2:site --file pom.xml
+
+    - name: Deploy GH Pages
+      uses: JamesIves/github-pages-deploy-action@4.1.4
+      with:
+        branch: gh-pages 
+        folder: external/target/repository
+        target-folder: external
+        clean: true 
+   

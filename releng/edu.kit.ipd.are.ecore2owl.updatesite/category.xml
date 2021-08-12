@@ -3,9 +3,24 @@
    <feature url="features/edu.kit.ipd.are.ecore2owl.feature_1.0.0.qualifier.jar" id="edu.kit.ipd.are.ecore2owl.feature" version="1.0.0.qualifier">
       <category name="ecore2owl"/>
    </feature>
+   <feature id="org.eclipse.collections.feature">
+      <category name="ecore2owl.dev"/>
+   </feature>
+   <feature id="org.apache.jena.feature">
+      <category name="ecore2owl.dev"/>
+   </feature>
+   <feature id="org.eclipse.pde">
+      <category name="ecore2owl.dev"/>
+   </feature>
+      <feature id="org.eclipse.swtbot">
+      <category name="ecore2owl.dev"/>
+   </feature>
    <category-def name="ecore2owl" label="Ecore2OWL">
       <description>
          Ecore2OWL tool transforming ecore models into ontologies (OWL)
       </description>
    </category-def>
+   <category-def name="ecore2owl.dev" label="Ecore2OWL Development"/>
+   <repository-reference location="https://kit-sdq.github.io/Ecore2OWL.P2/" enabled="true" />
+   <repository-reference location="http://download.eclipse.org/collections/10.4.0/repository" enabled="true" />
 </site>
