@@ -35,7 +35,7 @@ public final class Utility {
     static boolean needsEPackageProcessing(EPackage ePackage) {
         var superPackage = getHighestSuperEPackage(ePackage);
         var mm = MetaModel.getMetaModelByName(superPackage.getName());
-        return MetaModel.ECORE.equals(mm);
+        return MetaModel.ECORE == mm;
     }
 
     static String getNamespace(EPackage ePackage) {
