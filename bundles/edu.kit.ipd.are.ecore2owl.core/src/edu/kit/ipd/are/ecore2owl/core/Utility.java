@@ -35,7 +35,7 @@ public final class Utility {
     static boolean needsEPackageProcessing(EPackage ePackage) {
         var superPackage = getHighestSuperEPackage(ePackage);
         var mm = MetaModel.getMetaModelByName(superPackage.getName());
-        return mm.equals(MetaModel.ECORE);
+        return MetaModel.ECORE.equals(mm);
     }
 
     static String getNamespace(EPackage ePackage) {
@@ -47,6 +47,16 @@ public final class Utility {
     static String getNamespace(EClassifier eClassifier) {
         var ePackage = eClassifier.getEPackage();
         return getNamespace(ePackage);
+    }
+
+    static String getNamespace(EReference eReference) {
+        var eContainingClass = eReference.getEContainingClass();
+        return getNamespace(eContainingClass);
+    }
+
+    static String getNamespace(EAttribute eAttribute) {
+        var eContainingClass = eAttribute.getEContainingClass();
+        return getNamespace(eContainingClass);
     }
 
     static String getNamespace(EObject eObject) {
