@@ -226,6 +226,10 @@ public class OntologyAccess {
         return ontModel.expandPrefix(prefix + ":" + encodedSuffix);
     }
 
+    public void removeClassFromIndividual(Individual individual, OntClass clazz) {
+        individual.removeOntClass(clazz);
+    }
+
     /**
      * Search for individuals based on the given {@link Predicate}.
      *
@@ -234,18 +238,6 @@ public class OntologyAccess {
      */
     public List<Individual> searchIndividual(Predicate<Individual> searchPredicate) {
         return createMutableListFromIterator(ontModel.listIndividuals().filterKeep(searchPredicate));
-    }
-
-    /**
-     * Adds an individual to the ontology by adding it as individual of OWL:Thing
-     *
-     * @param shortUri ShortUri of the Individual
-     * @return the created Individual
-     */
-    public Individual addNamedIndividual(String shortUri) {
-        Resource clazz = OWL.Thing;
-        String uri = createUri(defaultPrefix, shortUri);
-        return ontModel.createIndividual(uri, clazz);
     }
 
     /**
@@ -261,10 +253,12 @@ public class OntologyAccess {
         var individual = ontModel.getIndividual(fullUri);
         if (individual != null) {
             individual.addOntClass(cls);
-            individual.removeOntClass(OWL.Thing);
-            return individual;
+        } else {
+            individual = cls.createIndividual(fullUri);
         }
-        return cls.createIndividual(fullUri);
+        individual.removeOntClass(OWL.Thing);
+
+        return individual;
     }
 
     /**
@@ -869,20 +863,8 @@ public class OntologyAccess {
         return createMutableIndividualListFromStatementIterator(stmts);
     }
 
-    private MutableList<Individual> getInstancesOfClass(OntClass clazz) {
+    public MutableList<Individual> getInstancesOfClass(OntClass clazz) {
         return createMutableListFromIterator(ontModel.listIndividuals(clazz));
-    }
-
-    /**
-     * Adds an Individual to the given class
-     *
-     * @param name  name of the individual that should be added
-     * @param clazz Class the individual should be added to
-     * @return the created individual
-     */
-    public Individual addInstanceToClass(String name, OntClass clazz) {
-        String uri = createUri(defaultPrefix, name);
-        return ontModel.createIndividual(uri, clazz);
     }
 
     /**

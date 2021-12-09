@@ -260,6 +260,23 @@ public class Ecore2OWLTransformer {
         }
 
         transformModel(inputModel);
+        finishTransformation();
+    }
+
+    private void finishTransformation() {
+        // remove classing for thing
+        var thingOpt = ontologyAccess.getClass("Thing", "owl");
+        if (thingOpt.isEmpty()) {
+            return;
+        }
+        var thing = thingOpt.get();
+        var individuals = ontologyAccess.getInstancesOfClass(thing);
+        for (var individual : individuals) {
+            var classes = individual.listOntClasses(true);
+            if (classes.toList().size() > 1) {
+                ontologyAccess.removeClassFromIndividual(individual, thing);
+            }
+        }
     }
 
     private void getMetaModelRoot(Resource inputModel) {
@@ -737,15 +754,15 @@ public class Ecore2OWLTransformer {
             return;
         }
 
+        // EObject was not processed before: Process it now!
+        if (!processedEObjects.contains(featureEObject)) {
+            processEObject(featureEObject);
+        }
+
         Optional<ObjectProperty> property = ontologyAccess.addObjectPropertyOfIndividual(containerName, containerNamespace, referencePropertyName, referenceMM,
                 featureIdentifier, featureNamespace);
         if (property.isPresent()) {
             createPackageUriAnnotation(reference.getEContainingClass(), property.get());
-        }
-
-        // EObject was not processed before: Process it now!
-        if (!processedEObjects.contains(featureEObject)) {
-            processEObject(featureEObject);
         }
 
     }
